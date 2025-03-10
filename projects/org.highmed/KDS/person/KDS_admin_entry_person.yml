@@ -1,0 +1,53 @@
+grammar: FHIRConnect/v0.9.0
+type: extension
+metadata:
+  name: KDS_admin_entry_person.v0
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: ADMIN_ENTRY.person_data.v0
+
+mappings:
+  - name: "pid"
+    extension: "add"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$composition/context/other_context[at0003]/items[at0004]"
+      type: "IDENTIFIER"
+    fhirCondition:
+      targetRoot: "$resource.identifier"
+      targetAttribute: "type.coding.code"
+      operator: "one of"
+      criteria: "MR"
+    followedBy:
+      mappings:
+        - name: "type"
+          with:
+            fhir: "type.coding"
+          manual:
+            - name: "typeMR"
+              fhir:
+                - path: "system"
+                  value: "http://terminology.hl7.org/CodeSystem/v2-0203"
+                - path: "code"
+                  value: "MR"
+
+  - name: "versicherungsInformationen"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$composition/content[openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0]"
+    slotArchetype: "ADMIN_ENTRY.versicherungsinformationen.v0"
+
+  - name: "gender"
+    extension: "add"
+    with:
+      fhir: "$resource.gender"
+      openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
+    slotArchetype: "EVALUATION.gender.v1"
+
+#  - name: "identifier"
+#    with:
+#      fhir: "$resource.identifier"
+#      openehr: "$reference"
+#    mappingCode: "ehrStatusAddExternalREF" #these identifiers of FHIR need to go to the EHR status to be honest as external references.

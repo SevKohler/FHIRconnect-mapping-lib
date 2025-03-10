@@ -1,0 +1,194 @@
+grammar: FHIRConnect/v0.9.0
+type: model
+metadata:
+  name: OBSERVATION.medication_statement.v0
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-OBSERVATION.medication_statement.v0
+    revision: 0.0.1-alpha
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/MedicationStatement
+
+mappings:
+
+  #  - name: "hierarchyMappings" # is defined by the
+  #    with:
+  #      fhir: "$resource.dosage"
+  #      openEHR: "$archetype/data[at0001]/events[at0002]"
+  #  #    type: "HIERARCHY"
+  #    hierarchy:
+  #      fhirCreate: "resource"
+  #      openehrCreate: "event"
+  #      uniqueValueFHIR: "[route, timing.event]" # if route value is different per dosage slice make a new event
+  #      uniqueValueOpenEHR: "['/data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
+
+  # reference to party identified, not supported
+  #  - name: "healthcareFacility"
+  #    with:
+  #      fhir: "$resource.informationSource"
+  #      openehr: "$composition/context/health_care_facility"
+
+  - name: "dateAsserted"
+    with:
+      fhir: "$resource.dateAsserted"
+      openehr: "$composition/context/start_time"
+      type: "DATETIME"
+
+  ## todo: overrides the informationSource above?
+  #  - name: "provider"
+  #    with:
+  #      fhir: "$resource.informationSource"
+  #      openehr: "$archetype/provider"
+
+  #  - name: "composer"
+  #    with:
+  #      fhir: "$resource.informationSource"
+  #      openehr: "$composition/composer" # often required therefore simplified mapping engine is to resolve Reference -> Composer
+
+  #todo: from which openehr path??
+  #  - name: "eventTime"
+  #    with:
+  #      fhir: "$resource.effective.as(Period)"
+  #      openEHR: "$archetype/data[at0001]/events[at0002]" #todo: when dynamic mapping period -> interval event, datetime to pointInTime event
+
+  - name: "eventsParent"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/data[at0001]/events[at0002]"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "reasonCode"
+          with:
+            fhir: "reasonCode.text"
+            openehr: "data[at0003]/items[at0023]"
+            type: "STRING"
+
+        - name: "note"
+          with:
+            fhir: "note.text"
+            openehr: "data[at0003]/items[at0029]"
+            type: "STRING"
+
+        - name: "dosage"
+          with:
+            fhir: "dosage"
+            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.dosage.v2]"
+          slotArchetype: "CLUSTER.dosage.v2"
+          followedBy:
+            mappings:
+              - name: "route"
+                with:
+                  fhir: "route"
+                  openehr: "data[at0003]/items[at0030]"
+                  type: "CODEABLECONCEPT"
+
+        - name: "unstructuredDosage"
+          with:
+            fhir: "dosage.text"
+            openehr: "data[at0003]/items[at0033]"
+            type: "STRING"
+        # at0006
+
+        - name: "medication"
+          with:
+            fhir: "medication"
+            openehr: "$reference"
+          reference:
+            resourceType: "Medication"
+            mappings:
+              - name: "medicationReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+                slotArchetype: "CLUSTER.medication.v2" # depending on the resourceType picks the correct one
+
+
+        - name: "medicationCodeR"
+          with:
+            fhir: "medication.as(CodeableConcept)"
+            openehr: "data[at0003]/items[at0006]"
+            type: "CODEABLECONCEPT"
+          openehrCondition:
+            targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+            targetAttribute: "items[at0132]"
+            operator: "empty"
+
+        - name: "medicationCode"
+          with:
+            fhir: "medication.as(CodeableConcept)"
+            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
+            type: "CODEABLECONCEPT"
+          openehrCondition:
+            targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+            targetAttributes:
+              - "items[at0071]" #"form"
+              - "items[at0115]" #"Strength"
+            operator: "empty"
+
+        - name: "medicationCodeR"
+          with:
+            fhir: "medication.as(CodeableConcept)"
+            openehr: "data[at0003]/items[at0006]"
+            type: "CODEABLECONCEPT"
+          openehrCondition:
+            targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+            targetAttribute: "items[at0132]"
+            operator: "empty"
+
+        - name: "reasonReference"
+          with:
+            fhir: "reasonReference.as(Reference).identifier.value"
+            openehr: "data[at0003]/items[at0023]"
+            type: "STRING"
+
+
+
+#  - name: "partOf"
+#    with:
+#      fhir: "$resource.partOf.reference"
+#      openehr: "$reference"
+#    reference:
+#      mappings:
+#        - name: "partOfReference"
+#          with:
+#            fhir: "$fhirRoot"
+#            openehr: "$archetype/links" # will use link
+
+#            openehrLink:
+#              meaning: "what the medication is part of"
+#              type: "partOf"
+
+#  - name: "basedOn"
+#    with:
+#      fhir: "$resource.basedOn.reference"
+#      openehr: "$reference"
+#    reference:
+#      mappings:
+#        - name: "partOfReference"
+#          with:
+#            fhir: "$fhirRoot"
+#            openehr: "$archetype/links" # will use link
+
+#            openehrLink:
+#              meaning: "what the medication is based on"
+#              type: "basedOn"
+
+#  - name: "derivedFrom"
+#    with:
+#      fhir: "$resource.basedOn.reference"
+#      openehr: "$reference"
+#    reference:
+#      mappings:
+#        - name: "partOfReference"
+#          with:
+#            fhir: "$fhirRoot"
+#            openehr: "$archetype/links" # will use link
+
+#            openehrLink:
+#              meaning: "what the medication is derived from"
+#              type: "derivedFrom"
+
