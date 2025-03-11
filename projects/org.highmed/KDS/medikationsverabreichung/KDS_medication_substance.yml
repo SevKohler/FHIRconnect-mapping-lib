@@ -16,4 +16,3 @@ mappings:
     with:
       fhir: "$resource.code.coding.display" # currently dv_text should to be DV_CODED_TEXT soon
       openehr: "$archetype/items[at0132]"
-      type: "STRING"

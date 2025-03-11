@@ -14,7 +14,6 @@ mappings:
     with:
       fhir: "$fhirRoot.clinicalStatus"
       openehr: "$archetype/items[at0003]"
-      type: "CODEABLECONCEPT"
 
   - name: "referenzPrimaerdiagnose"
     extension: "add"

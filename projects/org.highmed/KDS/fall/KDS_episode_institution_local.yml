@@ -14,21 +14,18 @@ mappings:
     with:
       fhir: "$resource.type"
       openehr: "$composition/context/other_context[at0001]/items[at0005]"
-      type: "CODEABLECONCEPT"
 
   - name: "fallklasse"
     extension: "add"
     with:
       fhir: "$resource.class"
       openehr: "$composition/context/other_context[at0001]/items[at0004]"
-      type: "CODING"
 
   - name: "fallart"
     extension: "add"
     with:
       fhir: "$resource.status"
       openehr: "$composition/context/other_context[at0001]/items[at0010]"
-      type: "CODING"
 
   - name: "fallIdParent"
     extension: "add"
@@ -47,7 +44,6 @@ mappings:
           with:
             fhir: "value"
             openehr: "$composition/context/other_context[at0001]/items[at0003]"
-            type: "STRING"
         - name: "vncodingcode"
           with:
             fhir: "type.coding"
@@ -98,7 +94,6 @@ mappings:
           with:
             fhir: "extension.value" # since its two extensions nested
             openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
-            type: "CODING"
           fhirCondition:
             targetRoot: "extension"
             targetAttribute: "url"
@@ -109,7 +104,6 @@ mappings:
           with:
             fhir: "extension.value"
             openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
-            type: "CODING"
           fhirCondition:
             targetRoot: "extension"
             targetAttribute: "url"
@@ -121,7 +115,6 @@ mappings:
           with:
             fhir: "extension.value"
             openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
-            type: "CODING"
           fhirCondition:
             targetRoot: "extension"
             targetAttribute: "url"
@@ -144,7 +137,6 @@ mappings:
                 with:
                   fhir: "value" # since its two extensions nested
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
-                  type: "CODING"
               - name: "extensionStatic"
                 with:
                   fhir: "url"
@@ -170,7 +162,6 @@ mappings:
                 with:
                   fhir: "value" # since its two extensions nested
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
-                  type: "CODING"
               - name: "extensionStatic"
                 with:
                   fhir: "url"
@@ -196,7 +187,6 @@ mappings:
                 with:
                   fhir: "value" # since its two extensions nested
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
-                  type: "CODING"
               - name: "extensionStatic"
                 with:
                   fhir: "url"
@@ -219,13 +209,11 @@ mappings:
           with:
             fhir: "admitSource.coding"
             openehr: "data[at0001]/items[at0009]"
-            type: "CODING"
 
         - name: "entlassungsgrund"
           with:
             fhir: "dischargeDisposition.extension"
             openehr: "data[at0001]/items[at0006]"
-            type: "CODING"
           fhirCondition:
             targetRoot: "dischargeDisposition.extension"
             targetAttribute: "url"

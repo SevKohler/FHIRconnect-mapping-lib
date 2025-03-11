@@ -14,7 +14,6 @@ mappings:
     with:
       fhir: "$fhirRoot.value.as(CodeableConcept)"
       openehr: "items[at0002]"
-      type: "CODEABLECONCEPT"
     fhirCondition:
       targetRoot: "$fhirRoot"
       operator: "type"

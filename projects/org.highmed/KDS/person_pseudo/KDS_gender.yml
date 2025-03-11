@@ -14,7 +14,6 @@ mappings:
     with:
       fhir: "$fhirRoot.extension"
       openehr: "$archetype/data[at0002]/items[at0014]"
-      type: "STRING"
     fhirCondition:
       targetRoot: "$fhirRoot.extension"
       targetAttribute: "url"

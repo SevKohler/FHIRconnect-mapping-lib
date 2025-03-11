@@ -14,7 +14,6 @@ mappings:
     with:
       fhir: "$fhirRoot.start.extension"
       openehr: "$archetype/items[at0001]"
-      type: "CODEABLECONCEPT"
     fhirCondition:
       targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
       targetAttribute: "url"
@@ -36,7 +35,6 @@ mappings:
     with:
       fhir: "$fhirRoot.end.extension"
       openehr: "$archetype/items[at0002]"
-      type: "CODEABLECONCEPT"
     fhirCondition:
       targetRoot: "$fhirRoot.end.extension" #parent selector from jsonpath-plus
       targetAttribute: "url"

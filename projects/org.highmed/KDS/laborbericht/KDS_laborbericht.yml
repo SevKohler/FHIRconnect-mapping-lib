@@ -63,7 +63,6 @@ mappings:
     with:
       fhir: "$resource.status"
       openehr: "$composition/context/other_context[at0001]/items[at0005]"
-      type: "CODING"
 
   - name: "eventTime"
     extension: "overwrite"
@@ -98,7 +97,6 @@ mappings:
           with:
             fhir: "value"
             openehr: "$composition/context/other_context[at0001]/items[at0002]"
-            type: "STRING"
 
 
 

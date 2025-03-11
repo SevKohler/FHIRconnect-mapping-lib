@@ -15,7 +15,6 @@ mappings:
     with:
       fhir: "$resource.recordedDate"
       openehr: "$composition/context/start_time"
-      type: "DATETIME"
 
   - name: "note"
     extension: "overwrite"
@@ -29,14 +28,12 @@ mappings:
     with:
       fhir: "$resource.onset"
       openehr: "$archetype/data[at0001]/items[at0077]"
-      type: "DATETIME"
 
   - name: "bodySite"
     extension: "overwrite"
     with:
       fhir: "$resource.bodySite"
       openehr: "$archetype/data[at0012]"
-      type: "CODEABLECONCEPT"
 
   - name: "bodySiteCluster"
     extension: "overwrite"
@@ -50,7 +47,6 @@ mappings:
     with:
       fhir: "$resource.severity"
       openehr: "$archetype/data[at0001]/items[at0005]"
-      type: "CODEABLECONCEPT"
 
 # -------------------------------#
   - name: "problemDiagnose"
@@ -69,7 +65,6 @@ mappings:
           with:
             fhir: "$fhirRoot.code.coding"
             openehr: "$archetype/data[at0001]/items[at0002]"
-            type: "CODING"
 
   - name: "problemDiagnoseUse"
     extension: "add"
@@ -87,7 +82,6 @@ mappings:
           with:
             fhir: "coding"
             openehr: "data[at0001]/items[at0009]"
-            type: "CODING"
           fhirCondition:
             targetRoot: "coding"
             targetAttribute: "code"
@@ -110,7 +104,6 @@ mappings:
           with:
             fhir: "coding"
             openehr: "data[at0001]/items[at0079]"
-            type: "CODING"
           fhirCondition:
             targetRoot: "coding"
             targetAttribute: "code"

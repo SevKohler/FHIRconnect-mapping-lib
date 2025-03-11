@@ -16,4 +16,3 @@ mappings:
     with:
       fhir: "$resource.code.coding.display" # missing coded_text in template
       openehr: "$archetype/items[at0132]"
-      type: "STRING"

@@ -44,14 +44,12 @@ mappings:
     with:
       fhir: "$resource.identifier.value"
       openehr: "$composition/context/other_context[at0001]/items[at0002]"
-      type: "STRING"
 
   - name: "durchführungsabsicht"
     extension: "add"
     with:
       fhir: "$resource.extension"
       openehr: "$archetype/description[at0001]/items[at0014]"
-      type: "CODING"
     fhirCondition:
       targetRoot: "$resource.extension"
       targetAttribute: "url"
@@ -73,7 +71,6 @@ mappings:
     with:
       fhir: "$resource.extension"
       openehr: "$composition/context/start_time"
-      type: "DATETIME"
     fhirCondition:
       targetRoot: "$resource.extension"
       targetAttribute: "url"

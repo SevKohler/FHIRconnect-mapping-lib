@@ -21,7 +21,6 @@ mappings:
     with:
       fhir: "$resource.status"
       openehr: "$composition/context/other_context[at0001]/items[at0005]" # this status is mandatory, because it's 1...1 in the template
-      type: "CODING"
 
   - name: "fallIdentifikationIdentifier"
     extension: "add"
@@ -56,7 +55,6 @@ mappings:
     with:
       fhir: "$resource.medication.as(CodeableConcept).coding.display"
       openehr: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
-      type: "STRING"
     openehrCondition:
       targetRoot: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]"
       targetAttributes:
@@ -84,4 +82,3 @@ mappings:
     with:
       fhir: "$resource.reasonCode.coding.display"
       openehr: "$archetype/description[at0017]/items[at0156]"
-      type: "STRING"
