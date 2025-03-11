@@ -11,7 +11,15 @@ spec:
     revision: 1.4.7
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Procedure
-    multiple: true
+
+preprocessor:
+  hierarchy:
+    with:
+      fhir: "$resource"
+      openEHR: "$archetype"
+    split:
+      fhir:
+        create: "resource"
 
 mappings:
   - name: "participations"
@@ -87,11 +95,11 @@ mappings:
       fhir: "$resource.performed.as(DateTimeType)"
       openehr: "$archetype/time" # this field is more fiting then start_time thats why it overwrites the initial performed in fhir.
 
-  # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-#  - name: "composer"
-#    with:
-#      fhir: "$resource.recorder"
-#      openehr: "$composition/composer"
+ #  reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  - name: "composer"
+    with:
+      fhir: "$resource.recorder"
+      openehr: "$composition/composer"
 
   - name: "ISMTransition"
     with:

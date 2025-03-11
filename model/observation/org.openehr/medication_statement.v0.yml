@@ -142,43 +142,25 @@ mappings:
 
   - name: "partOf"
     with:
-      fhir: "$resource.partOf.reference"
-      openehr: "$reference"
-    reference:
-      mappings:
-        - name: "partOfReference"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/links" # will use link
-          openehrLink:
-            meaning: "what the medication is part of"
-            type: "partOf"
+      fhir: "$resource.partOf"
+      openehr: "$archetype/links" # will use link
+    link:
+      meaning: "what the medication is part of"
+      type: "partOf"
 
   - name: "basedOn"
     with:
-      fhir: "$resource.basedOn.reference"
-      openehr: "$reference"
-    reference:
-      mappings:
-        - name: "partOfReference"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/links" # will use link
-          openehrLink:
-            meaning: "what the medication is based on"
-            type: "basedOn"
+      fhir: "$resource.basedOn"
+      openehr: "$archetype/links" # will use link
+    link:
+      meaning: "what the medication is based on"
+      type: "basedOn"
 
   - name: "derivedFrom"
     with:
-      fhir: "$resource.basedOn.reference"
-      openehr: "$reference"
-    reference:
-      mappings:
-        - name: "partOfReference"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/links" # will use link
-          openehrLink:
-            meaning: "what the medication is derived from"
-            type: "derivedFrom"
+      fhir: "$resource.basedOn"
+      openehr: "$archetype/links" # will use link
+    link:
+      meaning: "what the medication is derived from"
+      type: "derivedFrom"
 

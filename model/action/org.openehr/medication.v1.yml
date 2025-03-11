@@ -217,19 +217,14 @@ mappings:
       fhir: "$resource.reasonCode"
       openehr: "$archetype/description[at0017]/items[at0156]"
 
-    - name: "partOf"
-      with:
-        fhir: "$resource.partOf"
-        openehr: "$reference"
-      reference:
-        mappings:
-          - name: "partOfReference"
-            with:
-              fhir: "$fhirRoot"
-              openehr: "$archetype/links" # will use link
-            openehrLink:
-              meaning: "part of a other medication administration"
-              type: "partOf"
+  - name: "partOf"
+    with:
+      fhir: "$resource.partOf"
+      openehr: "$archetype/links" # will use link
+    link:
+      meaning: "part of a other medication administration"
+      type: "partOf"
+
 
   - name: "request"
     with:
@@ -276,7 +271,7 @@ mappings:
                 with:
                   fhir: "$fhirRoot"
                   openehr: "$openehrRoot/links" # will use link
-                openehrLink:
+                link:
                   meaning: "the medication request for this medication"
                   type: "medicationRequest"
 

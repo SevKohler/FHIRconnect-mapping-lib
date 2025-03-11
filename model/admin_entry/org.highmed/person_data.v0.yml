@@ -11,11 +11,14 @@ spec:
     revision: 0.0.1-alpha
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Patient
-    condition:
-      - targetRoot: "$resource"
-        targetAttribute: "active"  # exclude non-active patients
-        operator: "one of"
-        criteria: "false"
+
+
+preprocessor:
+  fhirCondition:
+      targetRoot: "$resource"
+      targetAttribute: "active"  # exclude non-active patients
+      operator: "one of"
+      criteria: "false"
 
 mappings:
   - name: "personData"
@@ -60,13 +63,13 @@ mappings:
     with:
       fhir: "$resource.link"
       openehr: "$reference"
-    reference:
+    followedBy:
       mappings:
         - name: "links"
           with:
             fhir: "$fhirRoot.other"
             openehr: "$archetype/links" # will use link
-          openehrLink:
+          link:
             meaning: "Part of referenced event"
             type: "partOf"
           followedBy:

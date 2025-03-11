@@ -120,7 +120,7 @@ mappings:
                 with:
                   fhir: "$fhirRoot"
                   openehr: "$openehrRoot/links"
-                openehrLink:
+                link:
                   meaning: "the parent of this specimen"
                   type: "parent"
 

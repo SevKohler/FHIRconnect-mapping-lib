@@ -311,7 +311,7 @@ mappings:
                 with:
                   fhir: "$fhirRoot"
                   openehr: "$openehrRoot/links" # will use link
-                openehrLink:
+                link:
                   meaning: "the specimen related to this analyte"
                   type: "specimen"
 
