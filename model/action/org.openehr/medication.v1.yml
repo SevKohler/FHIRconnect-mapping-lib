@@ -1,4 +1,4 @@
-grammar: FHIRConnect/v0.9.0
+grammar: FHIRConnect/v1.0.0
 type: model
 metadata:
   name:  ACTION.medication.v1
@@ -228,17 +228,7 @@ mappings:
 
   - name: "request"
     with:
-      fhir: "$resource.request.as(Reference).identifier" # or should resolve reference and take the identifier from there.
-      openehr: "$archetype/protocol[at0030]/items[at0103]"
-    fhirCondition:
-      targetRoot: "$resource.request.as(Reference)"
-      targetAttribute: "identifier"
-      operator: "not empty"
-
-
-  - name: "request"
-    with:
-      fhir: "$resource.request"
+      fhir: "$resource.request" # overwrites request
       openehr: "$archetype/protocol[at0030]/items[at0103]"
       type: "NONE"
     followedBy:
