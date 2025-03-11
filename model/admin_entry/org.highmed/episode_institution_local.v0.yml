@@ -14,11 +14,10 @@ spec:
 
 mappings:
 
-# reference to party identified, not supported
-#  - name: "healthcareFacility"
-#    with:
-#      fhir: "$resource.serviceProvider"
-#      openehr: "$composition/context/health_care_facility"
+  - name: "healthcareFacility"
+    with:
+      fhir: "$resource.serviceProvider"
+      openehr: "$composition/context/health_care_facility"
 
   - name: "contextPeriod"
     with:
@@ -31,24 +30,20 @@ mappings:
           with:
             fhir: "start"
             openehr: "start_time"
-            type: "DATETIME"
         - name: "contextEnd"
           with:
             fhir: "end"
             openehr: "end_time"
-            type: "DATETIME"
 
-# reference to party identified, not supported
-#  - name: "composer"
-#    with:
-#      fhir: "$resource.serviceProvider"
-#      openehr: "$composition/composer"
+  - name: "composer"
+    with:
+      fhir: "$resource.serviceProvider"
+      openehr: "$composition/composer"
 
-# reference to party identified, not supported
-#  - name: "entryProvider"
-#    with:
-#      fhir: "$resource.serviceProvider"
-#      openehr: "$archetype/provider"
+  - name: "entryProvider"
+    with:
+      fhir: "$resource.serviceProvider"
+      openehr: "$archetype/provider"
 
   - name: "period"
     with:
@@ -61,12 +56,10 @@ mappings:
           with:
             fhir: "start"
             openehr: "data[at0001]/items[at0004]"
-            type: "DATETIME"
         - name: "seperationDate"
           with:
             fhir: "end"
             openehr: "data[at0001]/items[at0002]"
-            type: "DATETIME"
 
   - name: "room"
     with:

@@ -128,83 +128,83 @@ mappings:
             operator: "one of"
             criteria: "VierteStelle"
 
-#        - name: "ersteUndZweiteStelle"
-#          with:
-#            fhir: "extension" # since its two extensions nested
-#            openehr: "$archetype"
-#            type: "NONE"
-#          fhirCondition:
-#            targetRoot: "extension"
-#            targetAttribute: "url"
-#            operator: "one of"
-#            criteria: "ErsteUndZweiteStelle"
-#          followedBy:
-#            mappings:
-#              - name: "ersteUndZweiteStelle"
-#                with:
-#                  fhir: "value" # since its two extensions nested
-#                  openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
-#                  type: "CODING"
-#              - name: "extensionStatic"
-#                with:
-#                  fhir: "url"
-#                manual:
-#                  - name: "extension"
-#                    fhir:
-#                      - path: ""
-#                        value: "ErsteUndZweiteStelle"
-#
-#        - name: "dritteStelleParent"
-#          with:
-#            fhir: "extension" # since its two extensions nested
-#            openehr: "$archetype"
-#            type: "NONE"
-#          fhirCondition:
-#            targetRoot: "extension"
-#            targetAttribute: "url"
-#            operator: "one of"
-#            criteria: "DritteStelle"
-#          followedBy:
-#            mappings:
-#              - name: "dritteStelle"
-#                with:
-#                  fhir: "value" # since its two extensions nested
-#                  openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
-#                  type: "CODING"
-#              - name: "extensionStatic"
-#                with:
-#                  fhir: "url"
-#                manual:
-#                  - name: "extension"
-#                    fhir:
-#                      - path: ""
-#                        value: "DritteStelle"
-#
-#        - name: "vierteStelleParent"
-#          with:
-#            fhir: "extension" # since its two extensions nested
-#            openehr: "$archetype"
-#            type: "NONE"
-#          fhirCondition:
-#            targetRoot: "extension"
-#            targetAttribute: "url"
-#            operator: "one of"
-#            criteria: "VierteStelle"
-#          followedBy:
-#            mappings:
-#              - name: "vierteStelle"
-#                with:
-#                  fhir: "value" # since its two extensions nested
-#                  openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
-#                  type: "CODING"
-#              - name: "extensionStatic"
-#                with:
-#                  fhir: "url"
-#                manual:
-#                  - name: "extension"
-#                    fhir:
-#                      - path: ""
-#                        value: "VierteStelle"
+        - name: "ersteUndZweiteStelle"
+          with:
+            fhir: "extension" # since its two extensions nested
+            openehr: "$archetype"
+            type: "NONE"
+          fhirCondition:
+            targetRoot: "extension"
+            targetAttribute: "url"
+            operator: "one of"
+            criteria: "ErsteUndZweiteStelle"
+          followedBy:
+            mappings:
+              - name: "ersteUndZweiteStelle"
+                with:
+                  fhir: "value" # since its two extensions nested
+                  openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
+                  type: "CODING"
+              - name: "extensionStatic"
+                with:
+                  fhir: "url"
+                manual:
+                  - name: "extension"
+                    fhir:
+                      - path: ""
+                        value: "ErsteUndZweiteStelle"
+
+        - name: "dritteStelleParent"
+          with:
+            fhir: "extension" # since its two extensions nested
+            openehr: "$archetype"
+            type: "NONE"
+          fhirCondition:
+            targetRoot: "extension"
+            targetAttribute: "url"
+            operator: "one of"
+            criteria: "DritteStelle"
+          followedBy:
+            mappings:
+              - name: "dritteStelle"
+                with:
+                  fhir: "value" # since its two extensions nested
+                  openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
+                  type: "CODING"
+              - name: "extensionStatic"
+                with:
+                  fhir: "url"
+                manual:
+                  - name: "extension"
+                    fhir:
+                      - path: ""
+                        value: "DritteStelle"
+
+        - name: "vierteStelleParent"
+          with:
+            fhir: "extension" # since its two extensions nested
+            openehr: "$archetype"
+            type: "NONE"
+          fhirCondition:
+            targetRoot: "extension"
+            targetAttribute: "url"
+            operator: "one of"
+            criteria: "VierteStelle"
+          followedBy:
+            mappings:
+              - name: "vierteStelle"
+                with:
+                  fhir: "value" # since its two extensions nested
+                  openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
+                  type: "CODING"
+              - name: "extensionStatic"
+                with:
+                  fhir: "url"
+                manual:
+                  - name: "extension"
+                    fhir:
+                      - path: ""
+                        value: "VierteStelle"
 
 
   - name: "recordingDismissal"

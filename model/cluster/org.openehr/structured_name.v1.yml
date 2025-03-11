@@ -24,23 +24,19 @@ mappings:
           with:
             fhir: "use"
             openehr: "items[at0001]"
-            type: "STRING"
 
         - name: "firstName"
           with:
             fhir: "given"
             openehr: "items[at0002]"
-            type: "STRING"
 
         - name: "prefix"
           with:
             fhir: "prefix"
             openehr: "items[at0006]"
-            type: "STRING"
 
         - name: "familyName"
           with:
             fhir: "family"
             openehr: "items[at0005]"
-            type: "STRING"
 

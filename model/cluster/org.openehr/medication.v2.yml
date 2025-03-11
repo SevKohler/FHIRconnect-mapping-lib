@@ -16,19 +16,16 @@ mappings:
     with:
       fhir: "$resource.code"
       openehr: "$archetype/items[at0132]"
-      type: "CODEABLECONCEPT"
 
   - name: "form"
     with:
       fhir: "$resource.form"
       openehr: "$archetype/items[at0071]"
-      type: "CODEABLECONCEPT"
 
   - name: "amount"
     with:
       fhir: "$resource.amount"
       openehr: "$archetype/items[at0115]"
-      type: "QUANTITY"
 
   - name: "batch"
     with:
@@ -41,13 +38,11 @@ mappings:
           with:
             fhir: "lotNumber"
             openehr: "items[at0150]"
-            type: "STRING"
 
         - name: "expirationDate"
           with:
             fhir: "expirationDate"
             openehr: "items[at0003]"
-            type: "DATETIME"
 
   - name: "ingredients"
     with:
@@ -58,8 +53,7 @@ mappings:
       mappings:
         - name: "ingredient"
           with:
-            fhir: "item.as(CodeableConcept)" # todo: what do we map to when going from openEHR to FHIR? Because all these 3 below
-                                            # todo are mapping the same thing. CodeableConcept, Medication?
+            fhir: "item.as(CodeableConcept)"
             openehr: "$openehrRoot"
             type: "NONE"
           followedBy:
@@ -68,13 +62,11 @@ mappings:
                 with:
                   fhir: "text"
                   openehr: "items[at0132]"
-                  type: "STRING"
 
               - name: "wirkstofftyp"
                 with:
                   fhir: "coding"
                   openehr: "items[at0142]"
-                  type: "CODING"
 
         - name: "medication"
           with:
@@ -114,10 +106,8 @@ mappings:
                 with:
                   fhir: "numerator"
                   openehr: "items[at0153]"
-                  type: "QUANTITY"
               - name: "denominator"
                 with:
                   fhir: "denominator"
                   openehr: "items[at0157]"
-                  type: "QUANTITY"
 

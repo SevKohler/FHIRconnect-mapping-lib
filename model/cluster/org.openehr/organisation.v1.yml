@@ -17,10 +17,8 @@ mappings:
     with:
       fhir: "$fhirRoot.name"
       openehr: "$archetype/items[at0001]"
-      type: "TEXT"
 
   - name: "orgId"
     with:
       fhir: "$fhirRoot.identifier"
       openehr: "$archetype/items[at0003]"
-      type: "IDENTIFIER"

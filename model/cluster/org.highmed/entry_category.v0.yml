@@ -24,10 +24,8 @@ mappings:
           with:
             fhir: "coding"
             openehr: "items[at0002]"
-            type: "CODING"
         - name: "comment"
           with:
             fhir: "text"
             openehr: "items[at0003]"
-            type: "STRING"
 

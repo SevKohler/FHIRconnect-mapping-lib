@@ -43,13 +43,13 @@ mappings:
             fhir: "$fhirRoot.identifier"
             openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
           slotArchetype: "CLUSTER.case_identification.v0"
-#        - name: "encounterMapping"
-#          with:
-#            fhir: "$fhirRoot"
-#            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
-#            openehrLink:
-#              meaning: "the case this composition relates to"
-#              type: "case"
+        - name: "encounterMapping"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
+            openehrLink:
+              meaning: "the case this composition relates to"
+              type: "case"
 
   - name: "medicationCode"
     extension: "overwrite"

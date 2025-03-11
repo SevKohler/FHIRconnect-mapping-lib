@@ -12,47 +12,48 @@ spec:
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/MedicationStatement
 
+preprocessor:
+  hierarchy:
+    with:
+      fhir: "$resource.dosage"
+      openEHR: "$archetype/data[at0001]/events[at0002]"
+    split:
+      fhir:
+        create: "resource"
+        unique:
+          - "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
+      openEHR:
+        create: "event"
+        path: "$archetype/data[at0001]/events[at0002]"
+        unique:
+          - "route"
+          - "timing.event" # If the route value differs per dosage slice, create a new event
+
 mappings:
-
-  #  - name: "hierarchyMappings" # is defined by the
-  #    with:
-  #      fhir: "$resource.dosage"
-  #      openEHR: "$archetype/data[at0001]/events[at0002]"
-  #  #    type: "HIERARCHY"
-  #    hierarchy:
-  #      fhirCreate: "resource"
-  #      openehrCreate: "event"
-  #      uniqueValueFHIR: "[route, timing.event]" # if route value is different per dosage slice make a new event
-  #      uniqueValueOpenEHR: "['/data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
-
-  # reference to party identified, not supported
-  #  - name: "healthcareFacility"
-  #    with:
-  #      fhir: "$resource.informationSource"
-  #      openehr: "$composition/context/health_care_facility"
+  - name: "healthcareFacility"
+    with:
+      fhir: "$resource.informationSource"
+      openehr: "$composition/context/health_care_facility"
 
   - name: "dateAsserted"
     with:
       fhir: "$resource.dateAsserted"
       openehr: "$composition/context/start_time"
-      type: "DATETIME"
 
-  ## todo: overrides the informationSource above?
-  #  - name: "provider"
-  #    with:
-  #      fhir: "$resource.informationSource"
-  #      openehr: "$archetype/provider"
+  - name: "provider"
+    with:
+      fhir: "$resource.informationSource"
+      openehr: "$archetype/provider"
 
-  #  - name: "composer"
-  #    with:
-  #      fhir: "$resource.informationSource"
-  #      openehr: "$composition/composer" # often required therefore simplified mapping engine is to resolve Reference -> Composer
+  - name: "composer"
+    with:
+      fhir: "$resource.informationSource"
+      openehr: "$composition/composer" # often required therefore simplified mapping engine is to resolve Reference -> Composer
 
-  #todo: from which openehr path??
-  #  - name: "eventTime"
-  #    with:
-  #      fhir: "$resource.effective.as(Period)"
-  #      openEHR: "$archetype/data[at0001]/events[at0002]" #todo: when dynamic mapping period -> interval event, datetime to pointInTime event
+  - name: "eventTime"
+    with:
+      fhir: "$resource.effective.as(Period)"
+      openehr: "$archetype/data[at0001]/events[at0002]" #todo: when dynamic mapping period -> interval event, datetime to pointInTime event
 
   - name: "eventsParent"
     with:
@@ -65,13 +66,11 @@ mappings:
           with:
             fhir: "reasonCode.text"
             openehr: "data[at0003]/items[at0023]"
-            type: "STRING"
 
         - name: "note"
           with:
             fhir: "note.text"
             openehr: "data[at0003]/items[at0029]"
-            type: "STRING"
 
         - name: "dosage"
           with:
@@ -84,13 +83,11 @@ mappings:
                 with:
                   fhir: "route"
                   openehr: "data[at0003]/items[at0030]"
-                  type: "CODEABLECONCEPT"
 
         - name: "unstructuredDosage"
           with:
             fhir: "dosage.text"
             openehr: "data[at0003]/items[at0033]"
-            type: "STRING"
         # at0006
 
         - name: "medication"
@@ -111,7 +108,6 @@ mappings:
           with:
             fhir: "medication.as(CodeableConcept)"
             openehr: "data[at0003]/items[at0006]"
-            type: "CODEABLECONCEPT"
           openehrCondition:
             targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
             targetAttribute: "items[at0132]"
@@ -121,7 +117,6 @@ mappings:
           with:
             fhir: "medication.as(CodeableConcept)"
             openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
-            type: "CODEABLECONCEPT"
           openehrCondition:
             targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
             targetAttributes:
@@ -133,7 +128,6 @@ mappings:
           with:
             fhir: "medication.as(CodeableConcept)"
             openehr: "data[at0003]/items[at0006]"
-            type: "CODEABLECONCEPT"
           openehrCondition:
             targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
             targetAttribute: "items[at0132]"
@@ -143,52 +137,48 @@ mappings:
           with:
             fhir: "reasonReference.as(Reference).identifier.value"
             openehr: "data[at0003]/items[at0023]"
-            type: "STRING"
 
 
 
-#  - name: "partOf"
-#    with:
-#      fhir: "$resource.partOf.reference"
-#      openehr: "$reference"
-#    reference:
-#      mappings:
-#        - name: "partOfReference"
-#          with:
-#            fhir: "$fhirRoot"
-#            openehr: "$archetype/links" # will use link
+  - name: "partOf"
+    with:
+      fhir: "$resource.partOf.reference"
+      openehr: "$reference"
+    reference:
+      mappings:
+        - name: "partOfReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/links" # will use link
+          openehrLink:
+            meaning: "what the medication is part of"
+            type: "partOf"
 
-#            openehrLink:
-#              meaning: "what the medication is part of"
-#              type: "partOf"
+  - name: "basedOn"
+    with:
+      fhir: "$resource.basedOn.reference"
+      openehr: "$reference"
+    reference:
+      mappings:
+        - name: "partOfReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/links" # will use link
+          openehrLink:
+            meaning: "what the medication is based on"
+            type: "basedOn"
 
-#  - name: "basedOn"
-#    with:
-#      fhir: "$resource.basedOn.reference"
-#      openehr: "$reference"
-#    reference:
-#      mappings:
-#        - name: "partOfReference"
-#          with:
-#            fhir: "$fhirRoot"
-#            openehr: "$archetype/links" # will use link
-
-#            openehrLink:
-#              meaning: "what the medication is based on"
-#              type: "basedOn"
-
-#  - name: "derivedFrom"
-#    with:
-#      fhir: "$resource.basedOn.reference"
-#      openehr: "$reference"
-#    reference:
-#      mappings:
-#        - name: "partOfReference"
-#          with:
-#            fhir: "$fhirRoot"
-#            openehr: "$archetype/links" # will use link
-
-#            openehrLink:
-#              meaning: "what the medication is derived from"
-#              type: "derivedFrom"
+  - name: "derivedFrom"
+    with:
+      fhir: "$resource.basedOn.reference"
+      openehr: "$reference"
+    reference:
+      mappings:
+        - name: "partOfReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/links" # will use link
+          openehrLink:
+            meaning: "what the medication is derived from"
+            type: "derivedFrom"
 

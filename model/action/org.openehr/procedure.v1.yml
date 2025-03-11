@@ -14,58 +14,57 @@ spec:
     multiple: true
 
 mappings:
-#  - name: "participations"
-#    with:
-#      fhir: "$resource.performer.actor"
-#      openehr: "$composition/context/participations"  # reference to part
-#      type: "NONE"
-#    followedBy:
-#      mappings:
-#         - name : "participationFunction"
-#           with:
-#             fhir: "$fhirRoot"
-#             openehr: "$openEHRRoot"
-#           manual:
-#             - name: "function"
-#               openehr:
-#                 - path: "function"
-#                   value: "asserter"
-#         - name: "performer"
-#           with:
-#             fhir: "$fhirRoot"
-#             openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  - name: "participations"
+    with:
+      fhir: "$resource.performer.actor"
+      openehr: "$composition/context/participations"  # reference to part
+      type: "NONE"
+    followedBy:
+      mappings:
+         - name : "participationFunction"
+           with:
+             fhir: "$fhirRoot"
+             openehr: "$openEHRRoot"
+           manual:
+             - name: "function"
+               openehr:
+                 - path: "function"
+                   value: "asserter"
+         - name: "performer"
+           with:
+             fhir: "$fhirRoot"
+             openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-#  - name: "other_participations"
-#    with:
-#      fhir: "$resource.performer.actor"
-#      openehr: "$archetype/other_participation"  # reference to part
-#      type: "NONE"
-#    followedBy:
-#      mappings:
-#         - name : "participationFunction"
-#           with:
-#             fhir: "$fhirRoot"
-#             openehr: "$openEHRRoot"
-#           manual:
-#             - name: "function"
-#               openehr:
-#                 - path: "function"
-#                   value: "asserter"
-#         - name: "performer"
-#           with:
-#             fhir: "$fhirRoot"
-#             openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  - name: "other_participations"
+    with:
+      fhir: "$resource.performer.actor"
+      openehr: "$archetype/other_participation"  # reference to part
+      type: "NONE"
+    followedBy:
+      mappings:
+         - name : "participationFunction"
+           with:
+             fhir: "$fhirRoot"
+             openehr: "$openEHRRoot"
+           manual:
+             - name: "function"
+               openehr:
+                 - path: "function"
+                   value: "asserter"
+         - name: "performer"
+           with:
+             fhir: "$fhirRoot"
+             openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-#  - name: "provider"
-#    with:
-#      fhir: "$resource.performer.actor"
-#      openehr: "$composition/provider"  # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  - name: "provider"
+    with:
+      fhir: "$resource.performer.actor"
+      openehr: "$composition/provider"  # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   - name: "contextStartTime"
     with:
       fhir: "$resource.performed.as(DateTimeType)"
       openehr: "$composition/context/start_time"
-      type: "DATETIME"
 
   - name: "performed"
     with:
@@ -77,13 +76,11 @@ mappings:
           with:
             fhir: "start"
             openehr: "start_time"
-            type: "DATETIME"
 
         - name: "contextEnd"
           with:
             fhir: "end"
             openehr: "$composition/context/end_time"
-            type: "DATETIME"
 
   - name: "actionPerformed"
     with:
@@ -332,7 +329,6 @@ mappings:
           with:
             fhir: "coding"
             openehr: "description[at0001]/items[at0002]"
-            type: "CODING"
           fhirCondition:
             targetRoot: "coding"
             targetAttribute: "system"
@@ -345,19 +341,16 @@ mappings:
     with:
       fhir: "$resource.note.text"
       openehr: "$archetype/description[at0001]/items[at0005]"
-      type: "STRING"
 
   - name: "category"
     with:
       fhir: "$resource.category"
       openehr: "$archetype/description[at0001]/items[at0067]"
-      type: "CODEABLECONCEPT"
 
   - name: "bodySite"
     with:
       fhir: "$resource.bodySite"
       openehr: "$archetype/description[at0001]/items[at0063]"
-      type: "CODEABLECONCEPT"
 
   - name: "performedEnd"
     with:

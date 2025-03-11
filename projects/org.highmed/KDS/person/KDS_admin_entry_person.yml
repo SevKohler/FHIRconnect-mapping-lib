@@ -46,8 +46,8 @@ mappings:
       openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
     slotArchetype: "EVALUATION.gender.v1"
 
-#  - name: "identifier"
-#    with:
-#      fhir: "$resource.identifier"
-#      openehr: "$reference"
-#    mappingCode: "ehrStatusAddExternalREF" #these identifiers of FHIR need to go to the EHR status to be honest as external references.
+  - name: "identifier"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$reference"
+    mappingCode: "ehrStatusAddExternalREF" #these identifiers of FHIR need to go to the EHR status to be honest as external references.

@@ -29,7 +29,6 @@ mappings:
           with:
             fhir: "value"
             openehr: "items[at0001]"
-            type: "STRING"
         - name: "vncodingcode"
           with:
             fhir: "type.coding"

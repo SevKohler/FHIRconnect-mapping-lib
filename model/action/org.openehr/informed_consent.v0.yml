@@ -19,15 +19,12 @@ mappings:
     with:
       fhir: "$resource.dateTime"
       openehr: "$composition/context/start_time"
-      type: "DATETIME"
 
-# Not supported reference to party identifier
-#  - name: "healthCareFacility"
-#    with:
-#      fhir: "$resource.organization"
-#      openehr: "$composition/context/health_care_facility"
+  - name: "healthCareFacility"
+    with:
+      fhir: "$resource.organization"
+      openehr: "$composition/context/health_care_facility"
 
-  # ism transition hardcoding to fhir based on openEhr value
   - name: "ISMTransition"
     with:
       fhir: "$resource" # there needs to be a mapping table
@@ -165,8 +162,6 @@ mappings:
           targetAttribute: "defining_code/code_string"
           operator: "one of"
           criteria: "528"
-
-
 
   - name: "study"
     with:

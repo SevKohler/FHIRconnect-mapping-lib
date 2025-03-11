@@ -23,12 +23,10 @@ mappings:
           with:
             fhir: "start"
             openehr: "items[at0003]"
-            type: "DATETIME"
         - name: "end"
           with:
             fhir: "end"
             openehr: "items[at0004]"
-            type: "DATETIME"
 
   - name: "details"
     with:

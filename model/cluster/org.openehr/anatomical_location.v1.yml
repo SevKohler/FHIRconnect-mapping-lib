@@ -37,7 +37,6 @@ mappings:
     with:
       fhir: "$fhirRoot"
       openehr: "$archetype/items[at0001]" #Name of body site
-      type: "CODEABLECONCEPT"
     openehrCondition:
       targetRoot: "$archetype"
       targetAttribute: "items[at0001]"

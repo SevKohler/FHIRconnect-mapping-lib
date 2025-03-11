@@ -23,32 +23,27 @@ mappings:
           with:
             fhir: "city"
             openehr: "items[at0002]"
-            type: "STRING"
 
         - name: "state"
           with:
             fhir: "state"
             openehr: "items[at0004]"
-            type: "STRING"
 
         - name: "postalCode"
           with:
             fhir: "postalCode"
             openehr: "items[at0005]"
-            type: "STRING"
 
         - name: "country"
           with:
             fhir: "country"
             openehr: "items[at0006]"
-            type: "STRING"
 
         - name: "line"
           with:
             fhir: "line"
             openehr: "items[at0001]"
-            type: "STRING"
-            
+
         - name: "type"
           with:
             fhir: "type"
