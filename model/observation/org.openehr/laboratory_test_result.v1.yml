@@ -1,4 +1,4 @@
-grammar: FHIRConnect/v0.9.0
+grammar: FHIRConnect/v1.0.0
 type: model
 metadata:
   name: OBSERVATION.laboratory_test_result.v1
@@ -11,70 +11,75 @@ spec:
     revision: 1.2.5
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/DiagnosticReport
-    multiple: true # whether output of openEHR -> FHIR should return multiple Resources or a single one.
+
+
+preprocessor:
+  hierarchy:
+    with:
+      fhir: "$resource"
+      openEHR: "$archetype/data[at0001]/events[at0002]"
+    split:
+      fhir:
+        create: "resource"
+
 
 mappings:
 
-  # unsupported, reference to party_identified mappings
-  #  - name: "healthCareFacility"
-  #    with:
-  #      fhir: "$resource.performer"
-  #      openehr: "$composition/context/health_care_facility"
+  - name: "healthCareFacility"
+    with:
+      fhir: "$resource.performer"
+      openehr: "$composition/context/health_care_facility"
 
-  #  - name: "participations"
-  #    with:
-  #      fhir: "$resource.resultsInterpreter"
-  #      openehr: "$composition/context/participations"  # reference to part
-  #      type: "NONE"
-  #    followedBy:
-  #      mappings:
-  #        - name : "participationFunction"
-  #          with:
-  #            fhir: "$fhirRoot"
-  #            openehr: "$openEHRRoot"
-  #          manual:
-  #            - name: "function"
-  #              openehr:
-  #                - path: "function"
-  #                  value: "result interpreter"
-  #        - name: "performer"
-  #          with:
-  #            fhir: "$fhirRoot"
-  #            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  - name: "participations"
+    with:
+      fhir: "$resource.resultsInterpreter"
+      openehr: "$composition/context/participations"  # reference to part
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name : "participationFunction"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openEHRRoot"
+          manual:
+            - name: "function"
+              openehr:
+                - path: "function"
+                  value: "result interpreter"
+        - name: "performer"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  - name: "composer"
+    with:
+      fhir: "$resource.performer"
+      openehr: "$composition/composer" #take the first one if its 0..n ?!
 
-  # unsupported, reference to party_identified mappings
-  #  - name: "composer"
-  #    with:
-  #      fhir: "$resource.performer"
-  #      openehr: "$composition/composer" #take the first one if its 0..n ?!
+  - name: "performer"
+    with:
+      fhir: "$resource.performer"
+      openehr: "$composition/perfomer"
 
-  # unsupported, reference to party_identified mappings
-  #  - name: "performer"
-  #    with:
-  #      fhir: "$resource.performer"
-  #      openehr: "$composition/perfomer"
-
-  #  - name: "otherParticipants"
-  #    with:
-  #      fhir: "$resource.resultsInterpreter"
-  #      openehr: "$archetype/other_participations"
-  #      type: "NONE"
-  #    followedBy:
-  #      mappings:
-  #        - name : "participationFunction"
-  #          with:
-  #            fhir: "$fhirRoot"
-  #            openehr: "$openEHRRoot"
-  #          manual:
-  #            - name: "function"
-  #              openehr:
-  #                - path: "function"
-  #                  value: "result interpreter"
-  #        - name: "performer"
-  #          with:
-  #            fhir: "$fhirRoot"
-  #            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-
+  - name: "otherParticipants"
+    with:
+      fhir: "$resource.resultsInterpreter"
+      openehr: "$archetype/other_participations"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name : "participationFunction"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openEHRRoot"
+          manual:
+            - name: "function"
+              openehr:
+                - path: "function"
+                  value: "result interpreter"
+        - name: "performer"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   - name: "eventParent"
     with:
@@ -93,25 +98,21 @@ mappings:
                 with:
                   fhir: "end"
                   openehr: "context/end_time"
-                  type: "DATETIME"
 
               - name: "effectiveStart"
                 with:
                   fhir: "start"
                   openehr: "context/start_time"
-                  type: "DATETIME"
 
         - name: "effective"
           with:
             fhir: "effective.as(DateTimeType)"
             openehr: "$composition/context/start_time"
-            type: "DATETIME"
 
         - name: "category"
           with:
             fhir: "category"
             openehr: "data[at0003]/items[at0005]" # if there are several events add it to all of them
-            type: "CODEABLECONCEPT"
             # Backwards map all the values back, if they overlap ?!?!?!?
 
         - name: "status"
@@ -316,37 +317,39 @@ mappings:
                 operator: "one of"
                 criteria: "entered-in-error"
 
-        #      - name: "unknown"
-        #        fhir:
-        #          - path: "status"
-        #            value: "unknown"
-        #        openehrCondition: # free Text, maybe this should be a Nullflavour
-        #          targetRoot: "../"
-        #          targetAttribute: "value"
-        #          operator: "one of"
-        #  criteria: "unknown"
-        #        openehr:
-        #          - path: "value"
-        #            value: "unknown"
-        #        fhirCondition:
-        #          targetRoot: "$fhirRoot"
-        #          targetAttribute: "status"
-        #          operator: "one of"
-        #  criteria: "unknown"
+            - name: "unknown"
+              fhir:
+                - path: "status"
+                  value: "unknown"
+              openehrCondition:
+                targetRoot: "null_flavour/defining_code/code_string"
+                targetAttribute: "value"
+                operator: "one of"
+                criteria: "253"
 
+              openehr:
+                - path: "null_flavour/value"
+                  value: "unknown"
+                - path: "null_flavour/defining_code/terminology_id"
+                  value: "openehr"
+                - path: "null_flavour/defining_code/code_string"
+                  value: "253"
+              fhirCondition:
+                targetRoot: "$fhirRoot"
+                targetAttribute: "status"
+                operator: "one of"
+                criteria: "unknown"
 
 
         - name: "conclusion"
           with:
             fhir: "conclusion"
             openehr: "data[at0003]/items[at0057]"
-            type: "STRING"
 
         - name: "issued"
           with:
             fhir: "issued"
             openehr: "time"
-            type: "DATETIME"
 
         - name: "specimen"
           with:
@@ -373,21 +376,15 @@ mappings:
                 with:
                   fhir: "identifier"
                   openehr: "protocol[at0004]/items[at0094]/items[at0063]"
-                  type: "IDENTIFIER"
-        #        - name: "basedOnLink"
-        #          with:
-        #            fhir: "$fhirRoot"
-        #            openehr: "$archetype/protocol[at0004]/items[at0094]/items[at0063]/links"
-        #            openehrLink:
-        #              meaning: "the identifier which it derived from"
-        #              type: "based on"
+              - name: "basedOnLink"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "$archetype/protocol[at0004]/items[at0094]/items[at0063]/links"
+                link:
+                  meaning: "the identifier which it derived from"
+                  type: "based on"
 
-
-
-
-
-#unspported POINT_EVENT and INTERVAL_EVENT mapping
-#  - name: "eventTime"
-#    with:
-#      fhir: "$resource.effective"
-#      openEHR: "$archetype/data[at0001]/events[at0002]" # period -> interval event, datetime to pointInTime event
+  - name: "eventTime"
+    with:
+      fhir: "$resource.effective"
+      openehr: "$archetype/data[at0001]/events[at0002]" # period -> interval event, datetime to pointInTime event

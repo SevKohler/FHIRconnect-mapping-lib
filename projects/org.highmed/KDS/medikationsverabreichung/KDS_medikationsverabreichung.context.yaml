@@ -1,4 +1,4 @@
-grammar: FHIRConnect/v0.9.0
+grammar: FHIRConnect/v1.0.0
 type: context
 metadata:
   name:  KDS_medikationsverabreichung.context
@@ -22,7 +22,6 @@ context:
     - "CLUSTER.medication.v2.substance"
   extensions:
     - "KDS_medikamentenverabreichung"
-    - "KDS_medication.v2.substance"
   start: "ACTION.medication.v1"
 
 #todo: should we extend also CLUSTER.medication.v2.medication-to-medication

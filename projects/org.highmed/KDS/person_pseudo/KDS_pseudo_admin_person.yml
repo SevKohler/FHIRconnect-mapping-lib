@@ -1,4 +1,4 @@
-grammar: FHIRConnect/v0.9.0
+grammar: FHIRConnect/v1.0.0
 type: extension
 metadata:
   name: KDS_admin_entry_perso_pseudo
@@ -22,17 +22,15 @@ mappings:
       openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
     slotArchetype: "openEHR-EHR-EVALUATION.gender.v1"
 
-#  - name: "identifier"
-#    with:
-#      fhir: "$resource.identifier"
-#      openehr: "$reference"
-#    type: "PROGRAMMED_MAPPING"
-#    mappingCode: "ehrStatusAddExternalREF" #TODO these identifiers of FHIR need to go to the EHR status to be honest as external references.
-#    fhirCondition: #@Gasper if we decide not to url::value mappings, we need this if cause of the overwrite of identifier
-#      # if we add url::value we can delete this followeBy, this mapping will prevail the one in the tempplate for fhir.identifier
-#      targetRoot: "identifier"
-#      targetAttribute: "type.coding.code"
-#      operator: "one of"
-#      criterias:
-#       - "PSEUDED"
-#       - "ANONYED"
+  - name: "identifier"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$reference"
+    mappingCode: "ehrStatusAddExternalREF" #TODO these identifiers of FHIR need to go to the EHR status to be honest as external references.
+    fhirCondition:
+      targetRoot: "identifier"
+      targetAttribute: "type.coding.code"
+      operator: "one of"
+      criterias:
+       - "PSEUDED"
+       - "ANONYED"

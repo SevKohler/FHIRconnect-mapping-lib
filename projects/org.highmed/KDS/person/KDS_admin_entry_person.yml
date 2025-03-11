@@ -1,4 +1,4 @@
-grammar: FHIRConnect/v0.9.0
+grammar: FHIRConnect/v1.0.0
 type: extension
 metadata:
   name: KDS_admin_entry_person.v0
@@ -14,7 +14,6 @@ mappings:
     with:
       fhir: "$resource.identifier"
       openehr: "$composition/context/other_context[at0003]/items[at0004]"
-      type: "IDENTIFIER"
     fhirCondition:
       targetRoot: "$resource.identifier"
       targetAttribute: "type.coding.code"
@@ -46,8 +45,8 @@ mappings:
       openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
     slotArchetype: "EVALUATION.gender.v1"
 
-#  - name: "identifier"
-#    with:
-#      fhir: "$resource.identifier"
-#      openehr: "$reference"
-#    mappingCode: "ehrStatusAddExternalREF" #these identifiers of FHIR need to go to the EHR status to be honest as external references.
+  - name: "identifier"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$reference"
+    mappingCode: "ehrStatusAddExternalREF" #these identifiers of FHIR need to go to the EHR status to be honest as external references.
