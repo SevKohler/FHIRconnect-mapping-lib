@@ -9,9 +9,7 @@ spec:
   extends: CLUSTER.person.v1
 
 mappings:
-  # not sure if this will work, since we got now 3 mappings in one part
-  - name: "identifier" #@Gasper see comment of url::value, we could delete all of the mappings below if we used this logic
-    # since then its just an identifier -> identifier.
+  - name: "identifier"
     extension: "add"
     with:
       fhir: "$resource"

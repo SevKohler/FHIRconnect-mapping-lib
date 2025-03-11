@@ -53,7 +53,7 @@ mappings:
   - name: "medicationCode"
     extension: "overwrite"
     with:
-      fhir: "$resource.medication.as(CodeableConcept).coding.display"
+      fhir: "$resource.medication.as(CodeableConcept).coding"
       openehr: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
     openehrCondition:
       targetRoot: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]"
@@ -75,10 +75,3 @@ mappings:
         - "/items[at0133]"
         - "/items[at0141]"
       operator: "empty"
-
-
-  - name: "clinicalIndication"
-    extension: "overwrite"
-    with:
-      fhir: "$resource.reasonCode.coding.display"
-      openehr: "$archetype/description[at0017]/items[at0156]"
