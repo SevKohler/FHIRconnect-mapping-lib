@@ -94,7 +94,7 @@ mappings:
         - name: "coding"
           with:
             fhir: "coding"
-            openehr: "$archetype"
+            openehr: "$reference"
             type: "NONE"
           fhirCondition:
             targetRoot: "coding"
