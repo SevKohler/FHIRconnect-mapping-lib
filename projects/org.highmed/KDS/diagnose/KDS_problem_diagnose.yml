@@ -86,92 +86,93 @@ mappings:
     unidirectional: "openEHR->fhir"
     slotArchetype: "CLUSTER.anatomical_location.v1"
 
-  - name: "problemDiagnoseNameCode"
-    extension: "overwrite"
-    with:
-      fhir: "$fhirRoot"
-      openehr: "$archetype/data[at0001]/items[at0002]"
-
   - name: "icd10ProblemDiagnose"
     extension: "append"
-    appendTo: "problemDiagnose.problemDiagnoseName"
-    fhirCondition:
-      targetRoot: "coding"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
+    appendTo: "problemDiagnose"
     followedBy:
       mappings:
-        - name: "codingSystem"
+        - name: "coding"
           with:
-            fhir: "coding"
-          manual:
-            - name: "system"
-              fhir:
-                - path: "system"
-                  value: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
+            fhir: "$fhirRoot.coding"
+            openehr: "$openehrRoot"
+            type: "NONE"
+          fhirCondition:
+            targetRoot: "coding"
+            targetAttribute: "system"
+            operator: "one of"
+            criteria: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
+          followedBy:
+            mappings:
+              - name: "codingSystem"
+                with:
+                  fhir: "coding"
+                manual:
+                  - name: "system"
+                    fhir:
+                      - path: "system"
+                        value: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
 
-        - name: "codeIcd10Diagnosesicherheit"
-          with:
-            fhir: "extension"
-            openehr: "$archetype/data[at0001]/items[at0073]"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
-          followedBy:
-            mappings:
-              - name: "extension"
+              - name: "codeIcd10Diagnosesicherheit"
                 with:
-                  fhir: "$fhirRoot" #since we want to access extension here
-                manual:
-                  - name: "extensionUrl"
-                    fhir:
-                      - path: "url"
-                        value: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
+                  fhir: "extension"
+                  openehr: "$archetype/data[at0001]/items[at0073]"
+                fhirCondition:
+                  targetRoot: "extension"
+                  targetAttribute: "url"
+                  operator: "one of"
+                  criteria: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
+                followedBy:
+                  mappings:
+                    - name: "extension"
+                      with:
+                        fhir: "$fhirRoot" #since we want to access extension here
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
 
-        - name: "multipleCoding"
-          with:
-            fhir: "extension"
-            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.multiple_coding_icd10gm.v1]"
-          slotArchetype: "CLUSTER.multiple_coding_icd10gm.v1"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
-          followedBy:
-            mappings:
-              - name: "extension"
+              - name: "multipleCoding"
                 with:
-                  fhir: "$fhirRoot"
-                manual:
-                  - name: "extensionUrl"
-                    fhir:
-                      - path: "url"
-                        value: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
-  #
-        - name: "bodySiteClusterIcd10" # is here added too, in case the icd-10 is present in fhir so we map the localization
-          with:
-            fhir: "extension"
-            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-          slotArchetype: "CLUSTER.anatomical_location.v1"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "http://fhir.de/StructureDefinition/seitenlokalisation"
-          followedBy:
-            mappings:
-              - name: "extension"
+                  fhir: "extension"
+                  openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.multiple_coding_icd10gm.v1]"
+                slotArchetype: "CLUSTER.multiple_coding_icd10gm.v1"
+                fhirCondition:
+                  targetRoot: "extension"
+                  targetAttribute: "url"
+                  operator: "one of"
+                  criteria: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
+                followedBy:
+                  mappings:
+                    - name: "extension"
+                      with:
+                        fhir: "$fhirRoot"
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
+        #
+              - name: "bodySiteClusterIcd10" # is here added too, in case the icd-10 is present in fhir so we map the localization
                 with:
-                  fhir: "$fhirRoot"
-                manual:
-                  - name: "extensionUrl"
-                    fhir:
-                      - path: "url"
-                        value: "http://fhir.de/StructureDefinition/seitenlokalisation"
+                  fhir: "extension"
+                  openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
+                slotArchetype: "CLUSTER.anatomical_location.v1"
+                fhirCondition:
+                  targetRoot: "extension"
+                  targetAttribute: "url"
+                  operator: "one of"
+                  criteria: "http://fhir.de/StructureDefinition/seitenlokalisation"
+                followedBy:
+                  mappings:
+                    - name: "extension"
+                      with:
+                        fhir: "$fhirRoot"
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "http://fhir.de/StructureDefinition/seitenlokalisation"
 
   - name: "dateTime"
     extension: "overwrite"
