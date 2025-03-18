@@ -93,8 +93,8 @@ mappings:
       mappings:
         - name: "coding"
           with:
-            fhir: "$fhirRoot.coding"
-            openehr: "$openehrRoot"
+            fhir: "coding"
+            openehr: "$archetype"
             type: "NONE"
           fhirCondition:
             targetRoot: "coding"
@@ -105,7 +105,7 @@ mappings:
             mappings:
               - name: "codingSystem"
                 with:
-                  fhir: "coding"
+                  fhir: "$fhirRoot"
                 manual:
                   - name: "system"
                     fhir:
