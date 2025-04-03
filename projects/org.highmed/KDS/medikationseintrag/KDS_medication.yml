@@ -42,8 +42,9 @@ mappings:
       mappings:
         - name: "wirkstofftypExtended"
           with:
-            fhir: "extension.value"
-            openehr: "$archetype/items[at0142]"
+            fhir: "extension"
+            openehr: "$archetype"
+            type: "NONE"
           fhirCondition:
             targetRoot: "extension"
             targetAttribute: "url"
@@ -51,9 +52,14 @@ mappings:
             criteria: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstofftyp"
           followedBy:
             mappings:
-              - name: "extension"
+              - name: "value"
                 with:
-                  fhir: "extension"
+                  fhir: "value"
+                  openehr: "items[at0142]"
+                  type: "CODING"
+              - name: "url"
+                with:
+                  fhir: "$fhirRoot"
                 manual:
                   - name: "extensionUrl"
                     fhir:
