@@ -103,16 +103,6 @@ mappings:
                   openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
                 slotArchetype: "CLUSTER.medication.v2" # depending on the resourceType picks the correct one
 
-
-        - name: "medicationCodeR"
-          with:
-            fhir: "medication.as(CodeableConcept)"
-            openehr: "data[at0003]/items[at0006]"
-          openehrCondition:
-            targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
-            targetAttribute: "items[at0132]"
-            operator: "empty"
-
         - name: "medicationCode"
           with:
             fhir: "medication.as(CodeableConcept)"

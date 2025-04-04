@@ -201,18 +201,20 @@ mappings:
           with:
             fhir: "onset.as(Period)"
             openehr: "$archetype"
+            type: "NONE"
           followedBy:
             mappings:
-              - name: "start"
-                with:
-                  fhir: "$fhirRoot.start"
-                  openehr: "data[at0001]/items[at0077]"
-
               - name: "lebensphaseCluster"
                 with:
                   fhir: "$fhirRoot"
                   openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
                 slotArchetype: "CLUSTER.lebensphase.v0"
+                followedBy:
+                  mappings:
+                    - name: "start"
+                      with:
+                        fhir: "start"
+                        openehr: "$archetype/data[at0001]/items[at0077]"
 
         - name: "dateTime"
           with:

@@ -92,38 +92,7 @@ mappings:
 
         - name: "ersteUndZweiteStelle"
           with:
-            fhir: "extension.value" # since its two extensions nested
-            openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "ErsteUndZweiteStelle"
-
-        - name: "dritteStelle"
-          with:
-            fhir: "extension.value"
-            openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "DritteStelle"
-
-
-        - name: "vierteStelle"
-          with:
-            fhir: "extension.value"
-            openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "VierteStelle"
-
-        - name: "ersteUndZweiteStelle"
-          with:
-            fhir: "extension" # since its two extensions nested
+            fhir: "extension"
             openehr: "$archetype"
             type: "NONE"
           fhirCondition:
@@ -135,7 +104,7 @@ mappings:
             mappings:
               - name: "ersteUndZweiteStelle"
                 with:
-                  fhir: "value" # since its two extensions nested
+                  fhir: "value.as(Coding)"
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
               - name: "extensionStatic"
                 with:
@@ -148,7 +117,7 @@ mappings:
 
         - name: "dritteStelleParent"
           with:
-            fhir: "extension" # since its two extensions nested
+            fhir: "extension"
             openehr: "$archetype"
             type: "NONE"
           fhirCondition:
@@ -160,7 +129,7 @@ mappings:
             mappings:
               - name: "dritteStelle"
                 with:
-                  fhir: "value" # since its two extensions nested
+                  fhir: "value.as(Coding)"
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
               - name: "extensionStatic"
                 with:
@@ -173,7 +142,7 @@ mappings:
 
         - name: "vierteStelleParent"
           with:
-            fhir: "extension" # since its two extensions nested
+            fhir: "extension"
             openehr: "$archetype"
             type: "NONE"
           fhirCondition:
@@ -185,7 +154,7 @@ mappings:
             mappings:
               - name: "vierteStelle"
                 with:
-                  fhir: "value" # since its two extensions nested
+                  fhir: "value.as(Coding)"
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
               - name: "extensionStatic"
                 with:
@@ -213,7 +182,8 @@ mappings:
         - name: "entlassungsgrund"
           with:
             fhir: "dischargeDisposition.extension"
-            openehr: "data[at0001]/items[at0006]"
+            openehr: "$openehrRoot"
+            type: "NONE"
           fhirCondition:
             targetRoot: "dischargeDisposition.extension"
             targetAttribute: "url"
@@ -221,6 +191,10 @@ mappings:
             criteria: "http://fhir.de/StructureDefinition/Entlassungsgrund"
           followedBy:
             mappings:
+              - name: "entlassungsgrundValue"
+                with:
+                  fhir: "value.as(Coding)"
+                  openehr: "data[at0001]/items[at0006]"
               - name: "entlassungsgrundUrl"
                 with:
                   fhir: "dischargeDisposition.extension"
