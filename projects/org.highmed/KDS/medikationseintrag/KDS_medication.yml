@@ -56,7 +56,6 @@ mappings:
                 with:
                   fhir: "value"
                   openehr: "items[at0142]"
-                  type: "CODING"
               - name: "url"
                 with:
                   fhir: "$fhirRoot"
