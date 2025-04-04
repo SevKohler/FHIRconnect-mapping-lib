@@ -78,6 +78,7 @@ mappings:
     with:
       fhir: "$resource.performed.as(Period)"
       openehr: "$composition/context"
+      type: "NONE"
     followedBy:
       mappings:
         - name: "contextStart"
@@ -331,6 +332,7 @@ mappings:
     with:
       fhir: "$resource.code"
       openehr: "$archetype"
+      type: "NONE"
     followedBy:
       mappings:
         - name: "Name"
