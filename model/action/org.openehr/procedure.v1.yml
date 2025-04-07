@@ -328,14 +328,14 @@ mappings:
           criteria: "unknown"
 
 
-  - name: "name"
+  - name: "procedureName"
     with:
       fhir: "$resource.code"
       openehr: "$archetype"
       type: "NONE"
     followedBy:
       mappings:
-        - name: "Name"
+        - name: "coding"
           with:
             fhir: "coding"
             openehr: "description[at0001]/items[at0002]"
