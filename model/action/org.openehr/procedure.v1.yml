@@ -339,13 +339,6 @@ mappings:
           with:
             fhir: "coding"
             openehr: "description[at0001]/items[at0002]"
-          fhirCondition:
-            targetRoot: "coding"
-            targetAttribute: "system"
-            operator: "one of"
-            criterias:
-              - "http://fhir.de/CodeSystem/bfarm/ops"
-              - "http://snomed.info/sct"
 
   - name: "comment"
     with:
