@@ -112,8 +112,7 @@ mappings:
         - name: "category"
           with:
             fhir: "category"
-            openehr: "data[at0003]/items[at0005]" # if there are several events add it to all of them
-            # Backwards map all the values back, if they overlap ?!?!?!?
+            openehr: "data[at0003]/items[at0005]"
 
         - name: "status"
           with:
