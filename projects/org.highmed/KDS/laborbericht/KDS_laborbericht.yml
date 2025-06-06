@@ -57,12 +57,17 @@ mappings:
             meaning: "the case this composition relates to"
             type: "case"
 
-
   - name: "status" #TODO @deprecated needs to go once mapping is updated
     extension: "overwrite"
     with:
       fhir: "$resource.status"
       openehr: "$composition/context/other_context[at0001]/items[at0005]"
+
+  - name: "eventParent.category"
+    extension: "overwrite"
+    with:
+      fhir: "category"
+      openehr: "data[at0003]/items[at0005]"
 
   - name: "eventTime"
     extension: "overwrite"

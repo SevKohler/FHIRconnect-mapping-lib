@@ -1,0 +1,151 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name: pgx_laboratory
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: OBSERVATION.laboratory_test_result.v1
+
+mappings:
+
+  - name: "resultAppendToParent" #/data[at0001]/events[at0002] add new for each laboratory analyte.
+    extension: "append"
+    appendTo: "eventParent"
+    followedBy:
+      mappings:
+        - name: "result"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]"
+            type: "NONE"
+          followedBy:
+# ========================================= genotype
+            mappings:
+              # TODO status missing add
+              - name: "genotype" # genotype mapping
+                with:
+                  unidirectional: "openEHR->fhir" # all following are just for openEHR to FHIR
+                  fhir: "result"
+                  openehr: "$reference"
+                reference:
+                  resourceType: "Observation"
+                  mappings:
+                    - name: "Diplotype"
+                      with:
+                        fhir: "coding"
+                        openehr: "/items[openEHR-EHR-CLUSTER.pharmacogenetic_result.v0]/items[at0004]"
+                    - name: "component"
+                      with:
+                        fhir: "component.where(code.coding.code = '48018-6')"
+                        openehr: "$reference"
+                      followedBy:
+                        mappings:
+                          - name: "analyteName"
+                            with:
+                              fhir: "valueCodeableConcept.coding"
+                              openehr: "/items[at0024]" #Name of body site
+                          - name: "geneSymbol"
+                            with:
+                              fhir: "valueCodeableConcept.coding"
+                              openehr: "/items[openEHR-EHR-CLUSTER.pharmacogenetic_result.v0]/items[at0003]" #Name of body site
+                          - name: "manualMappings"
+                            with:
+                              fhir: "$fhirRoot"
+                            manual:
+                              - name: "componentValueCodeable"
+                                fhir:
+                                  - path: "code.coding.code"
+                                    value: "48018-6"
+                                  - path: "code.coding.system"
+                                    value: "http://loinc.org"
+                fhirCondition: # for genotype
+                  targetRoot: "$fhirRoot"
+                  targetAttribute: "result.meta.profile"
+                  operator: "equals"
+                  condition: "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/genotype"
+# ==================================== Phenotype
+# TODO status missing add
+              - name: "phenotype"
+                with:
+                  unidirectional: "openEHR->fhir" # all following are just for openEHR to FHIR
+                  fhir: "result"
+                  openehr: "$reference"
+                reference:
+                  resourceType: "Observation"
+                  mappings:
+                    - name: "component"
+                      with:
+                        fhir: "component.where(code.coding.code = 'PGxPhenotype')"
+                        openehr: "$reference"
+                      followedBy:
+                        mappings:
+                          - name: "geneSymbol"
+                            with:
+                              fhir: "valueCodeableConcept.coding"
+                              openehr: "/items[openEHR-EHR-CLUSTER.pharmacogenetic_result.v0]/items[at0052]" #Phenotype
+                            manual:
+# TODO: add manual mapping of phenotype codes here.
+                          - name: "manualMappings"
+                            with:
+                              fhir: "$fhirRoot"
+                            manual:
+                              - name: "componentValueCodeable"
+                                fhir:
+                                  - path: "code.coding.code"
+                                    value: "48018-6"
+                                  - path: "code.coding.system"
+                                    value: "http://loinc.org"
+                fhirCondition: # for genotype
+                  targetRoot: "$fhirRoot"
+                  targetAttribute: "result.meta.profile"
+                  operator: "equals"
+                  condition: "http://hl7.org/fhir/uv/genomics-reporting/StructureDefinition/therapeutic-implication"
+# ==================================== haplotype
+              #allele haplotype
+              # activity value per allele
+              # haplotype cause i got a name
+# ================================= variant
+#CLUSTER.genomic_variant_result.v1
+
+
+
+  - name: "eventTime"
+    extension: "overwrite"
+    with:
+      fhir: "$resource.effective.as(DateTimeType)"
+      openehr: "$archetype/data[at0001]/events[at0002]/time" # period -> interval event, datetime to pointInTime event
+
+  - name: "eventParent.category" #/data[at0001]/events[at0002] add new for each laboratory analyte.
+    extension: "overwrite"
+    with:
+      fhir: "category"
+      openehr: "$archetype"
+    manual:
+      - name: "categoryStatic"
+        fhir:
+          - path: "coding.code"
+            value: "GE"
+          - path: "coding.system"
+            value: "http://terminology.hl7.org/CodeSystem/v2-0074"
+
+# Clinical information provided   at [openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[at010
+# Bundle.entry.select(resource as ServiceRequest).note.text
+
+# CLUSTER Testing device
+#  - name: "device"
+#    extension: "add"
+
+
+#  Allele haplotype	result:haplotype	Haplotype
+#  Activity value (per-allele)	result:haplotype	Haplotype
+
+#  SNP rsNumber	result:variant	Variant
+#  Knowledge base name	result:variant	Variant
+#  Item name / Variant detail	result:variant	Variant
+#  VRS attachment	result:variant	Variant
+#  VRS content name	result:variant	Variant
+#  Created (VRS file)	result:variant	Variant
+#  Comment	(context-dependent)	Any
+

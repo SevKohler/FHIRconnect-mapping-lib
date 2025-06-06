@@ -109,10 +109,15 @@ mappings:
             fhir: "effective.as(DateTimeType)"
             openehr: "$composition/context/start_time"
 
+        - name: "code"
+          with:
+            fhir: "code"
+            openehr: "data[at0003]/items[at0005]"
+
         - name: "category"
           with:
             fhir: "category"
-            openehr: "data[at0003]/items[at0005]"
+            openehr: "data[at0003]/items[at077]"
 
         - name: "status"
           with:

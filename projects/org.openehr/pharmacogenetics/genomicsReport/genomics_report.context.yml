@@ -1,0 +1,25 @@
+grammar: FHIRConnect/v1.0.0
+type: context
+metadata:
+  name:  PGX_lab.context
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+
+context:
+  profile:
+    url: "https://www.hl7.org/fhir/uv/genomics-reporting/StructureDefinition-genomic-report"
+    version: "3.0.0"
+  template:
+    id: "Pharmacogenetic test result"
+  archetypes:
+    - "OBSERVATION.laboratory_test_result.v1"
+    - "CLUSTER.laboratory_test_analyte.v1"
+    - "CLUSTER.pharmacogenetic_result.v0"
+    - "CLUSTER.genomic_variant_result.v1"
+    - "CLUSTER.media_file.v1"
+  extensions:
+    - "pgx_laboratory" #they overload the vanilla mappings, no version = take the latest
+  start: "OBSERVATION.laboratory_test_result.v1"
+
