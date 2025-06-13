@@ -1,0 +1,393 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name: IPS_composition
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: COMPOSITION.health-summary.v1
+
+mappings:
+  - name: "type"
+    extension: "add"
+    with:
+      fhir: "$resource.type"
+    manual:
+      - name: "typeCoding"
+        fhir:
+          - path: "coding.system"
+            value: "http://loinc.org"
+          - path: "coding.code"
+            value: "60591-5"
+
+
+  - name: "title"
+    extension: "add"
+    with:
+      fhir: "$resource.title"
+      openehr: "$reference"
+    manual:
+      - name: "titleText"
+        fhir:
+          - path: "$fhirRoot"
+            value: "International Patient Summary"
+
+  - name: "event"
+    extension: "add"
+    with:
+      fhir: "$resource.event"
+      openehr: "$composition"
+    followedBy:
+      mappings:
+        - name: "code"
+          with:
+            fhir: "code.coding"
+          manual:
+            - name: "coding"
+              fhir:
+                - path: "system"
+                  value: "http://terminology.hl7.org/CodeSystem/v3-ActClass"
+                - path: "code"
+                  value: "PCPR"
+
+        - name: "period"
+          with:
+            fhir: "period"
+            openehr: "$composition/context"
+            type: "NONE"
+          followedBy:
+            mappings:
+              - name: "contextStart"
+                with:
+                  fhir: "start"
+                  openehr: "start_time"
+
+              - name: "contextEnd"
+                with:
+                  fhir: "end"
+                  openehr: "end_time"
+
+  - name: "medications"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition"
+    fhirCondition:
+      targetRoot: "$resource.section.coding"
+      targetAttributes:
+        - "code"
+      operator: "equals"
+      criteria: "10160-0"
+
+    followedBy:
+      mappings:
+        - name: "staticCoding"
+          with:
+            fhir: "coding"
+          manual:
+            - name: "manual"
+              fhir:
+                - path: "system"
+                  value: "http://loinc.org"
+                - path: "code"
+                  value: "10160-0"
+
+        - name: "medicationAdministration"
+          with:
+            fhir: "reference.as(MedicationAdministration)"
+            openehr: "$reference"
+          reference:
+            resourceType: "MedicationAdministration"
+            mappings:
+              - name: "medicationAdministrationReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Medication Summary']/items[openEHR-EHR-ACTION.medication.v1]"
+                slotArchetype: "ACTION.medication.v1"
+
+        - name: "medicationStatement"
+          with:
+            fhir: "reference.as(MedicationStatement)"
+            openehr: "$reference"
+          reference:
+            resourceType: "MedicationStatement"
+            mappings:
+              - name: "medicationStatementReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1, 'Medication Summary']/items[openEHR-EHR-ACTION.medication.v1, 'Medication statement']"
+                slotArchetype: "OBSERVATION.medication_statement.v0"
+
+#        - name: "medicationRequest"
+#          with:
+#            fhir: "reference.as(MedicationRequest)"
+#            openehr: "$reference"
+#          reference:
+#            resourceType: "MedicationRequest"
+#            mappings:
+#              - name: "medicationRequestReference"
+#                with:
+#                  fhir: "$fhirRoot"
+#                  openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Medication Summary']"
+#                slotArchetype: "ACTION.medication.v1"
+
+
+#        - name: "medicationDispense"
+#          with:
+#            fhir: "reference.as(MedicationDispense)"
+#            openehr: "$reference"
+#          reference:
+#            resourceType: "MedicationDispense"
+#            mappings:
+#              - name: "medicationDispenseReference"
+#                with:
+#                  fhir: "$fhirRoot"
+#                  openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Medication Summary']"
+#                slotArchetype: "ACTION.medication.v1"
+
+
+  - name: "allergies"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition"
+    fhirCondition:
+      targetRoot: "$resource.section.coding"
+      targetAttributes:
+        - "code"
+      operator: "equals"
+      criteria: "48765-2"
+
+    followedBy:
+      mappings:
+        - name: "staticCoding"
+          with:
+            fhir: "coding"
+          manual:
+            - name: "manual"
+              fhir:
+                - path: "system"
+                  value: "http://loinc.org"
+                - path: "code"
+                  value: "48765-2"
+
+        - name: "allergiesSlot"
+          with:
+            fhir: "reference.as(AllergyIntolerance)"
+            openehr: "$reference"
+          reference:
+            resourceType: "AllergyIntolerance"
+            mappings:
+              - name: "allergyIntoleranceReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Allergies & Intolerances']/items[openEHR-EHR-EVALUATION.adverse_reaction_risk.v1]"
+                slotArchetype: "EVALUATION.adverse_reaction_risk.v1"
+
+
+  - name: "problems"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition"
+    fhirCondition:
+      targetRoot: "$resource.section.coding"
+      targetAttributes:
+        - "code"
+      operator: "equals"
+      criteria: "11450-4"
+
+    followedBy:
+      mappings:
+        - name: "staticCoding"
+          with:
+            fhir: "coding"
+          manual:
+            - name: "manual"
+              fhir:
+                - path: "system"
+                  value: "http://loinc.org"
+                - path: "code"
+                  value: "11450-4"
+
+        - name: "problemsSlot"
+          with:
+            fhir: "reference.as(Condition)"
+            openehr: "$reference"
+          reference:
+            resourceType: "Condition"
+            mappings:
+              - name: "conditionReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Problem List']/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+                slotArchetype: "EVALUATION.problem_diagnosis.v1"
+
+
+  - name: "procedures"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition"
+    fhirCondition:
+      targetRoot: "$resource.section.coding"
+      targetAttributes:
+        - "code"
+      operator: "equals"
+      criteria: "47519-4"
+
+    followedBy:
+      mappings:
+        - name: "staticCoding"
+          with:
+            fhir: "coding"
+          manual:
+            - name: "initial"
+              fhir:
+                - path: "system"
+                  value: "http://loinc.org"
+                - path: "code"
+                  value: "47519-4"
+
+        - name: "proceduresSlot"
+          with:
+            fhir: "reference.as(Procedure)"
+            openehr: "$reference"
+          reference:
+            resourceType: "Procedure"
+            mappings:
+              - name: "procedureReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1, 'History of Procedures']/items[openEHR-EHR-ACTION.procedure.v1]"
+                slotArchetype: "ACTION.procedure.v1"
+
+  - name: "immunization"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition"
+    fhirCondition:
+      targetRoot: "$resource.section.coding"
+      targetAttributes:
+        - "code"
+      operator: "equals"
+      criteria: "11369-6"
+
+    followedBy:
+      mappings:
+        - name: "staticCoding"
+          with:
+            fhir: "coding"
+          manual:
+            - name: "initial"
+              fhir:
+                - path: "system"
+                  value: "http://loinc.org"
+                - path: "code"
+                  value: "11369-6"
+
+        - name: "immunizationsSlot"
+          with:
+            fhir: "reference.as(Immunization)"
+            openehr: "$reference"
+          reference:
+            resourceType: "Immunization"
+            mappings:
+              - name: "immunizationReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1, 'Immunizations']/items[openEHR-EHR-ACTION.medication.v1, 'Immunization statement']"
+                slotArchetype: "ACTION.medication.v1"
+
+
+  - name: "medicalDevices"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition"
+    fhirCondition:
+      targetRoot: "$resource.section.coding"
+      targetAttributes:
+        - "code"
+      operator: "equals"
+      criteria: "46264-8"
+
+    followedBy:
+      mappings:
+        - name: "staticCoding"
+          with:
+            fhir: "coding"
+          manual:
+            - name: "initial"
+              fhir:
+                - path: "system"
+                  value: "http://loinc.org"
+                - path: "code"
+                  value: "46264-8"
+
+        - name: "medicalDevicesSlot"
+          with:
+            fhir: "reference.as(Procedure)"
+            openehr: "$reference"
+          reference:
+            resourceType: "DeviceUseStatement"
+            mappings:
+              - name: "deviceUseStatementReference"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1, 'Medical Devices']/items[openEHR-EHR-EVALUATION.device_summary.v0, 'Device use statement']"
+                slotArchetype: "EVALUATION.device_summary.v0"
+
+  - name: "results"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition"
+    fhirCondition:
+      targetRoot: "$resource.section.coding"
+      targetAttributes:
+        - "code"
+      operator: "equals"
+      criteria: "30954-2"
+
+    followedBy:
+      mappings:
+        - name: "staticCoding"
+          with:
+            fhir: "coding"
+          manual:
+            - name: "initial"
+              fhir:
+                - path: "system"
+                  value: "http://loinc.org"
+                - path: "code"
+                  value: "30954-2"
+
+
+#        - name: "resultsObs"
+#          with:
+#            fhir: "reference.as(Observation)"
+#            openehr: "$reference"
+#          reference:
+#            resourceType: "Observation"
+#            mappings:
+#              - name: "observationReference"
+#                with:
+#                  fhir: "$fhirRoot"
+#                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1, 'History of Procedures']/items[openEHR-EHR-ACTION.procedure.v1]"
+#                slotArchetype: "ACTION.procedure.v1"
+
+        - name: "resultsDiagnosticReport"
+          with:
+            fhir: "reference.as(DiagnosticReport)"
+            openehr: "$reference"
+          reference:
+            resourceType: "DiagnosticReport"
+            mappings:
+              - name: "diagnosticReport"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "content[openEHR-EHR-SECTION.adhoc.v1, 'Diagnostic Results']/items[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]"
+                slotArchetype: "OBSERVATION.laboratory_test_result.v1"

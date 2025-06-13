@@ -1,0 +1,38 @@
+grammar: FHIRConnect/v1.0.0
+type: context
+metadata:
+  name:  ips.context
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+
+context:
+  profile:
+    url: "http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips"
+    version: "1.1.0"
+  template:
+    id: "International Patient Summary"
+  summary: "true"
+  archetypes:
+    - "COMPOSITION.health_summary.v1"
+    - "ACTION.medication.v1"
+    - "OBSERVATION.medication_statement.v0"
+    - "EVALUATION.adverse_reaction_risk.v1"
+    - "EVALUATION.problem_diagnosis.v1"
+    - "ACTION.procedure.v1"
+    - "EVALUATION.device_summary.v0"
+    - "OBSERVATION.laboratory_test_result.v1"
+    - "OBSERVATION.imaging_exam_result.v0"
+  extensions:
+    - "IPS_medication_statement"
+    - "IPS_composition"
+    - "IPS_medication_admission"
+    - "IPS_adverse_reaction_risk"
+    - "IPS_problem_diagnosis"
+    - "IPS_procedure"
+    - "IPS_device_summary"
+    - "IPS_laboratory_test_result"
+    - "IPS_imaging_exam_result"
+  start: "COMPOSITION.health_summary.v1" # cause its a summary ! do not do when mapping a non summary composition
+

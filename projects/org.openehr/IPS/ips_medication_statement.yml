@@ -1,0 +1,11 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name:  IPS_medication_statement
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: OBSERVATION.medication_statement.v0
+
+mappings:

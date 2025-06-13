@@ -1,0 +1,90 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name:  COMPOSITION.health-summary.v1
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-COMPOSITION.health-summary.v1
+    revision: 1.0.3
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Composition
+
+mappings:
+
+  - name: "fhirCompositionCluster"
+    with:
+      fhir: "$resource"
+      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.fhir_composition.v0]"
+    followedBy:
+      mappings:
+        - name: "text"
+          with:
+            fhir: "text"
+            openehr: "items[at0002]/items[at0002]"
+        - name: "identifier"
+          with:
+            fhir: "identifier"
+            openehr: "items[at0002]/items[at0007]"
+        - name: "status"
+          with:
+            fhir: "status"
+            openehr: "items[at0002]/items[at0001]"
+
+
+  - name: "date"
+    with:
+      fhir: "$resource.date"
+      openehr: "$composition/context/start_time" # has to be filled from the virtual one
+
+  - name: "author"
+    with:
+      fhir: "$resource.author"
+      openehr: "$composition/composer"
+
+  - name: "attester" #participations
+    with:
+      fhir: "$resource.attester"
+      openehr: "$composition/context/participations"
+      type: "NONE"
+    followedBy:
+      mappings:
+
+        - name: "function"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$reference"
+          manual:
+            - name: "function"
+              openehr:
+                - path: "function"
+                  value: "attester"
+
+        - name: "mode"
+          with:
+            fhir: "mode"
+            openehr: "$reference"
+          manual:
+            - name: "modeManual"
+              fhir:
+                - path: "$fhirRoot"
+                  value: "official"
+
+        - name: "time"
+          with:
+            fhir: "time"
+            openehr: "time"
+
+        - name: "party"
+          with:
+            fhir: "party"
+            openehr: "performer"
+
+
+  - name: "custodian"
+    with:
+      fhir: "$resource.custodian"
+      openehr: "$composition/health_care_facility"
+

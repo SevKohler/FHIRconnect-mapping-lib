@@ -1,0 +1,11 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name:  IPS_laboratory_test_result
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: OBSERVATION.laboratory_test_result.v1
+
+mappings:

@@ -1,0 +1,12 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name:  IPS_adverse_reaction
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: EVALUATION.adverse_reaction_risk.v1
+
+
+mappings:

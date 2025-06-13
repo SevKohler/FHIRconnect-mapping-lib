@@ -1,0 +1,12 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name:  IPS_imaging_exam_result
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: OBSERVATION.imaging_exam_result.v0
+
+
+mappings:

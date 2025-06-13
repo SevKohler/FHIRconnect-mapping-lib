@@ -335,3 +335,8 @@ mappings:
           targetAttribute: "status"
           operator: "one of"
           criteria: "entered-in-error"
+
+  - name: "originalScheduledDateTime"
+    with:
+      fhir: "$resource.effective"
+      openehr: "$composition/description[at0017]/items[at0043]"
