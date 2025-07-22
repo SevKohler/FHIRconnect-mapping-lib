@@ -57,7 +57,7 @@ mappings:
   - name: "other_participations"
     with:
       fhir: "$resource.asserter"
-      openehr: "$archetype/diagnose/other_participations"  # reference to part
+      openehr: "$archetype/other_participations"  # reference to part
       type: "NONE"
     followedBy:
       mappings:
