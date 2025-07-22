@@ -38,7 +38,7 @@ mappings:
         - name : "participationFunction"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            openehr: "$openehrRoot"
           manual:
             - name: "function"
               openehr:
@@ -47,7 +47,7 @@ mappings:
         - name: "performer"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out#
+            openehr: "$openehrRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out#
   - name: "composer"
     with:
       fhir: "$resource.recorder"
@@ -64,7 +64,7 @@ mappings:
         - name : "participationFunction"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            openehr: "$openehrRoot"
           manual:
             - name: "function"
               openehr:
@@ -73,7 +73,7 @@ mappings:
         - name: "performer"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            openehr: "$openehrRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   - name: "provider"
     with:
