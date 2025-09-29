@@ -16,9 +16,8 @@ context:
     sem_ver: "0.1.0"
   archetypes:
     - "CLUSTER.laboratory_test_analyte.v1"
-    - "CLUSTER.case_identification.v0"
     - "CLUSTER.specimen.v1"
     - "OBSERVATION.laboratory_test_result.v1"
   extensions:
-    - "EEHRXF_lab_result"
+    - "eehrxf_lab_result"
   start: "OBSERVATION.laboratory_test_result.v1"

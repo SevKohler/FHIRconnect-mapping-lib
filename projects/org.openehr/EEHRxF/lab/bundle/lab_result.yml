@@ -21,9 +21,6 @@ mappings:
       fhir: "$resource.effective.as(DateTimeType)"
       openehr: "$archetype/data[at0001]/events[at0002]/time" # period -> interval event, datetime to pointInTime event
 
+# Impleement the hasMember thing.
 
-
-
-
-
-
+# just reolsve the first level of hasMembers, 
