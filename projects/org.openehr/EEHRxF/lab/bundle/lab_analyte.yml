@@ -1,0 +1,28 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name: eehrxf_lab_analyte
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: CLUSTER.laboratory_test_analyte.v1
+
+mappings:
+  - name: "hasMember"
+    extension: "add"
+    with:
+      fhir: "hasMember"
+      openehr: "$reference"
+    reference:
+      resourceType: "Observation"
+      mappings:
+        - name: "observationRecurring"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]"
+          slotArchetype: "CLUSTER.laboratory_test_analyte.v1"
+
+# resolves first layer
+# resolves second layer but overwrites why ?
+# /content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]

@@ -12,12 +12,14 @@ context:
     url: "http://hl7.eu/fhir/laboratory/StructureDefinition/DiagnosticReport-eu-lab"
     version: "0.1.1"
   template:
-    id: "EEHRXF_Laboratory"
+    id: "EHDS - Laboratory report"
     sem_ver: "0.1.0"
   archetypes:
     - "CLUSTER.laboratory_test_analyte.v1"
     - "CLUSTER.specimen.v1"
     - "OBSERVATION.laboratory_test_result.v1"
+    - "Evaluation.asdasdas.v1"
   extensions:
     - "eehrxf_lab_result"
+    - "eehrxf_lab_analyte"
   start: "OBSERVATION.laboratory_test_result.v1"
