@@ -1,3 +1,4 @@
+$schema: https://raw.githubusercontent.com/SevKohler/FHIRconnect-spec/refs/heads/main/modules/ROOT/attachments/contextual-mapping.schema.json
 grammar: FHIRConnect/v1.0.0
 type: context
 metadata:
