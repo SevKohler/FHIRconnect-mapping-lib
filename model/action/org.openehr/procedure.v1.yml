@@ -78,6 +78,7 @@ mappings:
     with:
       fhir: "$resource.performed.as(Period)"
       openehr: "$composition/context"
+      type: "NONE"
     followedBy:
       mappings:
         - name: "contextStart"
@@ -327,23 +328,17 @@ mappings:
           criteria: "unknown"
 
 
-  - name: "name"
+  - name: "procedureName"
     with:
       fhir: "$resource.code"
       openehr: "$archetype"
+      type: "NONE"
     followedBy:
       mappings:
-        - name: "Name"
+        - name: "coding"
           with:
             fhir: "coding"
             openehr: "description[at0001]/items[at0002]"
-          fhirCondition:
-            targetRoot: "coding"
-            targetAttribute: "system"
-            operator: "one of"
-            criterias:
-              - "http://fhir.de/CodeSystem/bfarm/ops"
-              - "http://snomed.info/sct"
 
   - name: "comment"
     with:

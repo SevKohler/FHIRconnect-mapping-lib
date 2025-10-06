@@ -25,6 +25,5 @@ context:
     - "KDS_problem_qualifier"
     - "KDS_lebensphase"
     - "KDS_anatomical_location"
-    - "KDS_Specimen"
   start: "EVALUATION.problem_diagnosis.v1"
 

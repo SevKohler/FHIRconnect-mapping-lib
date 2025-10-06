@@ -37,7 +37,7 @@ mappings:
         - name: "performer"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   - name: "composer"
     with:
@@ -63,7 +63,7 @@ mappings:
         - name: "performer"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   - name: "provider"
     with:
@@ -88,33 +88,33 @@ mappings:
     unidirectional: "openEHR->fhir"
     followedBy:
       mappings:
-        - name: "category_code_coding_loinc"
+        - name: "categoryCodeCodingLoinc"
           with:
             fhir: "coding"
             openehr: "$archetype"
           manual:
-            - name: "loinc_code"
+            - name: "loincCode"
               fhir:
                 - path: "code"
                   value: "79378-6"
 
-            - name: "loinc_system"
+            - name: "loincSystem"
               fhir:
                 - path: "system"
                   value: "http://loinc.org"
 
 
-        - name: "category_code_coding_snomed"
+        - name: "categoryCodeCodingSnomed"
           with:
             fhir: "coding"
             openehr: "$archetype"
           manual:
-            - name: "snomed_code"
+            - name: "snomedCode"
               fhir:
                 - path: "code"
                   value: "16100001"
 
-            - name: "snomed_system"
+            - name: "snomedSystem"
               fhir:
                 - path: "system"
                   value: "http://snomed.info/sct"

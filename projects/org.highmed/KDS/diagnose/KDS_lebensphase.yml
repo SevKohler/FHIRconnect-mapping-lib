@@ -9,13 +9,13 @@ spec:
   extends: CLUSTER.lebensphase.v0
 
 mappings:
-  - name: "periodOnsetStart"  # if append name needs to be the same we are appending to
+  - name: "periodOnsetStart"
     extension: "add"
     with:
       fhir: "$fhirRoot.start.extension"
       openehr: "$archetype/items[at0001]"
     fhirCondition:
-      targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
+      targetRoot: "$fhirRoot.start.extension"
       targetAttribute: "url"
       operator: "one of"
       criteria: "http://fhir.de/StructureDefinition/lebensphase"
@@ -36,7 +36,7 @@ mappings:
       fhir: "$fhirRoot.end.extension"
       openehr: "$archetype/items[at0002]"
     fhirCondition:
-      targetRoot: "$fhirRoot.end.extension" #parent selector from jsonpath-plus
+      targetRoot: "$fhirRoot.end.extension"
       targetAttribute: "url"
       operator: "one of"
       criteria: "http://fhir.de/StructureDefinition/lebensphase"
