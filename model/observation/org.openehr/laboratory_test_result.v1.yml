@@ -22,44 +22,7 @@ preprocessor:
       fhir:
         create: "resource"
 
-
 mappings:
-
-  - name: "healthCareFacility"
-    with:
-      fhir: "$resource.performer"
-      openehr: "$composition/context/health_care_facility"
-
-  - name: "participations"
-    with:
-      fhir: "$resource.resultsInterpreter"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name : "participationFunction"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
-          manual:
-            - name: "function"
-              openehr:
-                - path: "function"
-                  value: "result interpreter"
-        - name: "performer"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-  - name: "composer"
-    with:
-      fhir: "$resource.performer"
-      openehr: "$composition/composer" #take the first one if its 0..n ?!
-
-  - name: "performer"
-    with:
-      fhir: "$resource.performer"
-      openehr: "$composition/perfomer"
-
   - name: "otherParticipants"
     with:
       fhir: "$resource.resultsInterpreter"
@@ -88,26 +51,28 @@ mappings:
       type: "NONE"
     followedBy:
       mappings:
-        - name: "effective"
+        - name: "eventTime" #TODO needs to be adressed in WG how we resolve that cleanly
           with:
-            fhir: "effective.as(Period)"
-            openehr: "$composition"
-          followedBy:
-            mappings:
-              - name: "effectiveEnd"
-                with:
-                  fhir: "end"
-                  openehr: "context/end_time"
+            fhir: "effective"
+            openehr: "time" #TODO should do period -> interval event, datetime to pointInTime event now does only time for now
 
-              - name: "effectiveStart"
-                with:
-                  fhir: "start"
-                  openehr: "context/start_time"
-
-        - name: "effective"
+        - name: "eventTimeEmpty"
           with:
-            fhir: "effective.as(DateTimeType)"
-            openehr: "$composition/context/start_time"
+            fhir: "effective"
+            openehr: "time"
+          fhirCondition:
+            targetRoot: "$resource"
+            targetAttribute: "effective"
+            operator: "empty"
+          manual:
+            - name: "no information"
+              openehr:
+                - path: "null_flavour/value"
+                  value: "no information"
+                - path: "null_flavour/defining_code/terminology_id"
+                  value: "openehr"
+                - path: "null_flavour/defining_code/code_string"
+                  value: "271"
 
         - name: "category"
           with:
@@ -339,6 +304,21 @@ mappings:
                 operator: "one of"
                 criteria: "unknown"
 
+        - name: "statusEmpty"
+          with:
+            fhir: "$resource.status"
+          fhirCondition:
+            targetRoot: "$openehrRoot"
+            targetAttribute: "data[at0003]/items[at0073]"
+            operator: "empty"
+          manual:
+            - name: "dataAbsent"
+              fhir:
+                - path: "extension.url"
+                  value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+                - path: "extension.code"
+                  value: "unsupported"
+
 
         - name: "conclusion"
           with:
@@ -383,7 +363,3 @@ mappings:
                   meaning: "the identifier which it derived from"
                   type: "based on"
 
-  - name: "eventTime"
-    with:
-      fhir: "$resource.effective"
-      openehr: "$archetype/data[at0001]/events[at0002]" # period -> interval event, datetime to pointInTime event

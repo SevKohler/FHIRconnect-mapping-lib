@@ -30,25 +30,10 @@ preprocessor:
           - "timing.event" # If the route value differs per dosage slice, create a new event
 
 mappings:
-  - name: "healthcareFacility"
-    with:
-      fhir: "$resource.informationSource"
-      openehr: "$composition/context/health_care_facility"
-
-  - name: "dateAsserted"
-    with:
-      fhir: "$resource.dateAsserted"
-      openehr: "$composition/context/start_time"
-
   - name: "provider"
     with:
       fhir: "$resource.informationSource"
       openehr: "$archetype/provider"
-
-  - name: "composer"
-    with:
-      fhir: "$resource.informationSource"
-      openehr: "$composition/composer" # often required therefore simplified mapping engine is to resolve Reference -> Composer
 
   - name: "eventTime"
     with:

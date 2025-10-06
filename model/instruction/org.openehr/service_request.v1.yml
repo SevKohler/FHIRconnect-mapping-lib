@@ -13,26 +13,6 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/ServiceRequest
 
 mappings:
-  - name: "healthCareFacility"
-    with:
-      fhir: "$resource.requester"
-      openehr: "$archetype/context/health_care_facility"
-
-  - name: "authoredOn"
-    with:
-      fhir: "$resource.authoredOn"
-      openehr: "$composition/context/start_time"
-
-  - name: "composer"
-    with:
-      fhir: "$resource.requester"
-      openehr: "$composition/composer"
-
-  - name: "provider"
-    with:
-      fhir: "$resource.requester" # mapping is twice, entry level will overwrite the composer from above if not changed in the extension mapping
-      openehr: "$composition/provider"
-
   - name: "protocol0008Parent"
     with:
       fhir: "$resource"
@@ -48,7 +28,29 @@ mappings:
         - name: "status"
           with:
             fhir: "status"
-            openehr: "items[at0127]"
+            openehr: "$reference"
+            type: "NONE"
+          followedBy:
+            mappings:
+              - name: "statusExistent"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "items[at0127]"
+
+              - name: "statusEmpty"
+                with:
+                  fhir: "$resource.status"
+                fhirCondition:
+                  targetRoot: "$archetype"
+                  targetAttribute: "items[at0127]"
+                  operator: "empty"
+                manual:
+                  - name: "dataAbsent"
+                    fhir:
+                      - path: "extension.url"
+                        value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+                      - path: "extension.code"
+                        value: "unsupported"
 
         - name: "organisation"
           with:
@@ -85,5 +87,7 @@ mappings:
       fhir: "$resource.note.text"
       openehr: "$archetype/activities[at0001]/description[at0009]/items[at0150]"
 
-
-
+  - name: "provider"
+    with:
+      fhir: "$resource.requester" # mapping is twice, entry level will overwrite the composer from above if not changed in the extension mapping
+      openehr: "$archetype/provider"
