@@ -36,7 +36,7 @@ mappings:
         fhir:
           - path: "extension.url"
             value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-          - path: "extension.valueCode"
+          - path: "extension.code"
             value: "unsupported"
     openehrCondition:
       targetRoot: "$composition/context/other_context[at0001]" # if no status is provided, status is always 1..1
@@ -47,7 +47,7 @@ mappings:
     with:
       fhir: "$resource.date"
       openehr: "$composition/context/start_time" #Is not the correct thing to ingest but to export, correct would be commit time, but thats in the versioned object.
-      unidirectional: "openehr->fhir"
+    unidirectional: "openehr->fhir"
 
   - name: "author"
     with:

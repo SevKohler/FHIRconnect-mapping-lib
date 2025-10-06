@@ -73,4 +73,3 @@ mappings:
             criteria: "11502-2"
 
           # Category is missing i would do this as term mapping or as an extension cluster to the composition itself since its for hl7 compability
-

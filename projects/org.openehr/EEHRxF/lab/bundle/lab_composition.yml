@@ -1,90 +1,90 @@
-grammar: FHIRConnect/v1.0.0
-type: extension
-metadata:
-  name: eehrxf_lab_composition
-  version: 0.0.1-alpha
-spec:
-  system: FHIR
-  version: R4
-  extends: COMPOSITION.report-result.v1
-
-mappings:
-  - name: "type"
-    extension: "add"
-    with:
-      fhir: "$resource.type"
-    manual:
-      - name: "typeCoding"
-        fhir:
-          - path: "coding.system"
-            value: "http://loinc.org"
-          - path: "coding.code"
-            value: "11502-2"
-
-  - name: "title" #TODO where do we have something like this ?
-    extension: "add"
-    with:
-      fhir: "$resource.title"
-      openehr: "$reference"
-    manual:
-      - name: "titleText"
-        fhir:
-          - path: "$fhirRoot"
-            value: "EEHRXF Laboratory"
-
-  - name: "diagnosticReport"
-    extension: "add"
-    with:
-      fhir: "$resource.extension"
-      openehr: "$composition"
-    reference:
-      resourceType: "DiagnosticReport"
-      mappings:
-        - name: "diagnositcReport"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]"
-          slotArchetype: "OBSERVATION.laboratory_test_result.v1"
-    fhirCondition:
-      targetRoot: "$resource.extension"
-      targetAttributes:
-        - "url"
-      operator: "one of"
-      criteria: "http://hl7.eu/fhir/laboratory/StructureDefinition/composition-diagnosticReportReference"
-
-  - name: "noSubsections" #TODO i decided to prcoess this only if there is no diagnosticReport contained
-    #TODO i assume that if there is one all of the obs are contained
-    #TODO we need a plugin or smt mapping those that are NOT contained in any diagnostic report.
-    extension: "add"
-    with:
-      fhir: "$resource"
-      openehr: "$composition"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "section" #TODO maybe map this manual set the test name with the code of the section
-          with:
-            fhir: "section"
-            openehr: "$reference"
-          reference:
-            resourceType: "Observation"
-            mappings:
-              - name: "observation"
-                with:
-                  fhir: "$fhirRoot.entry" #TODO MAP HASMEMBER to the Report, if no hasmember just map one after one
-                  openehr: "content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]"
-                slotArchetype: "OBSERVATION.laboratory_test_result.v1"
-          fhirCondition:
-            targetRoot: "$resource"
-            targetAttributes:
-              - "hasMember"
-            operator: "not empty"
-
-    fhirCondition:
-      targetRoot: "$resource.extension"
-      targetAttributes:
-        - "url"
-      operator: "not of" # logically AND therefore should work, if its 3 extensions and one has this url it should return
-      #false
-      criteria: "http://hl7.eu/fhir/laboratory/StructureDefinition/composition-diagnosticReportReference"
-
+#grammar: FHIRConnect/v1.0.0
+#type: extension
+#metadata:
+#  name: eehrxf_lab_composition
+#  version: 0.0.1-alpha
+#spec:
+#  system: FHIR
+#  version: R4
+#  extends: COMPOSITION.report-result.v1
+#
+#mappings:
+#  - name: "type"
+#    extension: "add"
+#    with:
+#      fhir: "$resource.type"
+#    manual:
+#      - name: "typeCoding"
+#        fhir:
+#          - path: "coding.system"
+#            value: "http://loinc.org"
+#          - path: "coding.code"
+#            value: "11502-2"
+#
+#  - name: "title" #TODO where do we have something like this ?
+#    extension: "add"
+#    with:
+#      fhir: "$resource.title"
+#      openehr: "$reference"
+#    manual:
+#      - name: "titleText"
+#        fhir:
+#          - path: "$fhirRoot"
+#            value: "EEHRXF Laboratory"
+#
+#  - name: "diagnosticReport"
+#    extension: "add"
+#    with:
+#      fhir: "$resource.extension"
+#      openehr: "$composition"
+#    reference:
+#      resourceType: "DiagnosticReport"
+#      mappings:
+#        - name: "diagnositcReport"
+#          with:
+#            fhir: "$fhirRoot"
+#            openehr: "content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]"
+#          slotArchetype: "OBSERVATION.laboratory_test_result.v1"
+#    fhirCondition:
+#      targetRoot: "$resource.extension"
+#      targetAttributes:
+#        - "url"
+#      operator: "one of"
+#      criteria: "http://hl7.eu/fhir/laboratory/StructureDefinition/composition-diagnosticReportReference"
+#
+#  - name: "noSubsections" #TODO i decided to prcoess this only if there is no diagnosticReport contained
+#    #TODO i assume that if there is one all of the obs are contained
+#    #TODO we need a plugin or smt mapping those that are NOT contained in any diagnostic report.
+#    extension: "add"
+#    with:
+#      fhir: "$resource"
+#      openehr: "$composition"
+#      type: "NONE"
+#    followedBy:
+#      mappings:
+#        - name: "section" #TODO maybe map this manual set the test name with the code of the section
+#          with:
+#            fhir: "section"
+#            openehr: "$reference"
+#          reference:
+#            resourceType: "Observation"
+#            mappings:
+#              - name: "observation"
+#                with:
+#                  fhir: "$fhirRoot.entry" #TODO MAP HASMEMBER to the Report, if no hasmember just map one after one
+#                  openehr: "content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]"
+#                slotArchetype: "OBSERVATION.laboratory_test_result.v1"
+#          fhirCondition:
+#            targetRoot: "$resource"
+#            targetAttributes:
+#              - "hasMember"
+#            operator: "not empty"
+#
+#    fhirCondition:
+#      targetRoot: "$resource.extension"
+#      targetAttributes:
+#        - "url"
+#      operator: "not of" # logically AND therefore should work, if its 3 extensions and one has this url it should return
+#      #false
+#      criteria: "http://hl7.eu/fhir/laboratory/StructureDefinition/composition-diagnosticReportReference"
+#
