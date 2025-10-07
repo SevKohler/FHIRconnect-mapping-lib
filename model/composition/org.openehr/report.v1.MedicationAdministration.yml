@@ -77,7 +77,7 @@ mappings:
                   fhir: "start"
                   openehr: "start_time"
 
-        - name: "effective"
+        - name: "effectiveDateTime"
           with:
             fhir: "effective.as(DateTimeType)"
             openehr: "start_time"

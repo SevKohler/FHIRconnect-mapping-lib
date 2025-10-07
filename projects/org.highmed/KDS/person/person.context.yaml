@@ -23,10 +23,12 @@ context:
     - "CLUSTER.person_birth_data_iso.v0"
     - "CLUSTER.death_details.v1"
     - "CLUSTER.observation_status_fhir.v1"
+    - "COMPOSITION.person.v0"
   extensions:
     - "KDS_person_data.v0"
     - "KDS_gender.v1"
     - "KDS_cluster_person.v1"
     - "KDS_structured_name.v1.person_name-structured_name"
     - "KDS_admin_entry_person.v0"
+    - "KDS_composition"
   start: "ADMIN_ENTRY.person_data.v0"

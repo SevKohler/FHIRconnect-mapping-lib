@@ -13,37 +13,6 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
 
 mappings:
-  - name: "contextStartTime"
-    with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
-
-  - name: "participations"
-    with:
-      fhir: "$resource.asserter"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name : "participationFunction"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
-          manual:
-            - name: "function"
-              openehr:
-                - path: "function"
-                  value: "asserter"
-        - name: "performer"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-
-  - name: "composer"
-    with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
-
   - name: "other_participations"
     with:
       fhir: "$resource.asserter"

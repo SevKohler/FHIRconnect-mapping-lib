@@ -1,7 +1,7 @@
 grammar: FHIRConnect/v1.0.0
 type: model
 metadata:
-  name: COMPOSITION.report.v1.Condition
+  name: COMPOSITION.report.v1.Observation
   version: 0.0.1-alpha
 spec:
   system: FHIR
@@ -10,7 +10,7 @@ spec:
     archetype: openEHR-EHR-COMPOSITION.report.v1
     revision: 1.2.4
   fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Observation
 
 mappings:
   - name: "context"

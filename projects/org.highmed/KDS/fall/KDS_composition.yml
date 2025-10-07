@@ -1,0 +1,54 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name: KDS_composition
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: COMPOSITION.fall.v1.encounter
+
+mappings:
+  - name: "falltyp"
+    extension: "add"
+    with:
+      fhir: "$resource.type"
+      openehr: "$composition/context/other_context[at0001]/items[at0005]"
+
+  - name: "fallklasse"
+    extension: "add"
+    with:
+      fhir: "$resource.class"
+      openehr: "$composition/context/other_context[at0001]/items[at0004]"
+
+  - name: "fallart"
+    extension: "add"
+    with:
+      fhir: "$resource.status"
+      openehr: "$composition/context/other_context[at0001]/items[at0010]"
+
+  - name: "fallIdParent"
+    extension: "add"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$composition"
+      type: "NONE"
+    fhirCondition:
+      targetRoot: "$resource.identifier"
+      targetAttribute: "type.coding.code"
+      operator: "one of"
+      criteria: "VN"
+    followedBy:
+      mappings:
+        - name: "fallId"
+          with:
+            fhir: "value"
+            openehr: "$composition/context/other_context[at0001]/items[at0003]"
+        - name: "vncodingcode"
+          with:
+            fhir: "type.coding"
+          manual:
+            - name: "vncoding"
+              fhir:
+                - path: "code"
+                  value: "VN"

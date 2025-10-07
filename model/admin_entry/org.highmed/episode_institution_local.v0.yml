@@ -14,32 +14,6 @@ spec:
 
 mappings:
 
-  - name: "healthcareFacility"
-    with:
-      fhir: "$resource.serviceProvider"
-      openehr: "$composition/context/health_care_facility"
-
-  - name: "contextPeriod"
-    with:
-      fhir: "$resource.period"
-      openehr: "$composition/context"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "contextStart"
-          with:
-            fhir: "start"
-            openehr: "start_time"
-        - name: "contextEnd"
-          with:
-            fhir: "end"
-            openehr: "end_time"
-
-  - name: "composer"
-    with:
-      fhir: "$resource.serviceProvider"
-      openehr: "$composition/composer"
-
   - name: "entryProvider"
     with:
       fhir: "$resource.serviceProvider"
