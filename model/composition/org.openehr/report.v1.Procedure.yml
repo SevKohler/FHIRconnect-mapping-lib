@@ -13,6 +13,8 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Procedure
 
 mappings:
+ #status is mapped in ISM transiition
+
   - name: "participations"
     with:
       fhir: "$resource.performer.actor"

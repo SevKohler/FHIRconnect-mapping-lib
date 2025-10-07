@@ -12,6 +12,17 @@ spec:
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Observation
 
+  preprocessor:
+    fhirCondition:
+      targetRoot: "$resource.status"
+      targetAttribute: "coding.code"
+      operator: "not of"
+      criteria:
+        - "entered-in-error"
+        - "amended"
+        - "cancelled"
+        - "unknown"
+
 mappings:
   - name: "context"
     with:

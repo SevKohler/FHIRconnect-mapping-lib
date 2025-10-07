@@ -13,6 +13,8 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/DiagnosticReport
 
 mappings:
+  # status needs to be mapped in the archetype mapping not here
+
   - name: "healthCareFacility"
     with:
       fhir: "$resource.performer"

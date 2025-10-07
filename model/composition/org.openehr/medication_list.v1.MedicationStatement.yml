@@ -13,16 +13,14 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/MedicationStatement
 
 mappings:
-  - name: "statusEmpty"
+  - name: "statusDefault"
     with:
-      fhir: "$resource.status"
+      fhir: "$resource"
     manual:
-      - name: "dataAbsent"
+      - name: "final"
         fhir:
-          - path: "extension.url"
-            value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-          - path: "extension.code"
-            value: "unsupported"
+          - path: "status"
+            value: "final"
 
   - name: "composer"
     with:

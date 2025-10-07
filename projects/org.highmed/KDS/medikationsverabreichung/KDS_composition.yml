@@ -22,21 +22,19 @@ mappings:
       fhir: "$resource.status"
       openehr: "$composition/context/other_context[at0001]/items[at0005]" # this status is mandatory, because it's 1...1 in the template
 
-  - name: "statusEmpty"
+  - name: "statusDefault"
     extension: "overwrite"
     with:
-      fhir: "$resource.status"
+      fhir: "$resource"
+    manual:
+      - name: "final"
+        fhir:
+          - path: "status"
+            value: "final"
     fhirCondition:
       targetRoot: "$composition/context/other_context[at0001]"
       targetAttribute: "items[at0005]"
       operator: "empty"
-    manual:
-      - name: "dataAbsent"
-        fhir:
-          - path: "extension.url"
-            value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-          - path: "extension.code"
-            value: "unsupported"
 
   - name: "fallIdentifikationIdentifier"
     extension: "add"
