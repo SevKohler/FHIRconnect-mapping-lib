@@ -74,9 +74,9 @@ mappings:
                 - path: "null_flavour/defining_code/code_string"
                   value: "271"
 
-        - name: "category"
+        - name: "code"
           with:
-            fhir: "category"
+            fhir: "code"
             openehr: "data[at0003]/items[at0005]"
 
         - name: "status"
@@ -328,7 +328,7 @@ mappings:
         - name: "issued"
           with:
             fhir: "issued"
-            openehr: "time"
+            openehr: "data[at0003]/items[at0075]"
 
         - name: "specimen"
           with:

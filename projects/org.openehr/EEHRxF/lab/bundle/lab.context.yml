@@ -1,0 +1,24 @@
+grammar: FHIRConnect/v1.0.0
+type: context
+metadata:
+  name:  eehrxf_lab.context
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+
+context:
+  profile:
+    url: "http://hl7.eu/fhir/laboratory/StructureDefinition/DiagnosticReport-eu-lab"
+    version: "0.1.1"
+  template:
+    id: "EHDS - Laboratory report"
+    sem_ver: "0.1.0"
+  archetypes:
+    - "CLUSTER.laboratory_test_analyte.v1"
+    - "CLUSTER.specimen.v1"
+    - "OBSERVATION.laboratory_test_result.v1"
+  extensions:
+    - "eehrxf_lab_result"
+    - "eehrxf_lab_analyte"
+  start: "OBSERVATION.laboratory_test_result.v1"
