@@ -304,21 +304,18 @@ mappings:
                 operator: "one of"
                 criteria: "unknown"
 
-        - name: "statusEmpty"
+        - name: "statusDefault"
           with:
-            fhir: "$resource.status"
+            fhir: "$resource"
           fhirCondition:
             targetRoot: "$openehrRoot"
             targetAttribute: "data[at0003]/items[at0073]"
             operator: "empty"
           manual:
-            - name: "dataAbsent"
+            - name: "final"
               fhir:
-                - path: "extension.url"
-                  value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-                - path: "extension.code"
-                  value: "unsupported"
-
+                - path: "status"
+                  value: "final"
 
         - name: "conclusion"
           with:

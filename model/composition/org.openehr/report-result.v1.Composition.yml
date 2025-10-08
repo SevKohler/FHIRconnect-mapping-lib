@@ -1,7 +1,7 @@
 grammar: FHIRConnect/v1.0.0
 type: model
 metadata:
-  name:  COMPOSITION.report-result.v1
+  name:  COMPOSITION.report-result.v1.Composition
   version: 0.0.1-alpha
 spec:
   system: FHIR

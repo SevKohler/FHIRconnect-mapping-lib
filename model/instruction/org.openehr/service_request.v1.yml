@@ -27,30 +27,28 @@ mappings:
 
         - name: "status"
           with:
-            fhir: "status"
+            fhir: "$resource"
             openehr: "$reference"
             type: "NONE"
           followedBy:
             mappings:
               - name: "statusExistent"
                 with:
-                  fhir: "$fhirRoot"
+                  fhir: "status"
                   openehr: "items[at0127]"
 
-              - name: "statusEmpty"
+              - name: "statusDefault"
                 with:
-                  fhir: "$resource.status"
+                  fhir: "$fhirRoot"
                 fhirCondition:
                   targetRoot: "$archetype"
                   targetAttribute: "items[at0127]"
                   operator: "empty"
                 manual:
-                  - name: "dataAbsent"
+                  - name: "final"
                     fhir:
-                      - path: "extension.url"
-                        value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-                      - path: "extension.code"
-                        value: "unsupported"
+                      - path: "status"
+                        value: "final"
 
         - name: "organisation"
           with:
