@@ -40,7 +40,7 @@ mappings:
               - name: "statusDefault"
                 with:
                   fhir: "$fhirRoot"
-                fhirCondition:
+                openehrCondition:
                   targetRoot: "$archetype"
                   targetAttribute: "items[at0127]"
                   operator: "empty"

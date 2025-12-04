@@ -307,7 +307,7 @@ mappings:
         - name: "statusDefault"
           with:
             fhir: "$resource"
-          fhirCondition:
+          openehrCondition:
             targetRoot: "$openehrRoot"
             targetAttribute: "data[at0003]/items[at0073]"
             operator: "empty"

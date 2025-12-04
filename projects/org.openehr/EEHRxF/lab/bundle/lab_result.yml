@@ -10,6 +10,13 @@ spec:
 
 
 mappings:
+  - name: "compositionMapping"
+    extension: "add"
+    with:
+      fhir: "$resource"
+      openehr: "$composition"
+    slotArchetype: "COMPOSITION.report-result.v1.DiagnosticReport"
+
   - name: "status"
     extension: "overwrite"
     with:

@@ -31,7 +31,7 @@ mappings:
         fhir:
           - path: "status"
             value: "final"
-    fhirCondition:
+    openehrCondition:
       targetRoot: "$composition/context/other_context[at0001]"
       targetAttribute: "items[at0005]"
       operator: "empty"
@@ -60,6 +60,6 @@ mappings:
           with:
             fhir: "$fhirRoot"
             openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
-            openehrLink:
+            link:
               meaning: "the case this composition relates to"
               type: "case"

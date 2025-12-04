@@ -132,8 +132,8 @@ mappings:
           - path: "value"
             value: "primary medical care"
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "category.coding.code"
+          targetRoot: "$fhirRoot"
+          targetAttribute: "code"
           operator: "one of"
           criteria: "outpatient"
 
@@ -158,8 +158,8 @@ mappings:
           - path: "value"
             value: "secondary medical care"
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "category.coding.code"
+          targetRoot: "$fhirRoot"
+          targetAttribute: "code"
           operator: "one of"
           criteria: "inpatient"
 
@@ -184,8 +184,8 @@ mappings:
           - path: "value"
             value: "Community"
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "category.coding.code"
+          targetRoot: "$fhirRoot"
+          targetAttribute: "code"
           operator: "one of"
           criteria: "community"
 

@@ -27,10 +27,12 @@ mappings:
       fhir: "$resource.informationSource"
       openehr: "$composition/composer" # often required therefore simplified mapping engine is to resolve Reference -> Composer
 
+
   - name: "healthcareFacility"
     with:
-      fhir: "$resource.informationSource"
+      fhir: "$resource.informationSource.as(Organization)"
       openehr: "$composition/context/health_care_facility"
+    unidirectional: "fhir->openehr"
 
   - name: "dateAsserted"
     with:
