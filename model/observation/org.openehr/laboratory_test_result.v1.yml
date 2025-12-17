@@ -22,45 +22,7 @@ preprocessor:
       fhir:
         create: "resource"
 
-
 mappings:
-
-  - name: "healthCareFacility"
-    with:
-      fhir: "$resource.performer"
-      openehr: "$composition/context/health_care_facility"
-
-  - name: "participations"
-    with:
-      fhir: "$resource.resultsInterpreter"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name : "participationFunction"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
-          manual:
-            - name: "function"
-              openehr:
-                - path: "function"
-                  value: "result interpreter"
-        - name: "performer"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-
-  - name: "composer"
-    with:
-      fhir: "$resource.performer"
-      openehr: "$composition/composer" #take the first one if its 0..n ?!
-
-  - name: "performer"
-    with:
-      fhir: "$resource.performer"
-      openehr: "$composition/perfomer"
-
   - name: "otherParticipants"
     with:
       fhir: "$resource.resultsInterpreter"
@@ -89,38 +51,28 @@ mappings:
       type: "NONE"
     followedBy:
       mappings:
-        - name: "effectiveUni"
+        - name: "eventTime" #TODO needs to be adressed in WG how we resolve that cleanly
           with:
-            fhir: "effective.as(Period).start"
-            openehr: "time" #TODO INTERVAL_EVENT Support ?
+            fhir: "effective"
+            openehr: "time" #TODO should do period -> interval event, datetime to pointInTime event now does only time for now
 
-        - name: "effectiveTime"
+        - name: "eventTimeEmpty"
           with:
-            fhir: "effective.as(DateTimeType)"
+            fhir: "effective"
             openehr: "time"
-
-        - name: "contextTime" #TODO replace with composition mapping in the future ?
-          unidirectional: "fhir->openehr"
-          with:
-            fhir: "effective.as(Period)"
-            openehr: "$composition"
-          followedBy:
-            mappings:
-              - name: "effectiveEnd"
-                with:
-                  fhir: "end"
-                  openehr: "context/end_time"
-
-              - name: "effectiveStart"
-                with:
-                  fhir: "start"
-                  openehr: "context/start_time"
-
-        - name: "contextEffective" #TODO replace with composition mapping in the future
-          unidirectional: "fhir->openehr"
-          with:
-            fhir: "effective.as(DateTimeType)"
-            openehr: "$composition/context/start_time"
+          fhirCondition:
+            targetRoot: "$resource"
+            targetAttribute: "effective"
+            operator: "empty"
+          manual:
+            - name: "no information"
+              openehr:
+                - path: "null_flavour/value"
+                  value: "no information"
+                - path: "null_flavour/defining_code/terminology_id"
+                  value: "openehr"
+                - path: "null_flavour/defining_code/code_string"
+                  value: "271"
 
         - name: "code"
           with:
@@ -352,6 +304,19 @@ mappings:
                 operator: "one of"
                 criteria: "unknown"
 
+        - name: "statusDefault"
+          with:
+            fhir: "$resource"
+          openehrCondition:
+            targetRoot: "$openehrRoot"
+            targetAttribute: "data[at0003]/items[at0073]"
+            operator: "empty"
+          manual:
+            - name: "final"
+              fhir:
+                - path: "status"
+                  value: "final"
+
         - name: "conclusion"
           with:
             fhir: "conclusion"
@@ -394,3 +359,4 @@ mappings:
                 link:
                   meaning: "the identifier which it derived from"
                   type: "based on"
+

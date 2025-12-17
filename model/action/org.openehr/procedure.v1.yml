@@ -22,26 +22,53 @@ preprocessor:
         create: "resource"
 
 mappings:
-  - name: "participations"
+  - name: "actionPerformed"
     with:
-      fhir: "$resource.performer.actor"
-      openehr: "$composition/context/participations"  # reference to part
+      fhir: "$resource"
+      openehr: "$archetype"
       type: "NONE"
     followedBy:
       mappings:
-         - name : "participationFunction"
-           with:
-             fhir: "$fhirRoot"
-             openehr: "$openEHRRoot"
-           manual:
-             - name: "function"
-               openehr:
-                 - path: "function"
-                   value: "asserter"
-         - name: "performer"
-           with:
-             fhir: "$fhirRoot"
-             openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+        - name: "performed"
+          with:
+            fhir: "performed.as(Period)"
+            openehr: "$reference"
+          followedBy:
+            mappings:
+              - name: "performedEnd"
+                with:
+                  fhir: "end"
+                  openehr: "time"
+
+        - name: "performedDateTime"
+          with:
+            fhir: "performed.as(DateTimeType)"
+            openehr: "time"
+
+  - name: "actionPerformedEmtpy"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype"
+      type: "NONE"
+    unidirectional: "fhir->openehr"
+    fhirCondition:
+      targetRoot: "$resource"
+      targetAttribute: "performed"
+      operator: "empty"
+    followedBy:
+      mappings:
+        - name: "performedStart"
+          with:
+            openehr: "time"
+          manual:
+            - name: "no information"
+              openehr:
+                - path: "null_flavour/value"
+                  value: "no information"
+                - path: "null_flavour/defining_code/terminology_id"
+                  value: "openehr"
+                - path: "null_flavour/defining_code/code_string"
+                  value: "271"
 
   - name: "other_participations"
     with:
@@ -67,40 +94,7 @@ mappings:
   - name: "provider"
     with:
       fhir: "$resource.performer.actor"
-      openehr: "$composition/provider"  # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-
-  - name: "contextStartTime"
-    with:
-      fhir: "$resource.performed.as(DateTimeType)"
-      openehr: "$composition/context/start_time"
-
-  - name: "performed"
-    with:
-      fhir: "$resource.performed.as(Period)"
-      openehr: "$composition/context"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "contextStart"
-          with:
-            fhir: "start"
-            openehr: "start_time"
-
-        - name: "contextEnd"
-          with:
-            fhir: "end"
-            openehr: "$composition/context/end_time"
-
-  - name: "actionPerformed"
-    with:
-      fhir: "$resource.performed.as(DateTimeType)"
-      openehr: "$archetype/time" # this field is more fiting then start_time thats why it overwrites the initial performed in fhir.
-
- #  reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-  - name: "composer"
-    with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
+      openehr: "$archetype/provider"  # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   - name: "ISMTransition"
     with:

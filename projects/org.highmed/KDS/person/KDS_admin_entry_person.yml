@@ -9,41 +9,12 @@ spec:
   extends: ADMIN_ENTRY.person_data.v0
 
 mappings:
-  - name: "pid"
+  - name: "compositionMapping"
     extension: "add"
     with:
-      fhir: "$resource.identifier"
-      openehr: "$composition/context/other_context[at0003]/items[at0004]"
-    fhirCondition:
-      targetRoot: "$resource.identifier"
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "MR"
-    followedBy:
-      mappings:
-        - name: "type"
-          with:
-            fhir: "type.coding"
-          manual:
-            - name: "typeMR"
-              fhir:
-                - path: "system"
-                  value: "http://terminology.hl7.org/CodeSystem/v2-0203"
-                - path: "code"
-                  value: "MR"
-
-  - name: "versicherungsInformationen"
-    with:
-      fhir: "$resource.identifier"
-      openehr: "$composition/content[openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0]"
-    slotArchetype: "ADMIN_ENTRY.versicherungsinformationen.v0"
-
-  - name: "gender"
-    extension: "add"
-    with:
-      fhir: "$resource.gender"
-      openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
-    slotArchetype: "EVALUATION.gender.v1"
+      fhir: "$resource"
+      openehr: "$composition"
+    slotArchetype: "COMPOSITION.person.v1"
 
   - name: "identifier"
     with:

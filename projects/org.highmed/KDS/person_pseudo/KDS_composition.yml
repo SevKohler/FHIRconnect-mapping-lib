@@ -1,0 +1,16 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name: KDS_composition
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: COMPOSITION.person.v1.yml
+
+mapping:
+  - name: "gender"
+    with:
+      fhir: "$resource.gender"
+      openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
+    slotArchetype: "openEHR-EHR-EVALUATION.gender.v1"

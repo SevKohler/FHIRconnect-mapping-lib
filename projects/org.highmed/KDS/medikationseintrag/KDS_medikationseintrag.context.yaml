@@ -23,7 +23,9 @@ context:
     - "CLUSTER.entry_category.v0"
     - "CLUSTER.identifier_fhir.v0"
     - "CLUSTER.case_identification.v0"
+    - "COMPOSITION.medication_list.v1.MedicationStatement"
   extensions:
     - "KDS_medication.v3"
     - "KDS_medikamentenstatement"
+    - "KDS_composition"
   start: "OBSERVATION.medication_statement.v0"

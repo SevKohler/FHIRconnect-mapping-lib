@@ -9,6 +9,12 @@ spec:
   extends: OBSERVATION.laboratory_test_result.v1
 
 mappings:
+  - name: "compositionMapping"
+    extension: "add"
+    with:
+      fhir: "$resource"
+      openehr: "$composition"
+    slotArchetype: "COMPOSITION.report_result.v1.DiagnosticReport"
 
   - name: "resultAppendToParent" #/data[at0001]/events[at0002] add new for each laboratory analyte.
     extension: "append"
@@ -33,75 +39,8 @@ mappings:
                   openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]"
                 slotArchetype: "CLUSTER.laboratory_test_analyte.v1"
 
-  - name: "fallIdentifikationIdentifier"
-    extension: "add"
-    with:
-      fhir: "$resource.encounter.as(Reference).identifier"
-      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
-    slotArchetype: "CLUSTER.case_identification.v0"
 
 
-  - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
-    extension: "add"
-    with:
-      fhir: "$resource.encounter"
-      openehr: "$reference"
-    reference: #type None
-      resourceType: "Encounter"
-      mappings:
-        - name: "identifierInReference"
-          with:
-            fhir: "$fhirRoot.identifier"
-            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
-          slotArchetype: "CLUSTER.case_identification.v0"
-        - name: "encounterMapping" # link mappings not suppoorted
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
-          openehrLink:
-            meaning: "the case this composition relates to"
-            type: "case"
-
-
-  - name: "status" #TODO @deprecated needs to go once mapping is updated
-    extension: "overwrite"
-    with:
-      fhir: "$resource.status"
-      openehr: "$composition/context/other_context[at0001]/items[at0005]"
-
-  - name: "eventTime"
-    extension: "overwrite"
-    with:
-      fhir: "$resource.effective.as(DateTimeType)"
-      openehr: "$archetype/data[at0001]/events[at0002]/time" # period -> interval event, datetime to pointInTime event
-
-  - name: "berichtIdParent"
-    extension: "add"
-    with:
-      fhir: "$resource.identifier"
-      openehr: "$composition/context/other_context[at0001]/items[at0002]"
-    fhirCondition:
-      targetRoot: "$resource.identifier"
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "FILL"
-    followedBy:
-      mappings:
-        - name: "type"
-          with:
-            fhir: "type.coding"
-          manual:
-            - name: "fill"
-              fhir:
-                - path: "system"
-                  value: "http://terminology.hl7.org/CodeSystem/v2-0203"
-                - path: "code"
-                  value: "FILL"
-        - name: "berichtId"
-          extension: "add"
-          with:
-            fhir: "value"
-            openehr: "$composition/context/other_context[at0001]/items[at0002]"
 
 
 

@@ -18,6 +18,7 @@ context:
     - "CLUSTER.laboratory_test_analyte.v1"
     - "CLUSTER.specimen.v1"
     - "OBSERVATION.laboratory_test_result.v1"
+    - "COMPOSITION.report-result.v1.DiagnosticReport"
   extensions:
     - "eehrxf_lab_result"
     - "eehrxf_lab_analyte"

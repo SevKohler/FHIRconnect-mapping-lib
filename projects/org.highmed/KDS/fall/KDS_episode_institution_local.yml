@@ -9,50 +9,12 @@ spec:
   extends: ADMIN_ENTRY.episode_institution_local.v0
 
 mappings:
-  - name: "falltyp"
+  - name: "compositionMapping"
     extension: "add"
     with:
-      fhir: "$resource.type"
-      openehr: "$composition/context/other_context[at0001]/items[at0005]"
-
-  - name: "fallklasse"
-    extension: "add"
-    with:
-      fhir: "$resource.class"
-      openehr: "$composition/context/other_context[at0001]/items[at0004]"
-
-  - name: "fallart"
-    extension: "add"
-    with:
-      fhir: "$resource.status"
-      openehr: "$composition/context/other_context[at0001]/items[at0010]"
-
-  - name: "fallIdParent"
-    extension: "add"
-    with:
-      fhir: "$resource.identifier"
+      fhir: "$resource"
       openehr: "$composition"
-      type: "NONE"
-    fhirCondition:
-      targetRoot: "$resource.identifier"
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "VN"
-    followedBy:
-      mappings:
-        - name: "fallId"
-          with:
-            fhir: "value"
-            openehr: "$composition/context/other_context[at0001]/items[at0003]"
-        - name: "vncodingcode"
-          with:
-            fhir: "type.coding"
-          manual:
-            - name: "vncoding"
-              fhir:
-                - path: "code"
-                  value: "VN"
-
+    slotArchetype: "COMPOSITION.fall.v1.encounter"
 
   - name: "serviceProvider" # TODO deprecated needs to be deleted
     extension: "add"
@@ -204,67 +166,9 @@ mappings:
                       - path: "url"
                         value: "http://fhir.de/StructureDefinition/Entlassungsgrund"
 
-
   - name: "problemDiagnoseParent"
     extension: "add"
     with:
-      fhir: "$resource.diagnosis.condition"
-      openehr: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]" # since its 0..n appends
-    reference:
-      resourceType: "Condition"
-      mappings:
-        - name: "primaryDiagnose"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$openehrRoot"
-          slotArchetype: "EVALUATION.problem_diagnosis.v1"
-          followedBy:
-            mappings:
-              # these have to be here, they can not be in the slot archetype because they're mapping to the DiagnosisComponent and not on Condition (resolved reference)
-              - name: "diagnoseTyp"
-                with:
-                  fhir: "^^.use.coding.code"
-                  openehr: "data[at0001]/items[at0009]"
-                fhirCondition:
-                  targetRoot: "coding"
-                  targetAttribute: "code"
-                  operator: "one of"
-                  criterias:
-                    - "referral-diagnosis"
-                    - "treatment-diagnosis"
-                followedBy:
-                  mappings:
-                    - name: "system"
-                      with:
-                        fhir: "$fhirRoot"
-                      manual:
-                        - name: "system"
-                          fhir:
-                            - path: "system"
-                              value: "http://fhir.de/CodeSystem/dki-diagnosetyp"
-
-              - name: "diagnoseSubtyp"
-                with:
-                  fhir: "^^.use.coding.code"
-                  openehr: "data[at0001]/items[at0079]"
-                fhirCondition:
-                  targetRoot: "coding"
-                  targetAttribute: "code"
-                  operator: "one of"
-                  criterias:
-                    - "surgery-diagnosis"
-                    - "department-main-diagnosis"
-                    - "cause-of-death"
-                    - "infection-control-diagnosis"
-                    - "AD"
-                    - "DD"
-                followedBy:
-                  mappings:
-                    - name: "system"
-                      with:
-                        fhir: "$fhirRoot"
-                      manual:
-                        - name: "system"
-                          fhir:
-                            - path: "system"
-                              value: "http://fhir.de/CodeSystem/dki-diagnosesubtyp"
+      fhir: "$resource.diagnosis"
+      openehr: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+    slotArchetype: "EVALUATION.problem_diagnosis.v1"

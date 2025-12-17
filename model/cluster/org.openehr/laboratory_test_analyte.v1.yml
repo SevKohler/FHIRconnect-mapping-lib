@@ -11,9 +11,25 @@ spec:
     revision: 1.1.8
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/BackboneElement
-#    multiple: true
 
 mappings:
+  - name: "statusEmtpy"
+    with:
+      fhir: "$resource.status"
+      openehr: "$archetype/items[at0005]"
+    unidirectional: "openehr->fhir"
+    manual:
+      - name: "dataAbsent"
+        fhir:
+          - path: "extension.url"
+            value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+          - path: "extension.code"
+            value: "unsupported"
+    openehrCondition:
+      targetRoot: "$archetype"
+      targetAttribute: "items[at0005]"
+      operator: "empty"
+
   - name: "status"
     with:
       fhir: "$resource"

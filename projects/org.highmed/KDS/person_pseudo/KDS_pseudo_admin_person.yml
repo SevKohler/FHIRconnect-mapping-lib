@@ -9,18 +9,19 @@ spec:
   extends: ADMIN_ENTRY.person_data.v0
 
 mappings:
+  - name: "compositionMapping"
+    extension: "add"
+    with:
+      fhir: "$resource"
+      openehr: "$composition"
+    slotArchetype: "COMPOSITION.person.v1"
+
   - name: "personData"
     extension: "overwrite"
     with:
       fhir: "$resource"
       openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.person.v1]"
     slotArchetype: "CLUSTER.person.v1"
-
-  - name: "gender"
-    with:
-      fhir: "$resource.gender"
-      openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
-    slotArchetype: "openEHR-EHR-EVALUATION.gender.v1"
 
   - name: "identifier"
     with:
