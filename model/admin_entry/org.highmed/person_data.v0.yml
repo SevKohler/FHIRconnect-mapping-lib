@@ -13,12 +13,17 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Patient
 
 
-preprocessor:
-  fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "active"  # exclude non-active patients
-      operator: "one of"
-      criteria: "false"
+#preprocessor: Logic not supported yet
+#  fhirCondition:
+#    - targetRoot: "$resource"
+#      targetAttribute: "active"  # exclude non-active patients but only if the active variable is present
+#      operator: "not empty"
+#  if yes:
+#  fhirCondition:
+#    targetRoot: "$resource"
+#    targetAttribute: "active"  # exclude non-active patients
+#    operator: "one of"
+#    criteria: "true"
 
 mappings:
   - name: "personData"

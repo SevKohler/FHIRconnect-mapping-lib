@@ -33,6 +33,7 @@ mapping:
                   value: "MR"
 
   - name: "versicherungsInformationen"
+    extension: "add"
     with:
       fhir: "$resource.identifier"
       openehr: "$composition/content[openEHR-EHR-ADMIN_ENTRY.versicherungsinformationen.v0]"
@@ -41,6 +42,6 @@ mapping:
   - name: "gender"
     extension: "add"
     with:
-      fhir: "$resource.gender"
+      fhir: "$resource"
       openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
     slotArchetype: "EVALUATION.gender.v1"
