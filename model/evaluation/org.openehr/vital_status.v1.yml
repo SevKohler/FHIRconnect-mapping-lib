@@ -14,44 +14,44 @@ spec:
 
 mappings:
 
-# unsupported, reference to party_identified mappings
-#  - name: "healthCareFacility"
-#    with:
-#      fhir: "$resource.performer"
-#      openehr: "$archetype/context/health_care_facility"
+  # unsupported, reference to party_identified mappings
+  #  - name: "healthCareFacility"
+  #    with:
+  #      fhir: "$resource.performer"
+  #      openehr: "$archetype/context/health_care_facility"
 
-#  - name: "participations"
-#    with:
-#      fhir: "$resource.performer"
-#      openehr: "$composition/context/participations"  # reference to part
-#      type: "NONE"
-#    followedBy:
-#      mappings:
-#        - name : "participationFunction"
-#          with:
-#            fhir: "$fhirRoot"
-#            openehr: "$openEHRRoot"
-#          manual:
-#            - name: "function"
-#              openehr:
-#                - path: "function"
-#                  value: "performer"
-#        - name: "performer"
-#          with:
-#            fhir: "$fhirRoot"
-#            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  #  - name: "participations"
+  #    with:
+  #      fhir: "$resource.performer"
+  #      openehr: "$composition/context/participations"  # reference to part
+  #      type: "NONE"
+  #    followedBy:
+  #      mappings:
+  #        - name : "participationFunction"
+  #          with:
+  #            fhir: "$fhirRoot"
+  #            openehr: "$openEHRRoot"
+  #          manual:
+  #            - name: "function"
+  #              openehr:
+  #                - path: "function"
+  #                  value: "performer"
+  #        - name: "performer"
+  #          with:
+  #            fhir: "$fhirRoot"
+  #            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-# unsupported, reference to party_identified mappings
-#  - name: "composer"
-#    with:
-#      fhir: "$resource.performer"
-#      openehr: "$composition/composer"
+  # unsupported, reference to party_identified mappings
+  #  - name: "composer"
+  #    with:
+  #      fhir: "$resource.performer"
+  #      openehr: "$composition/composer"
 
-# unsupported, reference to party_identified mappings
-#  - name: "performer"
-#    with:
-#      fhir: "$resource.performer"
-#      openehr: "$archetype/perfomer"
+  # unsupported, reference to party_identified mappings
+  #  - name: "performer"
+  #    with:
+  #      fhir: "$resource.performer"
+  #      openehr: "$archetype/perfomer"
 
 #  - name: "other_participations"
 #    with:
@@ -73,24 +73,24 @@ mappings:
 #          with:
 #            fhir: "$fhirRoot"
 #            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-  -
+
   - name: "effective"
     with:
       fhir: "$resource.effective"
       openehr: "$archetype/protocol[at0002]/items[at0018]"
-      type: "DATETIME"
+
 
   - name: "vitalStatus"
     with:
       fhir: "$resource.value"
       openehr: "$archetype/data[at0001]/items[at0006]"
-      type: "CODEABLECONCEPT"
+
 
   - name: "note"
     with:
       fhir: "$resource.note.text"
       openehr: "$archetype/data[at0001]/items[at0013]"
-      type: "STRING"
+
 
 #  - name: "partOf"
 #    with:

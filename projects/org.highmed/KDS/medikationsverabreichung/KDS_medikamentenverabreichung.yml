@@ -2,8 +2,8 @@ grammar: FHIRConnect/v0.9.0
 type: extension
 metadata:
   name:  KDS_medikamentenverabreichung
-  version: 0.0.1-alpha 
-spec: 
+  version: 0.0.1-alpha
+spec:
   system: FHIR
   version: R4
   extends: ACTION.medication.v1
@@ -14,49 +14,46 @@ mappings:
     with:
       fhir: "$resource.identifier.value"
       openehr: "$composition/context/other_context[at0001]/items[at0002]"
-      type: "STRING"
 
   - name: "status"
     extension: "add"
     with:
       fhir: "$resource.status"
       openehr: "$composition/context/other_context[at0001]/items[at0005]" # this status is mandatory, because it's 1...1 in the template
-      type: "CODING"
 
   - name: "fallIdentifikationIdentifier"
     extension: "add"
     with:
-      fhir: "$resource.context.as(Reference).identifier"
+      fhir: "$resource.context.identifier"
       openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
     slotArchetype: "CLUSTER.case_identification.v0"
 
   - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.encounter"
+      fhir: "$resource.context"
       openehr: "$reference"
-    reference: #type None
+    reference:
       resourceType: "Encounter"
       mappings:
         - name: "identifierInReference"
           with:
             fhir: "$fhirRoot.identifier"
-            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
+            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
           slotArchetype: "CLUSTER.case_identification.v0"
-#        - name: "encounterMapping"
-#          with:
-#            fhir: "$fhirRoot"
-#            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
-#            openehrLink:
-#              meaning: "the case this composition relates to"
-#              type: "case"
+  #        - name: "encounterMapping"
+  #          with:
+  #            fhir: "$fhirRoot"
+  #            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
+  #            openehrLink:
+  #              meaning: "the case this composition relates to"
+  #              type: "case"
 
   - name: "medicationCode"
     extension: "overwrite"
     with:
       fhir: "$resource.medication.as(CodeableConcept).coding.display"
       openehr: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
-      type: "STRING"
     openehrCondition:
       targetRoot: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]"
       targetAttributes:
@@ -84,4 +81,3 @@ mappings:
     with:
       fhir: "$resource.reasonCode.coding.display"
       openehr: "$archetype/description[at0017]/items[at0156]"
-      type: "STRING"
