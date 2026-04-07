@@ -31,7 +31,7 @@ mappings:
         - name: "date"
           extension: "add"
           with:
-            fhir: "value.as(DateTimeType)"
+            fhir: "value.ofType(DateTimeType)"
             openehr: "$archetype/data[at0001]/items[at0003]"
 
         - name: "staticURL"
@@ -178,7 +178,7 @@ mappings:
       mappings:
         - name: "period"
           with:
-            fhir: "onset.as(Period)"
+            fhir: "onset.ofType(Period)"
             openehr: "$archetype"
             type: "NONE"
           followedBy:
@@ -197,7 +197,7 @@ mappings:
 
         - name: "dateTime"
           with:
-            fhir: "onset.as(DateTimeType)"
+            fhir: "onset.ofType(DateTimeType)"
             openehr: "data[at0001]/items[at0077]"
           openehrCondition:
             targetRoot: "$archetype/data[at0001]"

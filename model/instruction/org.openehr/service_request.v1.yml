@@ -52,7 +52,7 @@ mappings:
 
         - name: "organisation"
           with:
-            fhir: "requester.as(Organization)"
+            fhir: "requester.ofType(Organization)"
             openehr: "$reference"
             type: "NONE"
           reference:

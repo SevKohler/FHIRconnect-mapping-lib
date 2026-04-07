@@ -79,7 +79,7 @@ mappings:
       mappings:
         - name: "effective"
           with:
-            fhir: "effective.as(Period)"
+            fhir: "effective.ofType(Period)"
             openehr: "$reference"
           followedBy:
             mappings:
@@ -95,7 +95,7 @@ mappings:
 
         - name: "effectiveDateTime"
           with:
-            fhir: "effective.as(DateTimeType)"
+            fhir: "effective.ofType(DateTimeType)"
             openehr: "start_time"
 
   - name: "contextStartTimeEmpty"

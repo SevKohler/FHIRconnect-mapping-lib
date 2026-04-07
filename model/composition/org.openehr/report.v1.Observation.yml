@@ -33,7 +33,7 @@ mappings:
       mappings:
         - name: "onset"
           with:
-            fhir: "onset.as(Period)"
+            fhir: "onset.ofType(Period)"
             openehr: "$reference"
           followedBy:
             mappings:
@@ -49,7 +49,7 @@ mappings:
 
         - name: "onsetDateTime"
           with:
-            fhir: "onset.as(DateTimeType)"
+            fhir: "onset.ofType(DateTimeType)"
             openehr: "start_time"
 
   - name: "contextStartTimeEmpty"

@@ -19,7 +19,7 @@ mappings:
   - name: "serviceProvider" # TODO deprecated needs to be deleted
     extension: "add"
     with:
-      fhir: "$resource.serviceProvider.as(Organization)"
+      fhir: "$resource.serviceProvider.ofType(Organization)"
       openehr: "$reference"
     reference:
       resourceType: "Organization"
@@ -66,7 +66,7 @@ mappings:
             mappings:
               - name: "ersteUndZweiteStelle"
                 with:
-                  fhir: "value.as(Coding)"
+                  fhir: "value.ofType(Coding)"
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
               - name: "extensionStatic"
                 with:
@@ -91,7 +91,7 @@ mappings:
             mappings:
               - name: "dritteStelle"
                 with:
-                  fhir: "value.as(Coding)"
+                  fhir: "value.ofType(Coding)"
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
               - name: "extensionStatic"
                 with:
@@ -116,7 +116,7 @@ mappings:
             mappings:
               - name: "vierteStelle"
                 with:
-                  fhir: "value.as(Coding)"
+                  fhir: "value.ofType(Coding)"
                   openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
               - name: "extensionStatic"
                 with:
@@ -155,7 +155,7 @@ mappings:
             mappings:
               - name: "entlassungsgrundValue"
                 with:
-                  fhir: "value.as(Coding)"
+                  fhir: "value.ofType(Coding)"
                   openehr: "data[at0001]/items[at0006]"
               - name: "entlassungsgrundUrl"
                 with:

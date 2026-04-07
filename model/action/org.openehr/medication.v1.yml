@@ -81,7 +81,7 @@ mappings:
 
   - name: "medicationCode"
     with:
-      fhir: "$resource.medication.as(CodeableConcept)"
+      fhir: "$resource.medication.ofType(CodeableConcept)"
       openehr: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
     openehrCondition:
       targetRoot: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]"
@@ -128,7 +128,7 @@ mappings:
       mappings:
         - name: "identifier"
           with:
-            fhir: "$fhirRoot.as(Reference).identifier"
+            fhir: "$fhirRoot.ofType(Reference).identifier"
             openehr: "$openehrRoot"
           openehrCondition:
             targetRoot: "$openehrRoot"
@@ -137,7 +137,7 @@ mappings:
 
         - name: "identifierInReference"
           with:
-            fhir: "$fhirRoot.as(MedicationRequest)"
+            fhir: "$fhirRoot.ofType(MedicationRequest)"
             openehr: "$reference"
           openehrCondition:
             targetRoot: "$openehrRoot"

@@ -12,7 +12,7 @@ mappings:
   - name: "encounter"
     extension: "overwrite"
     with:
-      fhir: "$resource.encounter.as(Reference).identifier"
+      fhir: "$resource.encounter.ofType(Reference).identifier"
       openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
     slotArchetype: "CLUSTER.case_identification.v0"
 
