@@ -12,7 +12,7 @@ mappings:
   - name: "seitenlokalisation"
     extension: "add"
     with:
-      fhir: "$fhirRoot.value.as(CodeableConcept)"
+      fhir: "$fhirRoot.value.ofType(CodeableConcept)"
       openehr: "items[at0002]"
     fhirCondition:
       targetRoot: "$fhirRoot"

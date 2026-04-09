@@ -300,7 +300,7 @@ mappings:
       mappings:
         - name: "identifier"
           with:
-            fhir: "$fhirRoot.as(Reference).identifier"
+            fhir: "$fhirRoot.ofType(Reference).identifier"
             openehr: "$openehrRoot"
           openehrCondition:
             targetRoot: "$openehrRoot"
@@ -309,7 +309,7 @@ mappings:
 
         - name: "identifierInReference"
           with:
-            fhir: "$fhirRoot.as(Specimen)"
+            fhir: "$fhirRoot.ofType(Specimen)"
             openehr: "$reference"
           openehrCondition:
             targetRoot: "$openehrRoot"

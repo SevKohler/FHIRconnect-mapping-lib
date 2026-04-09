@@ -70,7 +70,7 @@ mappings:
       mappings:
         - name: "performed"
           with:
-            fhir: "performed.as(Period)"
+            fhir: "performed.ofType(Period)"
             openehr: "$reference"
           followedBy:
             mappings:
@@ -86,7 +86,7 @@ mappings:
 
         - name: "performedDateTime"
           with:
-            fhir: "performed.as(DateTimeType)"
+            fhir: "performed.ofType(DateTimeType)"
             openehr: "start_time"
 
   - name: "contextStartTimeEmpty"

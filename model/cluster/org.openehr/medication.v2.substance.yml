@@ -27,7 +27,7 @@ mappings:
       mappings:
         - name: "ingredient"
           with:
-            fhir: "substance.as(CodeableConcept)"
+            fhir: "substance.ofType(CodeableConcept)"
             openehr: "$archetype"
           followedBy:
             mappings:
@@ -43,7 +43,7 @@ mappings:
 
         - name: "substanceSubstance"
           with:
-            fhir: "substance.as(Substance)"
+            fhir: "substance.ofType(Substance)"
             openehr: "$reference"
           reference:
             resourceType: "Substance"

@@ -343,7 +343,7 @@ mappings:
 
         - name: "basedOn"
           with:
-            fhir: "basedOn.as(Reference)"
+            fhir: "basedOn.ofType(Reference)"
             openehr: "$archetype"
             type: "NONE"
           followedBy: # type automatic since not provided, if no profile url is registered skip mapping

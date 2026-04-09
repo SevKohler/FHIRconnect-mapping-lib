@@ -37,7 +37,7 @@ mappings:
 
   - name: "room"
     with:
-      fhir: "$resource.location.location.as(Reference).identifier.value"
+      fhir: "$resource.location.location.ofType(Reference).identifier.value"
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
     fhirCondition:
       targetRoot: "$resource.location"
@@ -70,7 +70,7 @@ mappings:
 
   - name: "bed"
     with:
-      fhir: "$resource.location.location.as(Reference).identifier.value"
+      fhir: "$resource.location.location.ofType(Reference).identifier.value"
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0024]"
     fhirCondition:
       targetRoot: "$resource.location"
@@ -103,7 +103,7 @@ mappings:
 
   - name: "station"
     with:
-      fhir: "$resource.location.location.as(Reference).identifier.value"
+      fhir: "$resource.location.location.ofType(Reference).identifier.value"
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0022]"
     fhirCondition:
       targetRoot: "$resource.location"

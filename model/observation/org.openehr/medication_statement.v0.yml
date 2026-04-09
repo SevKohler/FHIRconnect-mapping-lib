@@ -37,7 +37,7 @@ mappings:
 
   - name: "eventTime"
     with:
-      fhir: "$resource.effective.as(Period)"
+      fhir: "$resource.effective.ofType(Period)"
       openehr: "$archetype/data[at0001]/events[at0002]" #todo: when dynamic mapping period -> interval event, datetime to pointInTime event
 
   - name: "eventsParent"
@@ -90,7 +90,7 @@ mappings:
 
         - name: "medicationCode"
           with:
-            fhir: "medication.as(CodeableConcept)"
+            fhir: "medication.ofType(CodeableConcept)"
             openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
           openehrCondition:
             targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
@@ -101,7 +101,7 @@ mappings:
 
         - name: "medicationCodeR"
           with:
-            fhir: "medication.as(CodeableConcept)"
+            fhir: "medication.ofType(CodeableConcept)"
             openehr: "data[at0003]/items[at0006]"
           openehrCondition:
             targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
@@ -110,7 +110,7 @@ mappings:
 
         - name: "reasonReference"
           with:
-            fhir: "reasonReference.as(Reference).identifier.value"
+            fhir: "reasonReference.ofType(Reference).identifier.value"
             openehr: "data[at0003]/items[at0023]"
 
 

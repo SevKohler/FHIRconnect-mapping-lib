@@ -30,7 +30,7 @@ mappings:
 
   - name: "healthcareFacility"
     with:
-      fhir: "$resource.informationSource.as(Organization)"
+      fhir: "$resource.informationSource.ofType(Organization)"
       openehr: "$composition/context/health_care_facility"
     unidirectional: "fhir->openehr"
 

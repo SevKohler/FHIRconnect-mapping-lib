@@ -27,17 +27,17 @@ mappings:
       mappings:
         - name: "collected"
           with:
-            fhir: "collected.as(DateTimeType)" # same as onset; try to provide both and use the one that's present
+            fhir: "collected.ofType(DateTimeType)" # same as onset; try to provide both and use the one that's present
             openehr: "items[at0015]"
 
         - name: "collected"
           with:
-            fhir: "collected.as(Period)" # same as onset; try to provide both and use the one that's present
+            fhir: "collected.ofType(Period)" # same as onset; try to provide both and use the one that's present
             openehr: "items[at0015]"
 
         - name: "collector"
           with:
-            fhir: "collector.as(Reference).identifier" # explicitly cast to Reference to avoid adding a Resource
+            fhir: "collector.ofType(Reference).identifier" # explicitly cast to Reference to avoid adding a Resource
             openehr: "items[at0070]" #TODO should in the best case pinpoint to a resource via link, dunno where to put this in openEHR currently
 
         - name: "specimenCollectionMethod"
@@ -52,7 +52,7 @@ mappings:
 
         - name: "samplingContext"
           with:
-            fhir: "fastingStatus.as(CodeableConcept)"
+            fhir: "fastingStatus.ofType(CodeableConcept)"
             openehr: "items[at0008]" #Sampling context
 
   - name: "type"
@@ -82,7 +82,7 @@ mappings:
 
   - name: "parent"
     with:
-      fhir: "$resource.parent.as(Reference).identifier.value"
+      fhir: "$resource.parent.ofType(Reference).identifier.value"
       openehr: "$archetype/items[at0003]"
 
   - name: "request"
@@ -94,7 +94,7 @@ mappings:
       mappings:
         - name: "identifier"
           with:
-            fhir: "$fhirRoot.as(Reference).identifier"
+            fhir: "$fhirRoot.ofType(Reference).identifier"
             openehr: "$openehrRoot"
           openehrCondition:
             targetRoot: "$openehrRoot"
@@ -103,7 +103,7 @@ mappings:
 
         - name: "identifierInReference"
           with:
-            fhir: "$fhirRoot.as(Specimen)"
+            fhir: "$fhirRoot.ofType(Specimen)"
             openehr: "$reference"
           openehrCondition:
             targetRoot: "$openehrRoot"

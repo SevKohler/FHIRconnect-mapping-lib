@@ -95,7 +95,7 @@ mappings:
                   mappings:
                     - name: "relationMedication"
                       with:
-                        fhir: "extension.value.as(Reference).as(Medication)"
+                        fhir: "extension.value.ofType(Reference).ofType(Medication)"
                         openehr: "$reference"
                       reference:
                         resourceType: "Medication"
@@ -107,7 +107,7 @@ mappings:
                             slotArchetype: "CLUSTER.medication.v2.medication-to-medication"
                     - name: "substanceRelation"
                       with:
-                        fhir: "extension.value.as(Reference).as(Medication)"
+                        fhir: "extension.value.ofType(Reference).ofType(Medication)"
                         openehr: "$reference"
                       reference:
                         resourceType: "Substance"
@@ -120,7 +120,7 @@ mappings:
 
               - name: "ingridientsURI"
                 with:
-                  fhir: "extension.value.as(Uri)"
+                  fhir: "extension.value.ofType(Uri)"
                   openehr: "$openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]" # TODO value into URI cause better than nothing. Its anyways useless for clinicans, but post process could be resolving this URI ?!
                 fhirCondition:
                   targetRoot: "extension"

@@ -26,11 +26,11 @@ mappings:
 
   - name: "rateQuantity"
     with:
-      fhir: "$fhirRoot.rate.as(Quantity)"
+      fhir: "$fhirRoot.rate.ofType(Quantity)"
       openehr: "$archetype/items[at0134]"
 
   - name: "rateRatio"
     with:
-      fhir: "$fhirRoot.rate.as(Ratio)"
+      fhir: "$fhirRoot.rate.ofType(Ratio)"
       openehr: "$archetype/items[at0134]"
     mappingCode: "ratio_to_dv_quantity" #rate is in two bits denominator and nominator (250ml, per hour), openEHR uses the unit for this in dv_quantity (l/h, ml/h). These have to be merged.

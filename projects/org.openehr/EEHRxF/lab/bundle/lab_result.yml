@@ -26,7 +26,7 @@ mappings:
   - name: "eventTime"
     extension: "overwrite"
     with:
-      fhir: "$resource.effective.as(DateTimeType)"
+      fhir: "$resource.effective.ofType(DateTimeType)"
       openehr: "$archetype/data[at0001]/events[at0002]/time" # period -> interval event, datetime to pointInTime event
 
   - name: "resultAppendToParent" #/data[at0001]/events[at0002] add new for each laboratory analyte.

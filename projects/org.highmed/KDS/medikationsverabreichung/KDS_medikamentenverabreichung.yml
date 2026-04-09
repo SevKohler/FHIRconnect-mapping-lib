@@ -19,7 +19,7 @@ mappings:
   - name: "medicationCode"
     extension: "overwrite"
     with:
-      fhir: "$resource.medication.as(CodeableConcept).coding"
+      fhir: "$resource.medication.ofType(CodeableConcept).coding"
       openehr: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
     openehrCondition:
       targetRoot: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]"

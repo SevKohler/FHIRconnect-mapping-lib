@@ -53,7 +53,7 @@ mappings:
       mappings:
         - name: "ingredient"
           with:
-            fhir: "item.as(CodeableConcept)"
+            fhir: "item.ofType(CodeableConcept)"
             openehr: "$openehrRoot"
             type: "NONE"
           followedBy:
@@ -70,7 +70,7 @@ mappings:
 
         - name: "medication"
           with:
-            fhir: "item.as(Medication)"
+            fhir: "item.ofType(Medication)"
             openehr: "$reference"
           reference:
             resourceType: "Medication"
@@ -83,7 +83,7 @@ mappings:
 
         - name: "medicationSubstance"
           with:
-            fhir: "item.as(Substance)"
+            fhir: "item.ofType(Substance)"
             openehr: "$reference"
           unidirectional: "fhir->openEHR" # wont convert from openEHR to fhir otherwise would be two mappings
           reference:

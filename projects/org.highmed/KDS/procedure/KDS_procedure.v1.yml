@@ -31,7 +31,7 @@ mappings:
       mappings:
         - name: "value"
           with:
-            fhir: "value.as(Coding)"
+            fhir: "value.ofType(Coding)"
             openehr: "description[at0001]/items[at0014]"
         - name: "staticUrl"
           with:
