@@ -98,7 +98,7 @@ mappings:
           - path: "display"
             value: "Outpatient"
         openehrCondition:
-          targetRoot: "$composition/context/setting"
+          targetRoot: "$openehrRoot"
           targetAttribute: "defining_code/code_string"
           operator: "one of"
           criteria: "228"
@@ -124,7 +124,7 @@ mappings:
           - path: "display"
             value: "Inpatient"
         openehrCondition:
-          targetRoot: "$composition/context/setting"
+          targetRoot: "$openehrRoot"
           targetAttribute: "defining_code/code_string"
           operator: "one of"
           criteria: "232"
@@ -150,7 +150,7 @@ mappings:
           - path: "display"
             value: "Community"
         openehrCondition:
-          targetRoot: "$composition/context/setting"
+          targetRoot: "$openehrRoot"
           targetAttribute: "defining_code/code_string"
           operator: "one of"
           criteria: "238"

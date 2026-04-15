@@ -32,7 +32,7 @@ mappings:
           - path: "value"
             value: "Working"
         fhirCondition:
-          targetRoot: "$resource.verificationStatus.coding"
+          targetRoot: "$fhirRoot "
           targetAttribute: "code"
           operator: "one of"
           criteria: "provisional"
@@ -59,7 +59,7 @@ mappings:
           - path: "value"
             value: "Working"
         fhirCondition:
-          targetRoot: "$resource.verificationStatus.coding"
+          targetRoot: "$fhirRoot "
           targetAttribute: "code"
           operator: "one of"
           criteria: "differential"
@@ -86,7 +86,7 @@ mappings:
           - path: "value"
             value: "Preliminary"
         fhirCondition:
-          targetRoot: "$resource.verificationStatus.coding"
+          targetRoot: "$fhirRoot "
           targetAttribute: "code"
           operator: "one of"
           criteria: "unconfirmed"
@@ -113,7 +113,7 @@ mappings:
           - path: "value"
             value: "Established"
         fhirCondition:
-          targetRoot: "$resource.verificationStatus.coding"
+          targetRoot: "$fhirRoot "
           targetAttribute: "code"
           operator: "one of"
           criteria: "confirmed"
@@ -140,7 +140,7 @@ mappings:
           - path: "value"
             value: "Refuted"
         fhirCondition:
-          targetRoot: "$resource.verificationStatus.coding"
+          targetRoot: "$fhirRoot "
           targetAttribute: "code"
           operator: "one of"
           criteria: "refuted"
