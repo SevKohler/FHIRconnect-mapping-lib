@@ -70,4 +70,3 @@ mappings:
           with:
             fhir: "$fhirRoot.value"
             openehr: "$openehrRoot/defining_code"
-            type: "CODING"
