@@ -11,6 +11,18 @@ spec:
   extends: EVALUATION.vital_status.v1
 
 mappings:
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus"
+
+
   - name: "compositionMapping"
     extension: "add"
     with:
@@ -19,10 +31,10 @@ mappings:
     slotArchetype: "COMPOSITION.report.v1.Observation""
 
   - name: "category"
+    extension: "add"
     with:
       fhir: "$resource.category"
       openehr: "$archetype"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "manual"
@@ -41,7 +53,6 @@ mappings:
     with:
       fhir: "$resource.code"
       openehr: "$archetype"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "manual"

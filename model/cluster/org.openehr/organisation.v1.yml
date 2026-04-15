@@ -10,7 +10,7 @@ spec:
     archetype: openEHR-EHR-CLUSTER.organisation.v1
     revision: 1.0.1
   fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/BackboneElement
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Organization
 
 mappings:
   - name: "orgName"

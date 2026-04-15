@@ -2,15 +2,15 @@ grammar: FHIRConnect/v1.0.0
 type: model
 metadata:
   name:  EVALUATION.gender.v1
-  version: 0.0.1-alpha
-spec:
+  version: 0.0.1-alpha 
+spec: 
   system: FHIR
   version: R4
   openEhrConfig:
     archetype: openEHR-EHR-EVALUATION.gender.v1
     revision: 1.1.1
   fhirConfig:
-    structureDefinition: "http://hl7.org/fhir/StructureDefinition/Code"
+    structureDefinition: "http://hl7.org/fhir/StructureDefinition/Patient"
 
 mappings:
 

@@ -16,31 +16,72 @@ mappings:
       openehr: "$composition"
     slotArchetype: "COMPOSITION.report_result.v1.DiagnosticReport"
 
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-labor/StructureDefinition/DiagnosticReportLab"
+
+
   - name: "resultAppendToParent" #/data[at0001]/events[at0002] add new for each laboratory analyte.
     extension: "append"
     appendTo: "eventParent"
     followedBy:
       mappings:
-        - name: "category"
-          with:
-            fhir: "category"
-            openehr: "data[at0003]/items[at0005]" # if there are several events add it to all of them
-            # Backwards map all the values back, if they overlap ?!?!?!?
         - name: "result"
           with:
             fhir: "result"
-            openehr: "$reference" #will create FOR each result ONE event.
-          reference:
-            resourceType: "Observation"
+            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]"
+          followedBy:
             mappings:
-              - name: "observationRecurring"
+              - name: "observationReference"
                 with:
                   fhir: "$fhirRoot"
-                  openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]"
-                slotArchetype: "CLUSTER.laboratory_test_analyte.v1"
+                  openehr: "$reference"
+                reference:
+                  resourceType: "Observation"
+                  mappings:
+                    - name: "observationRecurring"
+                      with:
+                        fhir: "$fhirRoot"
+                        openehr: "$openehrRoot"
+                      slotArchetype: "CLUSTER.laboratory_test_analyte.v1"
 
 
 
+
+  - name: "berichtIdParent"
+    extension: "add"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$composition/context/other_context[at0001]/items[at0002]"
+    fhirCondition:
+      targetRoot: "$resource.identifier"
+      targetAttribute: "type.coding.code"
+      operator: "one of"
+      criteria: "FILL"
+    followedBy:
+      mappings:
+        - name: "type"
+          with:
+            fhir: "type.coding"
+          manual:
+            - name: "fill"
+              fhir:
+                - path: "system"
+                  value: "http://terminology.hl7.org/CodeSystem/v2-0203"
+                - path: "code"
+                  value: "FILL"
+        - name: "berichtId"
+          extension: "add"
+          with:
+            fhir: "value"
+            openehr: "$composition/context/other_context[at0001]/items[at0002]"
 
 
 

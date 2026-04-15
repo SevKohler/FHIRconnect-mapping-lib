@@ -16,6 +16,18 @@ mappings:
       openehr: "$composition"
     slotArchetype: "COMPOSITION.report.v1.MedicationAdministration"
 
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationAdministration"
+
+
   - name: "medicationCode"
     extension: "overwrite"
     with:
@@ -41,3 +53,11 @@ mappings:
         - "/items[at0133]"
         - "/items[at0141]"
       operator: "empty"
+
+
+  - name: "clinicalIndication"
+    extension: "overwrite"
+    with:
+      fhir: "$resource.reasonCode.coding.display"
+      openehr: "$archetype/description[at0017]/items[at0156]"
+

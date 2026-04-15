@@ -9,6 +9,18 @@ spec:
   extends: ACTION.procedure.v1
 
 mappings:
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+
+
   - name: "compositionMapping"
     extension: "add"
     with:
@@ -21,7 +33,6 @@ mappings:
     with:
       fhir: "$resource.extension"
       openehr: "$archetype"
-      type: "NONE"
     fhirCondition:
       targetRoot: "$resource.extension"
       targetAttribute: "url"
@@ -31,7 +42,7 @@ mappings:
       mappings:
         - name: "value"
           with:
-            fhir: "value.ofType(Coding)"
+            fhir: "value.as(Coding)"
             openehr: "description[at0001]/items[at0014]"
         - name: "staticUrl"
           with:
@@ -42,3 +53,67 @@ mappings:
                 - path: "url"
                   value: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Durchfuehrungsabsicht"
 
+  - name: "contextStartDokumentationsdatum"
+    extension: "add"
+    with:
+      fhir: "$resource.extension"
+      openehr: "$composition/context/start_time"
+    fhirCondition:
+      targetRoot: "$resource.extension"
+      targetAttribute: "url"
+      operator: "one of"
+      criteria: "http://fhir.de/StructureDefinition/ProzedurDokumentationsdatum"
+    followedBy:
+      mappings:
+        - name: "staticUrl"
+          with:
+            fhir: "$fhirRoot"
+          manual:
+            - name: "manualUrl"
+              fhir:
+                - path: "url"
+                  value: "http://fhir.de/StructureDefinition/ProzedurDokumentationsdatum"
+
+  - name: "bodySite"
+    extension: "overwrite"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/description[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
+    slotArchetype: "CLUSTER.anatomical_location.v1"
+
+
+  - name: "bfarm"
+    extension: "append"
+    appendTo: "name"
+    followedBy:
+      mappings:
+        - name: "codingBfarm"
+          unidirectional: "openEHR->fhir"
+          with:
+            fhir: "coding"
+            openehr: "$archetype"
+          openehrCondition:
+            targetRoot: "$openehrRoot/items[at0001]"
+            targetAttribute: "defining_code/code_string"
+            operator: "one of"
+            criteria: "http://fhir.de/CodeSystem/bfarm/ops"
+          followedBy:
+            mappings:
+              - name: "seitenlokalisationExtension"
+                with:
+                  fhir: "extension"
+                  openehr: "$openehrRoot"
+                followedBy:
+                  mappings:
+                    - name: "seitenlokalisationValue"
+                      with:
+                        fhir: "value.as(Coding)"
+                        openehr: "description[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]"
+                    - name: "seitenlokalisationUrl"
+                      with:
+                        fhir: "$fhirRoot"
+                      manual:
+                        - name: "staticUrl"
+                          fhir:
+                            - path: "url"
+                              value: "http://fhir.de/StructureDefinition/seitenlokalisation"

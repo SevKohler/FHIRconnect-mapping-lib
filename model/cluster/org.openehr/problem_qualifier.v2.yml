@@ -31,7 +31,6 @@ mappings:
             value: "at0017"
           - path: "value"
             value: "Working"
-
         fhirCondition:
           targetRoot: "$fhirRoot"
           targetAttribute: "code"
@@ -44,10 +43,10 @@ mappings:
           - path: "display"
             value: "Provisional"
           - path: "system"
-            value: "http://hl7.org/fhir/ValueSet/condition-ver-status"
+            value: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
         openehrCondition:
           targetRoot: "$archetype"
-          targetAttribute: "items[at0004]/code_string"
+          targetAttribute: "items[at0004]/defining_code/code_string"
           operator: "one of"
           criteria: "at0017"
 
@@ -71,10 +70,10 @@ mappings:
           - path: "display"
             value: "Differential"
           - path: "system"
-            value: "http://hl7.org/fhir/ValueSet/condition-ver-status"
+            value: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
         openehrCondition:
           targetRoot: "$archetype"
-          targetAttribute: "items[at0004]/code_string"
+          targetAttribute: "items[at0004]/defining_code/code_string"
           operator: "one of"
           criteria: "at0017"
 
@@ -98,10 +97,10 @@ mappings:
           - path: "display"
             value: "Unconfirmed"
           - path: "system"
-            value: "http://hl7.org/fhir/ValueSet/condition-ver-status"
+            value: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
         openehrCondition:
           targetRoot: "$archetype"
-          targetAttribute: "items[at0004]/code_string"
+          targetAttribute: "items[at0004]/defining_code/code_string"
           operator: "one of"
           criteria: "at0016"
 
@@ -125,10 +124,10 @@ mappings:
           - path: "display"
             value: "Confirmed"
           - path: "system"
-            value: "http://hl7.org/fhir/ValueSet/condition-ver-status"
+            value: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
         openehrCondition:
           targetRoot: "$archetype"
-          targetAttribute: "items[at0004]/code_string"
+          targetAttribute: "items[at0004]/defining_code/code_string"
           operator: "one of"
           criteria: "at0018"
 
@@ -152,9 +151,9 @@ mappings:
           - path: "display"
             value: "Refuted"
           - path: "system"
-            value: "http://hl7.org/fhir/ValueSet/condition-ver-status"
+            value: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
         openehrCondition:
           targetRoot: "$archetype"
-          targetAttribute: "items[at0004]/code_string"
+          targetAttribute: "items[at0004]/defining_code/code_string"
           operator: "one of"
           criteria: "at0088"

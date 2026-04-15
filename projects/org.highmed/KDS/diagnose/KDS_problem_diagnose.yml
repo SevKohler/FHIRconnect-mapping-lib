@@ -31,8 +31,9 @@ mappings:
         - name: "date"
           extension: "add"
           with:
-            fhir: "value.ofType(DateTimeType)"
+            fhir: "value.as(DateTime)"
             openehr: "$archetype/data[at0001]/items[at0003]"
+
 
         - name: "staticURL"
           with:
@@ -43,27 +44,17 @@ mappings:
                 - path: "url"
                   value: "http://hl7.org/fhir/StructureDefinition/condition-assertedDate"
 
-  - name: "bodySiteCluster"
-    extension: "overwrite"
-    with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    unidirectional: "fhir->openehr" # only if importing, for fhir export openEHR wont check for icd-10 and will just use the archetypes where the icd-10 was mapped to.
-    slotArchetype: "CLUSTER.anatomical_location.v1"
-    fhirCondition:
-      targetRoot: "$resource.code.coding"
-      targetAttribute: "system"
-      operator: "not contains"
-      criteria: "http://fhir.de/CodeSystem/bfarm/icd-10-gm" # execute cluster here if no icd-10 code is provided, otherwise the cluster is below specified
-
-# because we're overwriting bodySiteCluster altogether above, meaning when going to openehr to fhir, we're missing out on bodySite mappings
-  - name: "bodySiteClusterToFhir"
+  - name: "metaURL"
     extension: "add"
-    with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
     unidirectional: "openEHR->fhir"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
+
 
   - name: "icd10ProblemDiagnose"
     extension: "append"
@@ -73,8 +64,7 @@ mappings:
         - name: "coding"
           with:
             fhir: "coding"
-            openehr: "$reference"
-            type: "NONE"
+            openehr: "$archetype"
           fhirCondition:
             targetRoot: "coding"
             targetAttribute: "system"
@@ -95,7 +85,6 @@ mappings:
                 with:
                   fhir: "extension"
                   openehr: "$openehrRoot"
-                  type: "NONE"
                 fhirCondition:
                   targetRoot: "extension"
                   targetAttribute: "url"
@@ -107,6 +96,13 @@ mappings:
                       with:
                         fhir: "value"
                         openehr: "data[at0001]/items[at0073]"
+                        type: "CODING"
+                    - name: "extensionValue"#TODO Bugfix since Coding maps no display
+                      unidirectional: "fhir->openEHR"
+                      with:
+                        fhir: "value"
+                        openehr: "data[at0001]/items[at0073]"
+
                     - name: "extensionUrl"
                       with:
                         fhir: "$fhirRoot" #since we want to access extension here
@@ -120,7 +116,6 @@ mappings:
                 with:
                   fhir: "extension"
                   openehr: "$openehrRoot"
-                  type: "NONE"
                 fhirCondition:
                   targetRoot: "extension"
                   targetAttribute: "url"
@@ -146,7 +141,6 @@ mappings:
                 with:
                   fhir: "extension"
                   openehr: "$openehrRoot"
-                  type: "NONE"
                 fhirCondition:
                   targetRoot: "extension"
                   targetAttribute: "url"
@@ -180,7 +174,6 @@ mappings:
           with:
             fhir: "onset.ofType(Period)"
             openehr: "$archetype"
-            type: "NONE"
           followedBy:
             mappings:
               - name: "lebensphaseCluster"
@@ -197,13 +190,13 @@ mappings:
 
         - name: "dateTime"
           with:
-            fhir: "onset.ofType(DateTimeType)"
+            fhir: "onset.as(DateTime)"
             openehr: "data[at0001]/items[at0077]"
           openehrCondition:
             targetRoot: "$archetype/data[at0001]"
             targetAttributes:
-            - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0001]"
-            - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0002]"
+              - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0001]"
+              - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0002]"
             operator: "empty"
 
   - name: "problemQualifier"
@@ -218,7 +211,6 @@ mappings:
     with:
       fhir: "$resource.extension"
       openehr: "$archetype"
-      type: "NONE"
     fhirCondition:
       targetRoot: "$resource.extension"
       targetAttribute: "url"
@@ -228,18 +220,17 @@ mappings:
       mappings:
         - name: "extensionUrl"
           with:
-            fhir: "$resource.extension"
+            fhir: "$fhirRoot"
           manual:
             - name: "conditionRelatedUrl"
               fhir:
                 - path: "url"
                   value: "http://hl7.org/fhir/StructureDefinition/condition-related"
 
-        - name: "referenced condition"
+        - name: "referencedCondition"
           with:
             fhir: "value"
             openehr: "$reference"
-            type: "NONE"
           reference:
             resourceType: "Condition"
             mappings:
@@ -249,7 +240,7 @@ mappings:
                   openehr: "$archetype"
                 slotArchetype: "EVALUATION.problem_diagnosis.v1"
                 openehrCondition:
-                  targetRoot: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+                  targetRoot: "$archetype"
                   targetAttribute: "data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string"
                   operator: "one of"
                   criteria: "at0064"
