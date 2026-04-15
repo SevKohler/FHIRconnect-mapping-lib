@@ -21,4 +21,4 @@ context:
   extensions:
     - "KDS_cause_of_death"
     - "KDS_problem_qualifier_todesursache"
-  start: "EVALUATION.cause_of_death"
+  start: "EVALUATION.cause_of_death.v1"

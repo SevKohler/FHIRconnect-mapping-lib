@@ -11,8 +11,19 @@ spec:
   extends: EVALUATION.vital_status.v1
 
 mappings:
-  - name: "encounter"
-    extension: "overwrite"
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus"
+
+  - name: "fallIdentifikationIdentifier"
+    extension: "add"
     with:
       fhir: "$resource.encounter.as(Reference).identifier"
       openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
@@ -38,7 +49,11 @@ mappings:
           openehrLink:
             meaning: "the case this composition relates to"
             type: "case"
-
+  - name: "status"
+    extension: "add"
+    with:
+      fhir: "$resource.status"
+      openehr: "$composition/context/other_context[at0001]/items[at0005]"
   - name: "category"
     extension: "add"
     with:

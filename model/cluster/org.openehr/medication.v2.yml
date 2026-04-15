@@ -31,7 +31,6 @@ mappings:
     with:
       fhir: "$resource.batch"
       openehr: "$archetype"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "id"

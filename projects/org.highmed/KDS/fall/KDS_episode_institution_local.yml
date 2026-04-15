@@ -9,11 +9,6 @@ spec:
   extends: ADMIN_ENTRY.episode_institution_local.v0
 
 mappings:
-  - name: "falltyp"
-    extension: "add"
-    with:
-      fhir: "$resource.type"
-      openehr: "$composition/context/other_context[at0001]/items[at0005]"
 
   - name: "fallklasse"
     extension: "add"
@@ -21,7 +16,8 @@ mappings:
       fhir: "$resource.class"
       openehr: "$composition/context/other_context[at0001]/items[at0004]"
 
-  - name: "fallart"
+
+  - name: "fallstatus"
     extension: "add"
     with:
       fhir: "$resource.status"
@@ -50,20 +46,20 @@ mappings:
                 - path: "system"
                   value: "http://terminology.hl7.org/CodeSystem/v2-0203"
 
-
-  - name: "serviceProvider" # TODO deprecated needs to be deleted
+  - name: "serviceType" # TODO deprecated needs to be deleted
     extension: "add"
     with:
-      fhir: "$resource.serviceProvider.as(Organization)"
-      openehr: "$reference"
-    reference:
-      resourceType: "Organization"
-      mappings:
-        - name: "organization"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.organisation.v1]"
-          slotArchetype: "CLUSTER.organisation.v1"
+      fhir: "$resource.serviceType.coding"
+      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.organization.v0]"
+    slotArchetype: "CLUSTER.organization.v0"
+
+  - name: "kontaktTyp" # TODO deprecated needs to be deleted
+    extension: "add"
+    with:
+      fhir: "$resource.type"
+      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.kontakttyp.v0]"
+    slotArchetype: "CLUSTER.kontakttyp.v0"
+
 
   - name: "aufnahmegrundExtension"
     extension: "add"
@@ -194,68 +190,53 @@ mappings:
                     fhir:
                       - path: "url"
                         value: "http://fhir.de/StructureDefinition/Entlassungsgrund"
-
+              - name: "entlassungsgrundExtension"
+                with:
+                  fhir: "extension"
+                  openehr: "data[at0001]"
+                fhirCondition:
+                  targetRoot: "extension"
+                  targetAttribute: "url"
+                  operator: "one of"
+                  criteria: "ErsteUndZweiteStelle"
+                followedBy:
+                  mappings:
+                    - name: "entlassungsgrundExtensionValue"
+                      with:
+                        fhir: "value.as(Coding)"
+                        openehr: "items[at0006]"
+                    - name: "entlassungsgrundUrl"
+                      with:
+                        fhir: "$fhirRoot"
+                      manual:
+                        - name: "extension"
+                          fhir:
+                            - path: "url"
+                              value: "ErsteUndZweiteStelle"
 
   - name: "problemDiagnoseParent"
     extension: "add"
     with:
-      fhir: "$resource.diagnosis.condition"
-      openehr: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]" # since its 0..n appends
-    reference:
-      resourceType: "Condition"
+      fhir: "$resource.diagnosis"
+      openehr: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+    followedBy:
       mappings:
-        - name: "primaryDiagnose"
+        - name: "conditionReference"
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openehrRoot"
-          slotArchetype: "EVALUATION.problem_diagnosis.v1"
-          followedBy:
+            fhir: "condition"
+            openehr: "$reference"
+          reference:
+            resourceType: "Condition" # this creates an extra encounter with a condition inside
             mappings:
-              # these have to be here, they can not be in the slot archetype because they're mapping to the DiagnosisComponent and not on Condition (resolved reference)
-              - name: "diagnoseTyp"
+              - name: "condition"
                 with:
-                  fhir: "^^.use.coding.code"
-                  openehr: "data[at0001]/items[at0009]"
-                fhirCondition:
-                  targetRoot: "coding"
-                  targetAttribute: "code"
-                  operator: "one of"
-                  criterias:
-                    - "referral-diagnosis"
-                    - "treatment-diagnosis"
-                followedBy:
-                  mappings:
-                    - name: "system"
-                      with:
-                        fhir: "$fhirRoot"
-                      manual:
-                        - name: "system"
-                          fhir:
-                            - path: "system"
-                              value: "http://fhir.de/CodeSystem/dki-diagnosetyp"
+                  fhir: "$fhirRoot"
+                  openehr: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+                slotArchetype: "EVALUATION.problem_diagnosis.v1"
 
-              - name: "diagnoseSubtyp"
-                with:
-                  fhir: "^^.use.coding.code"
-                  openehr: "data[at0001]/items[at0079]"
-                fhirCondition:
-                  targetRoot: "coding"
-                  targetAttribute: "code"
-                  operator: "one of"
-                  criterias:
-                    - "surgery-diagnosis"
-                    - "department-main-diagnosis"
-                    - "cause-of-death"
-                    - "infection-control-diagnosis"
-                    - "AD"
-                    - "DD"
-                followedBy:
-                  mappings:
-                    - name: "system"
-                      with:
-                        fhir: "$fhirRoot"
-                      manual:
-                        - name: "system"
-                          fhir:
-                            - path: "system"
-                              value: "http://fhir.de/CodeSystem/dki-diagnosesubtyp"
+        - name: "diagnoseTyp"
+          with:
+            fhir: "use"
+            openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.diagnosetyp.v0]"
+          slotArchetype: "CLUSTER.diagnosetyp.v0"
+

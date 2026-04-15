@@ -13,30 +13,23 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/HumanName
 
 mappings:
-  - name: "name"
+
+  - name: "typeOfName"
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "typeOfName"
-          with:
-            fhir: "use"
-            openehr: "items[at0001]"
+      fhir: "$fhirRoot.use"
+      openehr: "$archetype/items[at0001]"
 
-        - name: "firstName"
-          with:
-            fhir: "given"
-            openehr: "items[at0002]"
+  - name: "firstName"
+    with:
+      fhir: "$fhirRoot.given"
+      openehr: "$archetype/items[at0002]"
 
-        - name: "prefix"
-          with:
-            fhir: "prefix"
-            openehr: "items[at0006]"
+  - name: "prefix"
+    with:
+      fhir: "$fhirRoot.prefix"
+      openehr: "$archetype/items[at0006]"
 
-        - name: "familyName"
-          with:
-            fhir: "family"
-            openehr: "items[at0005]"
-
+  - name: "familyName"
+    with:
+      fhir: "$fhirRoot.family"
+      openehr: "$archetype/items[at0005]"

@@ -31,11 +31,22 @@ mappings:
                 - path: "url"
                   value: "http://hl7.org/fhir/StructureDefinition/iso21090-EN-qualifier"
 
-  - name: "appendFamily"
-    extension: "append"
-    appendTo: "name.familyName"
+  - name: "familyName"
+    extension: "overwrite"
+    with:
+      fhir: "$resource.family"
+      openehr: "$archetype"
     followedBy:
       mappings:
+        - name: "family"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "items[at0005 and name/value='Familienname']"
+#          fhirCondition:
+#            targetRoot: "$fhirRoot"
+#            targetAttribute: "extension"
+#            operator: "empty"
+
         - name: "familiennameZusatz"
           with:
             fhir: "extension"

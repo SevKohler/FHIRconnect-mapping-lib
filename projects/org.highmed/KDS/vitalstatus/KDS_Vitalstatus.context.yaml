@@ -17,7 +17,6 @@ context:
   archetypes:
     - "EVALUATION.vital_status.v1"
     - "CLUSTER.case_identification.v0"
-    - "CLUSTER.observation_status_fhir.v1"
   extensions:
     - "KDS_vital_status"
   start: "EVALUATION.vital_status.v1"

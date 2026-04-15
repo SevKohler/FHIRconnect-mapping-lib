@@ -81,38 +81,96 @@ mappings:
             fhir: "$fhirRoot"
             openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
+  - name: "effectivePeriod"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(Period)"
+      openehr: "$composition"
+    followedBy:
+      mappings:
+        - name: "effectiveEnd"
+          with:
+            fhir: "end"
+            openehr: "context/end_time"
+
+
+        - name: "effectiveStart"
+          with:
+            fhir: "start"
+            openehr: "context/start_time"
+
+
+  - name: "effectiveDateTime"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(DateTime)"
+      openehr: "$composition/context/start_time"
+
+  - name: "issued"
+    unidirectional: "openehr->fhir"
+    with:
+      fhir: "$resource.issued"
+      openehr: "$composition/context/start_time"
   - name: "eventParent"
     with:
       fhir: "$resource"
       openehr: "$archetype/data[at0001]/events[at0002]"
     followedBy:
       mappings:
-        - name: "effective"
+        - name: "eventTime"
           with:
-            fhir: "effective.as(Period)"
-            openehr: "$composition"
-          followedBy:
-            mappings:
-              - name: "effectiveEnd"
-                with:
-                  fhir: "end"
-                  openehr: "context/end_time"
+            fhir: "effective"
+            openehr: "$openehrRoot"
 
-              - name: "effectiveStart"
-                with:
-                  fhir: "start"
-                  openehr: "context/start_time"
-
-        - name: "effective"
-          with:
-            fhir: "effective.as(DateTimeType)"
-            openehr: "$composition/context/start_time"
-
-        - name: "category"
+        - name: "categoryLoinc"
           with:
             fhir: "category"
-            openehr: "data[at0003]/items[at0005]" # if there are several events add it to all of them
-            # Backwards map all the values back, if they overlap ?!?!?!?
+            openehr: "$openehrRoot"
+          followedBy:
+            mappings:
+              - name: "categoryCoding"
+                with:
+                  fhir: "coding"
+                  openehr: "$openehrRoot"
+                manual:
+                  - name: "laboratoryCategory"
+                    fhir:
+                      - path: "system"
+                        value: "http://loinc.org"
+                      - path: "code"
+                        value: "26436-6"
+                      - path: "text"
+                        value: "laboratory"
+
+              - name: "categoryHl7"
+                with:
+                  fhir: "coding"
+                  openehr: "$openehrRoot"
+                manual:
+                  - name: "laboratoryCategory"
+                    fhir:
+                      - path: "system"
+                        value: "http://terminology.hl7.org/CodeSystem/v2-0074"
+                      - path: "code"
+                        value: "LAB"
+                      - path: "text"
+                        value: "laboratory"
+
+              - name: "text"
+                with:
+                  fhir: "text"
+                  openehr: "$openehrRoot"
+                manual:
+                  - name: "laboratoryCategory"
+                    fhir:
+                      - path: "$fhirRoot"
+                        value: "laboratory"
+
+        - name: "code"
+          with:
+            fhir: "code"
+            openehr: "data[at0003]/items[at0005]"
+
 
         - name: "status"
           with:

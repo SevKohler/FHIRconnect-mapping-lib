@@ -65,33 +65,17 @@ mappings:
                 - path: "url"
                   value: "http://hl7.org/fhir/StructureDefinition/condition-assertedDate"
 
-  - name: "bodySiteCluster"
-    extension: "overwrite"
-    with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    unidirectional: "fhir->openehr" # only if importing, for fhir export openEHR wont check for icd-10 and will just use the archetypes where the icd-10 was mapped to.
-    slotArchetype: "CLUSTER.anatomical_location.v1"
-    fhirCondition:
-      targetRoot: "$resource.code.coding"
-      targetAttribute: "system"
-      operator: "not contains"
-      criteria: "http://fhir.de/CodeSystem/bfarm/icd-10-gm" # execute cluster here if no icd-10 code is provided, otherwise the cluster is below specified
-
-# because we're overwriting bodySiteCluster altogether above, meaning when going to openehr to fhir, we're missing out on bodySite mappings
-  - name: "bodySiteClusterToFhir"
+  - name: "metaURL"
     extension: "add"
-    with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
     unidirectional: "openEHR->fhir"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
-
-  - name: "problemDiagnoseNameCode"
-    extension: "overwrite"
     with:
-      fhir: "$fhirRoot"
-      openehr: "$archetype/data[at0001]/items[at0002]"
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
+
 
   - name: "icd10ProblemDiagnose"
     extension: "append"
@@ -232,8 +216,8 @@ mappings:
           openehrCondition:
             targetRoot: "$archetype/data[at0001]"
             targetAttributes:
-            - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0001]"
-            - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0002]"
+              - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0001]"
+              - "items[openEHR-EHR-CLUSTER.lebensphase.v0]/items[at0002]"
             operator: "empty"
 
   - name: "problemQualifier"
