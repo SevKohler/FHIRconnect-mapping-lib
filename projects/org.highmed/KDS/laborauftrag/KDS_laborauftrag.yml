@@ -100,7 +100,6 @@ mappings:
     with:
       fhir: "$resource.category.coding"
       openehr: "$archetype/activities[at0001]/description[at0009]/items[at0148]"
-      type: NONE
     manual:
       - name: "categoryStatic"
         openehr:
