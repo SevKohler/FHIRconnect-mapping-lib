@@ -23,7 +23,6 @@ mappings:
     with:
       fhir: "$resource.period"
       openehr: "$composition/context"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "contextStart"
@@ -49,7 +48,6 @@ mappings:
     with:
       fhir: "$resource.period"
       openehr: "$archetype"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "admissionDate"

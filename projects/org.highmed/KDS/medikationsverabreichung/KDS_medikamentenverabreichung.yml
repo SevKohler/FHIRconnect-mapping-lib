@@ -12,9 +12,9 @@ mappings:
   - name: "berichtId"
     extension: "add"
     with:
-      fhir: "$resource.identifier.value"
+      fhir: "$resource.identifier"
       openehr: "$composition/context/other_context[at0001]/items[at0002]"
-      type: "STRING"
+
 
   - name: "status"
     extension: "add"
@@ -32,7 +32,7 @@ mappings:
   - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.encounter"
+      fhir: "$resource.context"
       openehr: "$reference"
     reference: #type None
       resourceType: "Encounter"
@@ -40,12 +40,12 @@ mappings:
         - name: "identifierInReference"
           with:
             fhir: "$fhirRoot.identifier"
-            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
+            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
           slotArchetype: "CLUSTER.case_identification.v0"
         - name: "encounterMapping"
           with:
             fhir: "$fhirRoot"
-            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
+            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
             openehrLink:
               meaning: "the case this composition relates to"
               type: "case"
@@ -53,7 +53,7 @@ mappings:
   - name: "medicationCode"
     extension: "overwrite"
     with:
-      fhir: "$resource.medication.as(CodeableConcept).coding"
+      fhir: "$resource.medication.as(CodeableConcept).coding.display"
       openehr: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
     openehrCondition:
       targetRoot: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]"

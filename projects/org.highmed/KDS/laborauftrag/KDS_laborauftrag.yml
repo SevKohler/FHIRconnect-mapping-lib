@@ -19,7 +19,7 @@ mappings:
   - name: "fallIdentifikationReference" # if reference is accessible will overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.encounter.reference"
+      fhir: "$resource.encounter"
       openehr: "$reference"
     reference: #type None
       resourceType: "Encounter"
@@ -43,22 +43,28 @@ mappings:
     extension: "add"
     with:
       fhir: "$resource.specimen"
-      openehr: "$reference"
-      type: "NONE"
-    reference:
-      resourceType: "Specimen"
+      openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+    followedBy:
       mappings:
-        - name: "specimenRecurring"
+        - name: "specimenReference"
           with:
             fhir: "$fhirRoot"
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]" # you need to do this because specimen is recurring element in openehr
-          slotArchetype: "CLUSTER.specimen.v1"
-          followedBy:
+            openehr: "$reference"
+          reference:
+            resourceType: "Specimen"
             mappings:
-              - name: "specimenIdentifier"
+              - name: "specimenRecurring"
                 with:
-                  fhir: "identifier"
-                  openehr: "items[at0001]"
+                  fhir: "$fhirRoot"
+                  openehr: "$openehrRoot"
+                slotArchetype: "CLUSTER.specimen.v1"
+                followedBy:
+                  mappings:
+                    - name: "specimenIdentifier"
+                      with:
+                        fhir: "identifier"
+                        openehr: "items[at0001]"
+
 
   - name: "intent"
     extension: "overwrite"
@@ -94,6 +100,7 @@ mappings:
     with:
       fhir: "$resource.category.coding"
       openehr: "$archetype/activities[at0001]/description[at0009]/items[at0148]"
+      type: NONE
     manual:
       - name: "categoryStatic"
         openehr:
@@ -114,6 +121,8 @@ mappings:
             value: "http://terminology.hl7.org/CodeSystem/observation-category"
           - path: "code"
             value: "laboratory"
+          - path: "display"
+            value: "Laboratory"
         openehrCondition:
           targetRoot: "$archetype"
           targetAttribute: "activities[at0001]/description[at0009]/items[at0148]/defining_code/code_string"

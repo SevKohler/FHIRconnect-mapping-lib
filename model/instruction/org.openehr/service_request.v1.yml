@@ -37,7 +37,6 @@ mappings:
     with:
       fhir: "$resource"
       openehr: "$archetype/protocol[at0008]"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "identifier"
@@ -52,9 +51,8 @@ mappings:
 
         - name: "organisation"
           with:
-            fhir: "requester.as(Organization)"
+            fhir: "requester"
             openehr: "$reference"
-            type: "NONE"
           reference:
             resourceType: "Organization"
             mappings:

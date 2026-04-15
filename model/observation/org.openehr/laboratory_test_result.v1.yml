@@ -85,7 +85,6 @@ mappings:
     with:
       fhir: "$resource"
       openehr: "$archetype/data[at0001]/events[at0002]"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "effective"
@@ -354,22 +353,26 @@ mappings:
         - name: "specimen"
           with:
             fhir: "specimen"
-            openehr: "$reference"
-            type: "NONE"
-          reference:
-            resourceType: "Specimen"
+            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+          followedBy:
             mappings:
               - name: "specimenReference"
                 with:
                   fhir: "$fhirRoot"
-                  openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-                slotArchetype: "CLUSTER.specimen.v1"
+                  openehr: "$reference"
+                reference:
+                  resourceType: "Specimen"
+                  mappings:
+                    - name: "specimenReference"
+                      with:
+                        fhir: "$fhirRoot"
+                        openehr: "$openehrRoot"
+                      slotArchetype: "CLUSTER.specimen.v1"
 
         - name: "basedOn"
           with:
             fhir: "basedOn.as(Reference)"
             openehr: "$archetype"
-            type: "NONE"
           followedBy: # type automatic since not provided, if no profile url is registered skip mapping
             mappings:
               - name: "identifierInReference"

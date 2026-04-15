@@ -52,8 +52,9 @@ mappings:
         - name: "date"
           extension: "add"
           with:
-            fhir: "value.as(DateTimeType)"
+            fhir: "value.as(DateTime)"
             openehr: "$archetype/data[at0001]/items[at0003]"
+
 
         - name: "staticURL"
           with:
@@ -94,84 +95,109 @@ mappings:
 
   - name: "icd10ProblemDiagnose"
     extension: "append"
-    appendTo: "problemDiagnose.problemDiagnoseName"
-    fhirCondition:
-      targetRoot: "coding"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
+    appendTo: "problemDiagnose"
     followedBy:
       mappings:
-        - name: "codingSystem"
+        - name: "coding"
           with:
             fhir: "coding"
-          manual:
-            - name: "system"
-              fhir:
-                - path: "system"
-                  value: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
-
-        - name: "codeIcd10Diagnosesicherheit"
-          with:
-            fhir: "extension"
-            openehr: "$archetype/data[at0001]/items[at0073]"
+            openehr: "$archetype"
           fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
+            targetRoot: "coding"
+            targetAttribute: "system"
             operator: "one of"
-            criteria: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
+            criteria: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
           followedBy:
             mappings:
-              - name: "extension"
-                with:
-                  fhir: "$fhirRoot" #since we want to access extension here
-                manual:
-                  - name: "extensionUrl"
-                    fhir:
-                      - path: "url"
-                        value: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
-
-        - name: "multipleCoding"
-          with:
-            fhir: "extension"
-            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.multiple_coding_icd10gm.v1]"
-          slotArchetype: "CLUSTER.multiple_coding_icd10gm.v1"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
-          followedBy:
-            mappings:
-              - name: "extension"
+              - name: "codingSystem"
                 with:
                   fhir: "$fhirRoot"
                 manual:
-                  - name: "extensionUrl"
+                  - name: "system"
                     fhir:
-                      - path: "url"
-                        value: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
-  #
-        - name: "bodySiteClusterIcd10" # is here added too, in case the icd-10 is present in fhir so we map the localization
-          with:
-            fhir: "extension"
-            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-          slotArchetype: "CLUSTER.anatomical_location.v1"
-          fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "http://fhir.de/StructureDefinition/seitenlokalisation"
-          followedBy:
-            mappings:
-              - name: "extension"
+                      - path: "system"
+                        value: "http://fhir.de/CodeSystem/bfarm/icd-10-gm"
+
+              - name: "codeIcd10Diagnosesicherheit"
                 with:
-                  fhir: "$fhirRoot"
-                manual:
-                  - name: "extensionUrl"
-                    fhir:
-                      - path: "url"
-                        value: "http://fhir.de/StructureDefinition/seitenlokalisation"
+                  fhir: "extension"
+                  openehr: "$openehrRoot"
+                fhirCondition:
+                  targetRoot: "extension"
+                  targetAttribute: "url"
+                  operator: "one of"
+                  criteria: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
+                followedBy:
+                  mappings:
+                    - name: "extensionValue"
+                      with:
+                        fhir: "value"
+                        openehr: "data[at0001]/items[at0073]"
+                        type: "CODING"
+                    - name: "extensionValue"#TODO Bugfix since Coding maps no display
+                      unidirectional: "fhir->openEHR"
+                      with:
+                        fhir: "value"
+                        openehr: "data[at0001]/items[at0073]"
+
+                    - name: "extensionUrl"
+                      with:
+                        fhir: "$fhirRoot" #since we want to access extension here
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "http://fhir.de/StructureDefinition/icd-10-gm-diagnosesicherheit"
+
+              - name: "multipleCoding"
+                with:
+                  fhir: "extension"
+                  openehr: "$openehrRoot"
+                fhirCondition:
+                  targetRoot: "extension"
+                  targetAttribute: "url"
+                  operator: "one of"
+                  criteria: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
+                followedBy:
+                  mappings:
+                    - name: "extensionValue"
+                      with:
+                        fhir: "$fhirRoot"
+                        openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.multiple_coding_icd10gm.v1]"
+                      slotArchetype: "CLUSTER.multiple_coding_icd10gm.v1"
+                    - name: "extensionUrl"
+                      with:
+                        fhir: "$fhirRoot" #since we want to access extension here
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "http://fhir.de/StructureDefinition/icd-10-gm-mehrfachcodierungs-kennzeichen"
+
+              - name: "bodySiteClusterIcd10" # is here added too, in case the icd-10 is present in fhir so we map the localization
+                with:
+                  fhir: "extension"
+                  openehr: "$openehrRoot"
+                fhirCondition:
+                  targetRoot: "extension"
+                  targetAttribute: "url"
+                  operator: "one of"
+                  criteria: "http://fhir.de/StructureDefinition/seitenlokalisation"
+                followedBy:
+                  mappings:
+                    - name: "extensionValue"
+                      with:
+                        fhir: "$fhirRoot"
+                        openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
+                      slotArchetype: "CLUSTER.anatomical_location.v1"
+                    - name: "extension"
+                      with:
+                        fhir: "$fhirRoot"
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "http://fhir.de/StructureDefinition/seitenlokalisation"
 
   - name: "dateTime"
     extension: "overwrite"
@@ -187,20 +213,21 @@ mappings:
             openehr: "$archetype"
           followedBy:
             mappings:
-              - name: "start"
-                with:
-                  fhir: "$fhirRoot.start"
-                  openehr: "data[at0001]/items[at0077]"
-
               - name: "lebensphaseCluster"
                 with:
                   fhir: "$fhirRoot"
                   openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
                 slotArchetype: "CLUSTER.lebensphase.v0"
+                followedBy:
+                  mappings:
+                    - name: "start"
+                      with:
+                        fhir: "start"
+                        openehr: "$archetype/data[at0001]/items[at0077]"
 
         - name: "dateTime"
           with:
-            fhir: "onset.as(DateTimeType)"
+            fhir: "onset.as(DateTime)"
             openehr: "data[at0001]/items[at0077]"
           openehrCondition:
             targetRoot: "$archetype/data[at0001]"
@@ -221,7 +248,6 @@ mappings:
     with:
       fhir: "$resource.extension"
       openehr: "$archetype"
-      type: "NONE"
     fhirCondition:
       targetRoot: "$resource.extension"
       targetAttribute: "url"
@@ -231,18 +257,17 @@ mappings:
       mappings:
         - name: "extensionUrl"
           with:
-            fhir: "$resource.extension"
+            fhir: "$fhirRoot"
           manual:
             - name: "conditionRelatedUrl"
               fhir:
                 - path: "url"
                   value: "http://hl7.org/fhir/StructureDefinition/condition-related"
 
-        - name: "referenced condition"
+        - name: "referencedCondition"
           with:
             fhir: "value"
             openehr: "$reference"
-            type: "NONE"
           reference:
             resourceType: "Condition"
             mappings:
@@ -252,7 +277,7 @@ mappings:
                   openehr: "$archetype"
                 slotArchetype: "EVALUATION.problem_diagnosis.v1"
                 openehrCondition:
-                  targetRoot: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+                  targetRoot: "$archetype"
                   targetAttribute: "data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string"
                   operator: "one of"
                   criteria: "at0064"

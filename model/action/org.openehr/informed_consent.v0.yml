@@ -29,6 +29,7 @@ mappings:
     with:
       fhir: "$resource" # there needs to be a mapping table
       openehr: "$archetype/ism_transition/current_state"
+      type: NONE
     manual:
       - name: "draft"
         openehr:

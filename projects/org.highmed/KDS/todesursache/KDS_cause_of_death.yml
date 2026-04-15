@@ -19,7 +19,7 @@ mappings:
   - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.encounter.reference"
+      fhir: "$resource.encounter"
       openehr: "$reference"
     reference: #type None
       resourceType: "Encounter"

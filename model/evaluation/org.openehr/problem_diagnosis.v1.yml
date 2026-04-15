@@ -16,10 +16,10 @@ spec:
 
 preprocessor:
   fhirCondition:
-      targetRoot: "$resource.verificationStatus" # exclude all conditions with entered-in-error, since there is no mapping for this code
-      targetAttribute: "coding.code"
-      operator: "not of"
-      criteria: "entered-in-error"
+    targetRoot: "$resource" # exclude all conditions with entered-in-error, since there is no mapping for this code
+    targetAttribute: "verificationStatus.coding.code"
+    operator: "not of"
+    criteria: "entered-in-error"
 
 mappings:
 

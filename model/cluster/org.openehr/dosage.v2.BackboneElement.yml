@@ -28,6 +28,11 @@ mappings:
     with:
       fhir: "$fhirRoot.rate.as(Quantity)"
       openehr: "$archetype/items[at0134]"
+    openehrCondition:
+      targetRoot: "$archetype"
+      targetAttribute: "items[at0134]"
+      operator: "type"
+      criteria: "DV_QUANTITY"
 
   - name: "rateRatio"
     with:

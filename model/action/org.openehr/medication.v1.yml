@@ -38,19 +38,29 @@ mappings:
   - name: "context"
     with:
       fhir: "$resource.effective.as(Period)"
-      openehr: "$composition/context"
-      type: "NONE"
+      openehr: "$composition"
+    openehrCondition:
+      targetRoot: "$composition/context"
+      targetAttribute: "end_time"
+      operator: "not empty"
     followedBy:
       mappings:
-        - name: "contextStart"
-          with:
-            fhir: "start"
-            openehr: "start_time"
-
-        - name: "contextEnd"
+        - name: "effectiveEnd"
           with:
             fhir: "end"
-            openehr: "end_time"
+            openehr: "context/end_time"
+
+
+        - name: "effectiveStart"
+          with:
+            fhir: "start"
+            openehr: "context/start_time"
+
+  - name: "effectiveDateTimeContext"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(DateTime)"
+      openehr: "$composition/context/start_time"
 
   - name: "composer"
     with:
@@ -66,6 +76,7 @@ mappings:
     with:
       fhir: "$resource.category.coding"
       openehr: "$composition/context/setting"
+      type: NONE
     manual:
       - name: "outpatient"
         fhir:
@@ -76,7 +87,7 @@ mappings:
           - path: "display"
             value: "Outpatient"
         openehrCondition:
-          targetRoot: "$openehrRoot"
+          targetRoot: "$composition/context/setting"
           targetAttribute: "defining_code/code_string"
           operator: "one of"
           criteria: "228"
@@ -102,7 +113,7 @@ mappings:
           - path: "display"
             value: "Inpatient"
         openehrCondition:
-          targetRoot: "$openehrRoot"
+          targetRoot: "$composition/context/setting"
           targetAttribute: "defining_code/code_string"
           operator: "one of"
           criteria: "232"
@@ -128,7 +139,7 @@ mappings:
           - path: "display"
             value: "Community"
         openehrCondition:
-          targetRoot: "$openehrRoot"
+          targetRoot: "$composition/context/setting"
           targetAttribute: "defining_code/code_string"
           operator: "one of"
           criteria: "238"
@@ -230,7 +241,6 @@ mappings:
     with:
       fhir: "$resource.request" # overwrites request
       openehr: "$archetype/protocol[at0030]/items[at0103]"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "identifier"
@@ -244,7 +254,7 @@ mappings:
 
         - name: "identifierInReference"
           with:
-            fhir: "$fhirRoot.as(MedicationRequest)"
+            fhir: "$fhirRoot"
             openehr: "$reference"
           openehrCondition:
             targetRoot: "$openehrRoot"

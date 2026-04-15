@@ -12,21 +12,21 @@ mappings:
   - name: "other-amtlich"
     extension: "add"
     with:
-      fhir: "$fhirRoot.extension"
+      fhir: "$resource.gender.extension"
       openehr: "$archetype/data[at0002]/items[at0014]"
-    fhirCondition:
-      targetRoot: "$fhirRoot.extension"
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "http://fhir.de/StructureDefinition/gender-amtlich-de"
     followedBy:
       mappings:
         - name: "staticExtensionUrl"
           with:
-            fhir: "$fhirRoot.extension"
-            openehr: "$reference"
+            fhir: "$fhirRoot"
           manual:
             - name: "staticUrl"
               fhir:
                 - path: "url"
                   value: "http://fhir.de/StructureDefinition/gender-amtlich-de"
+
+        - name: "otherAmtlichValueCoding"
+          with:
+            fhir: "$fhirRoot.value"
+            openehr: "$openehrRoot/defining_code"
+            type: "CODING"

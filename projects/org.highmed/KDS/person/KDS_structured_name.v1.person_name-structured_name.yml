@@ -9,11 +9,12 @@ spec:
   extends: CLUSTER.structured_name.v1
 
 mappings:
-  - name: "name.prefix"
+
+  - name: "prefix"
     extension: "overwrite"
     with:
-      fhir: "$fhirRoot.prefix.extension"
-      openehr: "$openehrRoot/items[at0006]"
+      fhir: "$fhirRoot.prefix.extension.value"
+      openehr: "$archetype/items[at0006]"
     fhirCondition:
       targetRoot: "$fhirRoot.prefix.extension"
       targetAttribute: "url"
@@ -23,7 +24,7 @@ mappings:
       mappings:
         - name: "staticExtensionUrl"
           with:
-            fhir: "$fhirRoot.prefix.extension"
+            fhir: "$fhirRoot"
           manual:
             - name: "url"
               fhir:
@@ -48,7 +49,7 @@ mappings:
             mappings:
               - name: "staticExtensionUrl"
                 with:
-                  fhir: "extension"
+                  fhir: "$fhirRoot"
                 manual:
                   - name: "staticUrl"
                     fhir:
@@ -69,7 +70,7 @@ mappings:
             mappings:
               - name: "staticExtensionUrl"
                 with:
-                  fhir: "extension"
+                  fhir: "$fhirRoot"
                 manual:
                   - name: "staticUrl"
                     fhir:
@@ -89,7 +90,7 @@ mappings:
             mappings:
               - name: "staticExtensionUrl"
                 with:
-                  fhir: "extension"
+                  fhir: "$fhirRoot"
                 manual:
                   - name: "staticUrl"
                     fhir:

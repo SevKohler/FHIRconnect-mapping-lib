@@ -13,7 +13,7 @@ mappings:
   - name: "fallIdentifikationIdentifier"
     extension: "add"
     with:
-      fhir: "$resource.encounter.identifier"
+      fhir: "$resource.encounter.as(Reference).identifier"
       openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
     slotArchetype: "CLUSTER.case_identification.v0"
 
@@ -49,7 +49,7 @@ mappings:
     extension: "add"
     with:
       fhir: "$resource.extension"
-      openehr: "$archetype/description[at0001]/items[at0014]"
+      openehr: "$archetype"
     fhirCondition:
       targetRoot: "$resource.extension"
       targetAttribute: "url"
@@ -57,6 +57,10 @@ mappings:
       criteria: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Durchfuehrungsabsicht"
     followedBy:
       mappings:
+        - name: "value"
+          with:
+            fhir: "value.as(Coding)"
+            openehr: "description[at0001]/items[at0014]"
         - name: "staticUrl"
           with:
             fhir: "$fhirRoot"
