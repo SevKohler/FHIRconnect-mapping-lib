@@ -16,10 +16,10 @@ spec:
 
 preprocessor:
   fhirCondition:
-      targetRoot: "$resource.verificationStatus" # exclude all conditions with entered-in-error, since there is no mapping for this code
-      targetAttribute: "coding.code"
-      operator: "not of"
-      criteria: "entered-in-error"
+    targetRoot: "$resource" # exclude all conditions with entered-in-error, since there is no mapping for this code
+    targetAttribute: "verificationStatus.coding.code"
+    operator: "not of"
+    criteria: "entered-in-error"
 
 mappings:
 
@@ -84,24 +84,8 @@ mappings:
   - name: "problemDiagnose"
     with:
       fhir: "$resource.code"
-      openehr: "$archetype"
-    followedBy:
-      mappings:
-        - name: "problemDiagnoseName"
-          with:
-            fhir: "coding"
-            openehr: "$archetype"
-            type: "NONE" # had to be none, else when going to openEhr, it's mapped to $archetype|code, ..
-          followedBy:
-            mappings:
-              - name: "problemDiagnoseNameCode"
-                with:
-                  fhir: "code"
-                  openehr: "$archetype/data[at0001]/items[at0002]"
-        - name: "problemDiagnoseText"
-          with:
-            fhir: "text"
-            openehr: "$archetype/data[at0001]/items[at0009]"
+      openehr: "$archetype/data[at0001]/items[at0002]"
+
 
   - name: "note"
     with:
@@ -128,6 +112,11 @@ mappings:
     with:
       fhir: "$resource.severity"
       openehr: "$archetype/data[at0001]/items[at0005]"
+
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
 
 
 

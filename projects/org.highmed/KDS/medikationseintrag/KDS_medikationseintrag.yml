@@ -9,7 +9,18 @@ spec:
   extends: OBSERVATION.medication_statement.v0
 
 mappings:
-  #todo: where is this supposed to be mapped to? No encounter on MedicationStatement
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationStatement"
+
+  # Dokumentationsdatum
   - name: "fallIdentifikationIdentifier"
     extension: "add"
     with:
@@ -20,7 +31,7 @@ mappings:
   - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.context.as(Encounter)"
+      fhir: "$resource.context"
       openehr: "$reference"
     reference:
       resourceType: "Encounter"
@@ -37,13 +48,16 @@ mappings:
           openehrLink:
             meaning: "the case this composition relates to"
             type: "case"
-
+  - name: "status"
+    extension: "add"
+    with:
+      fhir: "$resource.status"
+      openehr: "$composition/context/other_context[at0005]/items[openEHR-EHR-CLUSTER.case_identification.v0]/items[at0003]"
   - name: "protocol0004Parent"
     extension: "add"
     with:
       fhir: "$resource"
       openehr: "$archetype/protocol[at0004]"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "externalIdentifier"
@@ -58,11 +72,45 @@ mappings:
             openehr: "items[openEHR-EHR-CLUSTER.entry_category.v0]"
           slotArchetype: "CLUSTER.entry_category.v0"
 
-        - name: "status"
+  # KDS override: prevent openEHR -> FHIR from setting medication[x] as CodeableConcept
+  # Keep the CodeableConcept mapping only for FHIR -> openEHR direction
+  - name: "medicationReference"
+    extension: "add"
+    with:
+      fhir: "$resource.medication.as(Reference)"
+      openehr: "$reference"
+    reference:
+      resourceType: "Medication"
+      mappings:
+        - name: "medicationReferenceKds"
           with:
             fhir: "$fhirRoot"
-            openehr: "items[openEHR-EHR-CLUSTER.medication_status_fhir.v0]"
-          slotArchetype: "CLUSTER.medication_status_fhir.v0"
+            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+          slotArchetype: "CLUSTER.medication.v2"
+
+  - name: "medicationCode"
+    extension: "overwrite"
+    unidirectional: "fhir->openEHR"
+    with:
+      fhir: "medication.as(CodeableConcept)"
+      openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
+    openehrCondition:
+      targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+      targetAttributes:
+        - "items[at0071]"
+        - "items[at0115]"
+      operator: "empty"
+
+  - name: "medicationCodeR"
+    extension: "overwrite"
+    unidirectional: "fhir->openEHR"
+    with:
+      fhir: "medication.as(CodeableConcept)"
+      openehr: "data[at0003]/items[at0006]"
+    openehrCondition:
+      targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+      targetAttribute: "items[at0132]"
+      operator: "empty"
 
 
 

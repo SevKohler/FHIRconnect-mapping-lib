@@ -9,7 +9,7 @@ spec:
 
 context:
   profile:
-    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-labor/StructureDefinition/MedicationStatement"
+    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationStatement"
     version: "2025.0.0"
   template:
     id: "KDS_Medikationseintrag"
@@ -19,10 +19,13 @@ context:
     - "CLUSTER.medication.v2"
     - "CLUSTER.medication.v2.substance"
     - "CLUSTER.dosage.v2"
-    - "CLUSTER.medication_status_fhir.v0"
     - "CLUSTER.entry_category.v0"
     - "CLUSTER.identifier_fhir.v0"
+    - "RESOURCE.list.min"
+    - "RESOURCE.medication.min"
     - "CLUSTER.case_identification.v0"
+    - "CLUSTER.timing_daily.v1"
+    - "CLUSTER.timing_nondaily.v1"
   extensions:
     - "KDS_medication.v3"
     - "KDS_medikamentenstatement"

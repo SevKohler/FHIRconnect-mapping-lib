@@ -17,11 +17,14 @@ context:
   archetypes:
     - "EVALUATION.problem_diagnosis.v1"
     - "ADMIN_ENTRY.episode_institution_local.v0"
-    - "CLUSTER.organisation.v1"
+    - "CLUSTER.kontakttyp.v0"
+    - "CLUSTER.diagnosetyp.v0"
+    - "CLUSTER.organization.v0"
+    - "CLUSTER.location.v1"
     # need to reference also all those from problem diagnose?
     - "CLUSTER.anatomical_location.v1"
   extensions:
     - "KDS_episode_institution_local"
-    - "KDS_organisation"
+    - "KDS_fall_problem_diagnose"
     - "KDS_anatomical_location"
   start: "ADMIN_ENTRY.episode_institution_local.v0"

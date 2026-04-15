@@ -9,6 +9,17 @@ spec:
   extends: EVALUATION.cause_of_death.v1
 
 mappings:
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-person/StructureDefinition/Todesursache"
+
   - name: "fallIdentifikationIdentifier"
     extension: "add"
     with:
@@ -19,7 +30,7 @@ mappings:
   - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.encounter.reference"
+      fhir: "$resource.encounter"
       openehr: "$reference"
     reference: #type None
       resourceType: "Encounter"

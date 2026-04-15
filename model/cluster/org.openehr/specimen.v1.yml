@@ -22,18 +22,28 @@ mappings:
     with:
       fhir: "$resource.collection"
       openehr: "$archetype"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "collected"
           with:
-            fhir: "collected.as(DateTimeType)" # same as onset; try to provide both and use the one that's present
+            fhir: "collected.as(DateTime)" # same as onset; try to provide both and use the one that's present
             openehr: "items[at0015]"
+          openehrCondition:
+            targetRoot: "$openehrRoot"
+            targetAttribute: "items[at0015]"
+            operator: "type"
+            criteria: "DV_DATE_TIME"
 
-        - name: "collected"
+
+        - name: "collectedPeriod"
           with:
-            fhir: "collected.as(Period)" # same as onset; try to provide both and use the one that's present
+            fhir: "collected.as(Period)" # single openEHR date/time can only represent Period.start
             openehr: "items[at0015]"
+          openehrCondition:
+            targetRoot: "$openehrRoot"
+            targetAttribute: "items[at0015]"
+            operator: "type"
+            criteria: "DV_INTERVAL"
 
         - name: "collector"
           with:
@@ -89,7 +99,6 @@ mappings:
     with:
       fhir: "$resource.parent"
       openehr: "$archetype/items[at0003]"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "identifier"
@@ -103,7 +112,7 @@ mappings:
 
         - name: "identifierInReference"
           with:
-            fhir: "$fhirRoot.as(Specimen)"
+            fhir: "$fhirRoot"
             openehr: "$reference"
           openehrCondition:
             targetRoot: "$openehrRoot"

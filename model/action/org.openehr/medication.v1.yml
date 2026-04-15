@@ -35,22 +35,43 @@ mappings:
       fhir: "$resource.request.requester"
       openehr: "$archetype/context/health_care_facility"
 
-  - name: "context"
+  - name: "effectivePeriodContext"
     with:
       fhir: "$resource.effective.as(Period)"
-      openehr: "$composition/context"
-      type: "NONE"
+      openehr: "$composition"
+    openehrCondition:
+      targetRoot: "$composition/context"
+      targetAttribute: "end_time"
+      operator: "not empty"
     followedBy:
       mappings:
-        - name: "contextStart"
-          with:
-            fhir: "start"
-            openehr: "start_time"
-
-        - name: "contextEnd"
+        - name: "effectiveEnd"
           with:
             fhir: "end"
-            openehr: "end_time"
+            openehr: "context/end_time"
+
+
+        - name: "effectiveStart"
+          with:
+            fhir: "start"
+            openehr: "context/start_time"
+
+  - name: "effectiveDateTimeContext"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(DateTime)"
+      openehr: "$composition/context/start_time"
+
+  - name: "effectivePeriod"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(Period).start"
+      openehr: "$archetype/time"
+
+  - name: "effectiveDateTime"
+    with:
+      fhir: "$resource.effective.as(DateTime)"
+      openehr: "$archetype/time"
 
   - name: "composer"
     with:
@@ -66,6 +87,7 @@ mappings:
     with:
       fhir: "$resource.category.coding"
       openehr: "$composition/context/setting"
+      type: NONE
     manual:
       - name: "outpatient"
         fhir:
@@ -84,9 +106,9 @@ mappings:
           - path: "defining_code/terminology_id"
             value: "openehr"
           - path: "defining_code/code_string"
-            value: "228"
+            value: "232"
           - path: "value"
-            value: "primary medical care"
+            value: "secondary medical care"
         fhirCondition:
           targetRoot: "$resource"
           targetAttribute: "category.coding.code"
@@ -230,7 +252,6 @@ mappings:
     with:
       fhir: "$resource.request" # overwrites request
       openehr: "$archetype/protocol[at0030]/items[at0103]"
-      type: "NONE"
     followedBy:
       mappings:
         - name: "identifier"
@@ -244,7 +265,7 @@ mappings:
 
         - name: "identifierInReference"
           with:
-            fhir: "$fhirRoot.as(MedicationRequest)"
+            fhir: "$fhirRoot"
             openehr: "$reference"
           openehrCondition:
             targetRoot: "$openehrRoot"
@@ -264,6 +285,381 @@ mappings:
                 link:
                   meaning: "the medication request for this medication"
                   type: "medicationRequest"
+
+  # ISM transition mapping summary
+  #
+  # 1) ISMTransitionFhirToOpenEhr (fhir->openehr)
+  # - in-progress -> 245 (Active)
+  # - not-done -> 528 (Cancelled)
+  # - on-hold -> 530 (Suspended)
+  # - completed -> 532 (Completed)
+  # - entered-in-error -> 528 (Cancelled)
+  # - stopped -> 531 (Aborted)
+  # - unknown -> no mapping (intentionally disabled; should be handled/flagged explicitly)
+  #
+  # 2) ISMTransitionOpenEhrToFhir (openehr->fhir)
+  # - 245 (Active) -> in-progress
+  # - 530 (Suspended) -> on-hold
+  # - 531 (Aborted) -> stopped
+  # - 532 (Completed) -> completed
+  # - 528 (Cancelled) -> not-done
+  # - 524/526/527/529/533 (Initial/Planned/Postponed/Scheduled/Expired) -> unknown
+  - name: "ISMTransitionFhirToOpenEhr"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/ism_transition/current_state"
+      type: NONE
+    manual:
+      - name: "in-progress"
+        fhir:
+          - path: "status"
+            value: "in-progress"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "245"
+          - path: "value"
+            value: "Active"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "in-progress"
+
+      - name: "not-done"
+        fhir:
+          - path: "status"
+            value: "not-done"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "528"
+          - path: "value"
+            value: "Cancelled"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "not-done"
+
+      - name: "on-hold"
+        fhir:
+          - path: "status"
+            value: "on-hold"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "530"
+          - path: "value"
+            value: "Suspended"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "on-hold"
+
+      - name: "completed"
+        fhir:
+          - path: "status"
+            value: "completed"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "532"
+          - path: "value"
+            value: "Completed"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "completed"
+
+      - name: "entered-in-error"
+        fhir:
+          - path: "status"
+            value: "entered-in-error"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "528"
+          - path: "value"
+            value: "Cancelled"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "entered-in-error"
+
+      - name: "stopped"
+        fhir:
+          - path: "status"
+            value: "stopped"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "531"
+          - path: "value"
+            value: "Aborted"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "stopped"
+
+      # Intentionally disabled for clinical safety:
+      # FHIR MedicationAdministration.status=unknown has no reliable openEHR ISM equivalent.
+      # If enabled later, use the most neutral fallback:
+      # - name: "unknown"
+      #   fhir:
+      #     - path: "status"
+      #       value: "unknown"
+      #   openehr:
+      #     - path: "defining_code/terminology_id"
+      #       value: "openehr"
+      #     - path: "defining_code/code_string"
+      #       value: "524"
+      #     - path: "value"
+      #       value: "Initial"
+      #   fhirCondition:
+      #     targetRoot: "$resource"
+      #     targetAttribute: "status"
+      #     operator: "one of"
+      #     criteria: "unknown"
+
+  - name: "ISMTransitionOpenEhrToFhir"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/ism_transition/current_state"
+      type: NONE
+    manual:
+      - name: "activeToInProgress"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "in-progress"
+        fhir:
+          - path: "status"
+            value: "in-progress"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "245"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "245"
+          - path: "value"
+            value: "Active"
+
+      - name: "suspendedToOnHold"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "on-hold"
+        fhir:
+          - path: "status"
+            value: "on-hold"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "530"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "530"
+          - path: "value"
+            value: "Suspended"
+
+      - name: "abortedToStopped"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "stopped"
+        fhir:
+          - path: "status"
+            value: "stopped"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "531"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "531"
+          - path: "value"
+            value: "Aborted"
+
+      - name: "completedToCompleted"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "completed"
+        fhir:
+          - path: "status"
+            value: "completed"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "532"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "532"
+          - path: "value"
+            value: "Completed"
+
+      - name: "cancelledToNotDone"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "not-done"
+        fhir:
+          - path: "status"
+            value: "not-done"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "528"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "528"
+          - path: "value"
+            value: "Cancelled"
+
+      - name: "initialToUnknown"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "unknown"
+        fhir:
+          - path: "status"
+            value: "unknown"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "524"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "524"
+          - path: "value"
+            value: "Initial"
+
+      - name: "plannedToUnknown"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "unknown"
+        fhir:
+          - path: "status"
+            value: "unknown"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "526"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "526"
+          - path: "value"
+            value: "Planned"
+
+      - name: "postponedToUnknown"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "unknown"
+        fhir:
+          - path: "status"
+            value: "unknown"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "527"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "527"
+          - path: "value"
+            value: "Postponed"
+
+      - name: "scheduledToUnknown"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "unknown"
+        fhir:
+          - path: "status"
+            value: "unknown"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "529"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "529"
+          - path: "value"
+            value: "Scheduled"
+
+      - name: "expiredToUnknown"
+        fhirCondition:
+          targetRoot: "$resource"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "unknown"
+        fhir:
+          - path: "status"
+            value: "unknown"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "defining_code/code_string"
+          operator: "one of"
+          criteria: "533"
+        openehr:
+          - path: "defining_code/terminology_id"
+            value: "openehr"
+          - path: "defining_code/code_string"
+            value: "533"
+          - path: "value"
+            value: "Expired"
+
 
   - name: "ISMTransition"
     with:

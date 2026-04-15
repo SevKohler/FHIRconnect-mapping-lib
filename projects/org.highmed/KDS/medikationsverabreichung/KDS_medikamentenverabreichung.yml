@@ -9,12 +9,23 @@ spec:
   extends: ACTION.medication.v1
 
 mappings:
+  - name: "metaURL"
+    extension: "add"
+    unidirectional: "openEHR->fhir"
+    with:
+      fhir: "$resource.meta"
+    manual:
+      - name: "profileUrl"
+        fhir:
+          - path: "profile"
+            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationAdministration"
+
   - name: "berichtId"
     extension: "add"
     with:
-      fhir: "$resource.identifier.value"
+      fhir: "$resource.identifier"
       openehr: "$composition/context/other_context[at0001]/items[at0002]"
-      type: "STRING"
+
 
   - name: "status"
     extension: "add"
@@ -32,7 +43,7 @@ mappings:
   - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.encounter"
+      fhir: "$resource.context"
       openehr: "$reference"
     reference: #type None
       resourceType: "Encounter"
@@ -40,12 +51,12 @@ mappings:
         - name: "identifierInReference"
           with:
             fhir: "$fhirRoot.identifier"
-            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
+            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
           slotArchetype: "CLUSTER.case_identification.v0"
         - name: "encounterMapping"
           with:
             fhir: "$fhirRoot"
-            openehr: "$archetype/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
+            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
             openehrLink:
               meaning: "the case this composition relates to"
               type: "case"
@@ -75,3 +86,11 @@ mappings:
         - "/items[at0133]"
         - "/items[at0141]"
       operator: "empty"
+
+
+  - name: "clinicalIndication"
+    extension: "overwrite"
+    with:
+      fhir: "$resource.reasonCode.coding.display"
+      openehr: "$archetype/description[at0017]/items[at0156]"
+

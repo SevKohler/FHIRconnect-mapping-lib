@@ -17,7 +17,9 @@ context:
     sem_ver: "10.0.0"
   archetypes:
     - "ACTION.procedure.v1"
+    - "CLUSTER.anatomical_location.v1"
     - "CLUSTER.case_identification.v0"
   extensions:
     - "KDS_procedure.v1"
+    - "KDS_anatomical_location_prozedur"
   start: "ACTION.procedure.v1"
