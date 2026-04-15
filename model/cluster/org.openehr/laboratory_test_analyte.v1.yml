@@ -235,6 +235,7 @@ mappings:
     with:
       fhir: "$resource.specimen"
       openehr: "$archetype/items[at0026]"
+      type: "NONE"
     followedBy:
       mappings:
         - name: "identifier"
