@@ -10,7 +10,7 @@ spec:
     archetype: openEHR-EHR-CLUSTER.organization.v0
     revision: 0.0.1-alpha
   fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Organization
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Coding
 
 mappings:
   - name: "type"
@@ -20,7 +20,7 @@ mappings:
 
   - name: "orgaKey"
     with:
-      fhir: "$fhirRoot.identifier"
+      fhir: "$fhirRoot"
       openehr: "$archetype/items[at0024]"
 
   - name: "name"

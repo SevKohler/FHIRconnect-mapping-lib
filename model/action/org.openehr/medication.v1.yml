@@ -16,13 +16,13 @@ preprocessor:
   hierarchy:
     with:
       fhir: "$resource.dosage"
-      openEHR: "$archetype/data[at0001]/events[at0002]"
+      openehr: "$archetype/data[at0001]/events[at0002]"
     split:
       fhir:
         create: "resource"
         unique:
           - "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
-      openEHR:
+      openehr:
         create: "event"
         path: "$archetype/data[at0001]/events[at0002]"
         unique:
@@ -87,7 +87,6 @@ mappings:
     with:
       fhir: "$resource.category.coding"
       openehr: "$composition/context/setting"
-      type: NONE
     manual:
       - name: "outpatient"
         fhir:
@@ -247,7 +246,6 @@ mappings:
       meaning: "part of a other medication administration"
       type: "partOf"
 
-
   - name: "request"
     with:
       fhir: "$resource.request" # overwrites request
@@ -309,7 +307,6 @@ mappings:
     with:
       fhir: "$resource"
       openehr: "$archetype/ism_transition/current_state"
-      type: NONE
     manual:
       - name: "in-progress"
         fhir:
@@ -434,11 +431,10 @@ mappings:
       #     criteria: "unknown"
 
   - name: "ISMTransitionOpenEhrToFhir"
-    unidirectional: "openEHR->fhir"
+    unidirectional: "openehr->fhir"
     with:
       fhir: "$resource"
       openehr: "$archetype/ism_transition/current_state"
-      type: NONE
     manual:
       - name: "activeToInProgress"
         fhirCondition:
@@ -659,75 +655,3 @@ mappings:
             value: "533"
           - path: "value"
             value: "Expired"
-
-
-  - name: "ISMTransition"
-    with:
-      fhir: "$resource"
-      openehr: "$archetype/ism_transition/current_state"
-    manual:
-      - name: "active"
-        fhir:
-          - path: "status"
-            value: "active"
-        openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
-          criteria: "245"
-        openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
-            value: "245"
-          - path: "value"
-            value: "Active"
-        fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "active"
-
-      - name: "inactive"
-        fhir:
-          - path: "status"
-            value: "inactive"
-        openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
-          criteria: "532"
-        openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
-            value: "532"
-          - path: "value"
-            value: "Completed"
-        fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "inactive"
-
-      - name: "entered-in-error"
-        fhir:
-          - path: "status"
-            value: "entered-in-error"
-        openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
-          criteria: "528"
-        openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
-            value: "528"
-          - path: "value"
-            value: "Cancelled"
-        fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "entered-in-error"

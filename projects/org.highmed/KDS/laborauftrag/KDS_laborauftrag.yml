@@ -33,9 +33,9 @@ mappings:
           with:
             fhir: "$fhirRoot"
             openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
-            openehrLink:
-              meaning: "the case this composition relates to"
-              type: "case"
+          link:
+            meaning: "the case this composition relates to"
+            type: "case"
 
 
 
@@ -110,7 +110,7 @@ mappings:
           - path: "value"
             value: "Laboratory"
         fhirCondition:
-          targetRoot: "$fhirRoot"
+          targetRoot: "$resource"
           targetAttribute: "category.coding.code"
           operator: "one of"
           criteria: "laboratory"

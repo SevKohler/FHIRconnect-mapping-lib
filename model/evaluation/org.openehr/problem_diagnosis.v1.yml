@@ -113,10 +113,4 @@ mappings:
       fhir: "$resource.severity"
       openehr: "$archetype/data[at0001]/items[at0005]"
 
-  - name: "contextStartTime"
-    with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
-
-
 
