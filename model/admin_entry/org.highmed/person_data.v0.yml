@@ -17,7 +17,7 @@ preprocessor:
   fhirCondition:
       targetRoot: "$resource"
       targetAttribute: "active"  # exclude non-active patients
-      operator: "one of"
+      operator: "not of"
       criteria: "false"
 
 mappings:

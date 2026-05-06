@@ -17,7 +17,7 @@ preprocessor:
   hierarchy:
     with:
       fhir: "$resource"
-      openEHR: "$archetype/data[at0001]/events[at0002]"
+      openehr: "$archetype/data[at0001]/events[at0002]"
     split:
       fhir:
         create: "resource"

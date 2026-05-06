@@ -1,7 +1,7 @@
 grammar: FHIRConnect/v1.0.0
 type: extension
 metadata:
-  name: KDS_gender.v1
+  name: KDS_gender_pseudo.v1
   version: 0.0.1-alpha
 spec:
   system: FHIR
