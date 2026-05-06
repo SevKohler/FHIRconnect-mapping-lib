@@ -17,20 +17,4 @@ mappings:
     with:
       fhir: "$fhirRoot"
       openehr: "items[at0001]"
-    fhirCondition:
-      targetRoot: "$fhirRoot"
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "VN"
-    followedBy:
-      mappings:
-        - name: "vncodingcode"
-          with:
-            fhir: "type.coding"
-            openehr: "$openehrRoot"
-          manual:
-            - name: "extension"
-              fhir:
-                - path: "code"
-                  value: "VN"
 
