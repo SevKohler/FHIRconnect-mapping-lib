@@ -164,7 +164,7 @@ operational model by `metadata.name` is a new convention to confirm.
 
 ---
 
-## ADR-9 — `$context` is referenced from `manual` values; operational models are unidirectional at model level
+## ADR-9 — `$context` is referenced from `manual` values; operational direction is set at model level
 
 **Context.** Setting `agent.who` from the REST call's `$context.who` could be a
 new first-class `context:` source (parallel to `fhir:`/`openehr:`) — but that
@@ -175,8 +175,11 @@ forces the engine to define a new namespace and its directionality.
   rather than introducing a `context:` source. `manual` is already the
   openEHR-free channel, so the FHIR↔openEHR roundtrip is untouched; the only new
   capability is "a `manual` value may be a `$context.*` reference."
-- Operational models are **generate-only**; declare `unidirectional:
-  "openehr->fhir"` once at the model level (in the header) instead of per rule.
+- Operational models may run either direction; they are not inherently
+  generate-only. Unidirectional is **suggested** (and our only example so far,
+  provenance, is `openehr->fhir`). When a model is one-way, declare
+  `unidirectional: "openehr->fhir"` once at the model level (in the header)
+  instead of per rule.
 
 **Consequences.** Minimal grammar change, no bidirectional breakage. A
 first-class `context:` source is deferred until context needs conditions,
