@@ -1,0 +1,20 @@
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name: provenance_who_context
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: provenance
+
+mappings:
+  - name: "agentWhoContext"
+    extension: "add"
+    with:
+      fhir: "$resource.agent.who"
+    manual:
+      - name: "who"
+        fhir:
+          - path: "$fhirRoot"
+            value: "$context.who"       # dynamic value from the REST call (not a literal)
