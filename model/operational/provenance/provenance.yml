@@ -6,6 +6,7 @@ metadata:
 spec:
   system: FHIR
   version: R4
+  unidirectional: "openehr->fhir"
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Provenance
 
