@@ -38,7 +38,7 @@ mappings:
         - name: "performer"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            openehr: "$openehrRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   - name: "composer"
     with:

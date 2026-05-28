@@ -105,7 +105,7 @@ mappings:
           operator: "one of"
           criteria: "laboratory"
 
-  - name: "protocol0008Parent.status"
+  - name: "status"
     extension: "overwrite"
     with:
       fhir: "$resource"

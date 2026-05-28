@@ -9,19 +9,14 @@ spec:
   extends: COMPOSITION.fall.v1.encounter
 
 mappings:
-  - name: "falltyp"
-    extension: "add"
-    with:
-      fhir: "$resource.type"
-      openehr: "$composition/context/other_context[at0001]/items[at0005]"
-
   - name: "fallklasse"
     extension: "add"
     with:
       fhir: "$resource.class"
       openehr: "$composition/context/other_context[at0001]/items[at0004]"
 
-  - name: "fallart"
+
+  - name: "fallstatus"
     extension: "add"
     with:
       fhir: "$resource.status"
@@ -31,8 +26,7 @@ mappings:
     extension: "add"
     with:
       fhir: "$resource.identifier"
-      openehr: "$composition"
-      type: "NONE"
+      openehr: "$composition/context/other_context[at0001]/items[at0003]"
     fhirCondition:
       targetRoot: "$resource.identifier"
       targetAttribute: "type.coding.code"
@@ -40,10 +34,6 @@ mappings:
       criteria: "VN"
     followedBy:
       mappings:
-        - name: "fallId"
-          with:
-            fhir: "value"
-            openehr: "$composition/context/other_context[at0001]/items[at0003]"
         - name: "vncodingcode"
           with:
             fhir: "type.coding"
@@ -52,3 +42,19 @@ mappings:
               fhir:
                 - path: "code"
                   value: "VN"
+                - path: "system"
+                  value: "http://terminology.hl7.org/CodeSystem/v2-0203"
+
+  - name: "serviceType"
+    extension: "add"
+    with:
+      fhir: "$resource.serviceType.coding"
+      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.organization.v0]"
+    slotArchetype: "CLUSTER.organization.v0"
+
+  - name: "kontaktTyp"
+    extension: "add"
+    with:
+      fhir: "$resource.type"
+      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.kontakttyp.v0]"
+    slotArchetype: "CLUSTER.kontakttyp.v0"

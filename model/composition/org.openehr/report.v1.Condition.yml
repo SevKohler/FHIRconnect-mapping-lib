@@ -38,7 +38,7 @@ mappings:
 
         - name: "onsetDateTime"
           with:
-            fhir: "onset.ofType(DateTimeType)"
+            fhir: "onset.ofType(DateTime)"
             openehr: "start_time"
 
   - name: "contextStartTimeEmpty"
@@ -66,6 +66,10 @@ mappings:
                 - path: "null_flavour/defining_code/code_string"
                   value: "271"
 
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
 
   - name: "contextStartTimeEmpty"
     with:

@@ -28,7 +28,7 @@ mappings:
     with:
       fhir: "$resource"
       openehr: "$composition"
-    slotArchetype: "COMPOSITION.report.v1.Observation""
+    slotArchetype: "COMPOSITION.report.v1.Observation"
 
   - name: "category"
     extension: "add"

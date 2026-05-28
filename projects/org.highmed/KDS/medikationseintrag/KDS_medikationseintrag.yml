@@ -25,7 +25,7 @@ mappings:
     with:
       fhir: "$resource"
       openehr: "$composition"
-    slotArchetype: "COMPOSITION.report.v1.MedicationStatement"
+    slotArchetype: "COMPOSITION.medication_list.v1.MedicationStatement"
 
   - name: "protocol0004Parent"
     extension: "add"

@@ -30,7 +30,7 @@ mappings:
     with:
       fhir: "$resource.status"
       openehr: "$composition/context/other_context[at0001]/items[at0005]"
-      unidirectional: "openehr->fhir"
+    unidirectional: "openehr->fhir"
     manual:
       - name: "data-absent" # map data absence, since most openEHR templates do not require status
         fhir:

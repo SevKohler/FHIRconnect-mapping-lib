@@ -140,7 +140,7 @@ mappings:
     fhirCondition:
       targetRoot: "$resource"
       targetAttribute: "status"
-      operator: "not in"
+      operator: "not of"
       criteria: "entered-in-error"
     manual:
       - name: "available"
