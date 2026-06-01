@@ -9,6 +9,12 @@ spec:
   extends: COMPOSITION.fall.v1.encounter
 
 mappings:
+  - name: "falltyp"
+    extension: "add"
+    with:
+      fhir: "$resource.type"
+      openehr: "$composition/context/other_context[at0001]/items[at0005]"
+
   - name: "fallklasse"
     extension: "add"
     with:
@@ -44,17 +50,3 @@ mappings:
                   value: "VN"
                 - path: "system"
                   value: "http://terminology.hl7.org/CodeSystem/v2-0203"
-
-  - name: "serviceType"
-    extension: "add"
-    with:
-      fhir: "$resource.serviceType.coding"
-      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.organization.v0]"
-    slotArchetype: "CLUSTER.organization.v0"
-
-  - name: "kontaktTyp"
-    extension: "add"
-    with:
-      fhir: "$resource.type"
-      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.kontakttyp.v0]"
-    slotArchetype: "CLUSTER.kontakttyp.v0"

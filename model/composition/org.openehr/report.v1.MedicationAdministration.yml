@@ -33,23 +33,23 @@ mappings:
       fhir: "$resource.performer.actor"
       openehr: "$composition/composer"
 
-  #  - name: "composerEmpty"
-  #    with:
-  #      fhir: "$resource.performer.actor"
-  #      openehr: "$composition/composer"
-  #    fhirCondition:
-  #      targetRoot: "$resource"
-  #      targetAttribute: "request.performer.actor"
-  #      operator: "empty"
-  #    manual:
-  #      - name: "no information"
-  #        openehr:
-  #          - path: "_null_flavour/value"
-  #            value: "no information"
-  #          - path: "_null_flavour/defining_code/terminology_id"
-  #            value: "openehr"
-  #          - path: "_null_flavour/defining_code/code_string"
-  #            value: "271"
+  - name: "composerEmpty"
+    with:
+      fhir: "$resource.performer.actor"
+      openehr: "$composition/composer"
+    fhirCondition:
+      targetRoot: "$resource"
+      targetAttribute: "request.performer.actor"
+      operator: "empty"
+    manual:
+      - name: "no information"
+        openehr:
+          - path: "null_flavour/value"
+            value: "no information"
+          - path: "null_flavour/defining_code/terminology_id"
+            value: "openehr"
+          - path: "null_flavour/defining_code/code_string"
+            value: "271"
 
 
   - name: "effectivePeriodContext"
