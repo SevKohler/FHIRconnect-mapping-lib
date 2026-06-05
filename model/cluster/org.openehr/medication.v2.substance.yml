@@ -22,12 +22,11 @@ mappings:
     with:
       fhir: "$resource.ingredient"
       openehr: "$archetype/items[openEHR-EHR-CLUSTER.medication.v2]" # cluster in cluster
-      type: "NONE"
     followedBy:
       mappings:
         - name: "ingredient"
           with:
-            fhir: "substance.ofType(CodeableConcept)"
+            fhir: "substance.as(CodeableConcept)"
             openehr: "$archetype"
           followedBy:
             mappings:
@@ -43,7 +42,7 @@ mappings:
 
         - name: "substanceSubstance"
           with:
-            fhir: "substance.ofType(Substance)"
+            fhir: "substance"
             openehr: "$reference"
           reference:
             resourceType: "Substance"
@@ -58,7 +57,6 @@ mappings:
           with:
             fhir: "quantity"
             openehr: "items[at0152]"
-            type: "NONE"
           followedBy:
             mappings:
               - name: "numerator"

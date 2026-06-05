@@ -8,7 +8,37 @@ spec:
   version: R4
   extends: COMPOSITION.report_result.v1.DiagnosticReport
 
-mapping:
+mappings:
+
+  - name: "fallIdentifikationIdentifier"
+    extension: "add"
+    with:
+      fhir: "$resource.encounter.ofType(Reference).identifier"
+      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
+    slotArchetype: "CLUSTER.case_identification.v0"
+
+  - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
+    extension: "add"
+    with:
+      openehr: "$reference"
+      fhir: "$resource.encounter"
+    reference: #type None
+      resourceType: "Encounter"
+      mappings:
+        - name: "identifierInReference"
+          with:
+            fhir: "$fhirRoot.identifier"
+            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
+          slotArchetype: "CLUSTER.case_identification.v0"
+        - name: "encounterMapping"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
+          link:
+            meaning: "the case this composition relates to"
+            type: "case"
+
+
   - name: "berichtIdParent"
     extension: "add"
     with:
@@ -36,37 +66,3 @@ mapping:
           with:
             fhir: "value"
             openehr: "$composition/context/other_context[at0001]/items[at0002]"
-
-  - name: "fallIdentifikationIdentifier"
-    extension: "add"
-    with:
-      fhir: "$resource.encounter.ofType(Reference).identifier"
-      openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
-    slotArchetype: "CLUSTER.case_identification.v0"
-
-  - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
-    extension: "add"
-    with:
-      fhir: "$resource.encounter"
-      openehr: "$reference"
-    reference: #type None
-      resourceType: "Encounter"
-      mappings:
-        - name: "identifierInReference"
-          with:
-            fhir: "$fhirRoot.identifier"
-            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
-          slotArchetype: "CLUSTER.case_identification.v0"
-        - name: "encounterMapping" # link mappings not suppoorted
-          with:
-            fhir: "$fhirRoot"
-            openehr: "$composition/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.case_identification.v0]/links" # will use link
-          link:
-            meaning: "the case this composition relates to"
-            type: "case"
-
-  - name: "status" #TODO @deprecated needs to go once mapping is updated
-    extension: "overwrite"
-    with:
-      fhir: "$resource.status"
-      openehr: "$composition/context/other_context[at0001]/items[at0005]"

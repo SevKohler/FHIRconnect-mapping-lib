@@ -52,33 +52,34 @@ mappings:
             value: "271"
 
 
-  - name: "context"
+  - name: "effectivePeriodContext"
     with:
-      fhir: "$resource"
-      openehr: "$composition/context"
-      type: "NONE"
+      fhir: "$resource.effective.as(Period)"
+      openehr: "$composition"
+    openehrCondition:
+      targetRoot: "$composition/context"
+      targetAttribute: "end_time"
+      operator: "not empty"
     followedBy:
       mappings:
-        - name: "effective"
+        - name: "effectiveEnd"
           with:
-            fhir: "effective.ofType(Period)"
-            openehr: "$reference"
-          followedBy:
-            mappings:
-              - name: "effectiveEnd"
-                with:
-                  fhir: "end"
-                  openehr: "end_time"
+            fhir: "end"
+            openehr: "context/end_time"
 
-              - name: "effectiveStart"
-                with:
-                  fhir: "start"
-                  openehr: "start_time"
 
-        - name: "effectiveDateTime"
+        - name: "effectiveStart"
           with:
-            fhir: "effective.ofType(DateTimeType)"
-            openehr: "start_time"
+            fhir: "start"
+            openehr: "context/start_time"
+
+  - name: "effectiveDateTimeContext"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(DateTime)"
+      openehr: "$composition/context/start_time"
+
+
 
   - name: "contextStartTimeEmpty"
     with:
@@ -98,11 +99,11 @@ mappings:
           manual:
             - name: "no information"
               openehr:
-                - path: "null_flavour/value"
+                - path: "_null_flavour/value"
                   value: "no information"
-                - path: "null_flavour/defining_code/terminology_id"
+                - path: "_null_flavour/defining_code/terminology_id"
                   value: "openehr"
-                - path: "null_flavour/defining_code/code_string"
+                - path: "_null_flavour/defining_code/code_string"
                   value: "271"
 
 
@@ -192,7 +193,7 @@ mappings:
   - name: "categoryEmpty"
     with:
       fhir: "$resource.category.coding"
-      openehr: "$composition/context"
+      openehr: "$composition"
     openehrCondition:
       targetRoot: "$composition"
       targetAttribute: "context"

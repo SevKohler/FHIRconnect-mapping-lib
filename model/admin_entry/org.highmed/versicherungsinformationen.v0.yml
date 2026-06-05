@@ -27,7 +27,7 @@ mappings:
         - name: "staticUrl"
           with:
             fhir: "$fhirRoot"
-            openehr: "$reference"
+            openehr: "$openehrRoot"
           manual:
             - name: "system"
               fhir:
@@ -43,6 +43,6 @@ mappings:
               fhir:
                 - path: "system"
                   value: "http://fhir.de/CodeSystem/identifier-type-de-basis"
-                - path: "value"
+                - path: "code"
                   value: "KVZ10"
 

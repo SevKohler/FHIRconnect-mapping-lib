@@ -8,20 +8,20 @@ spec:
   version: R4
   extends: COMPOSITION.medication_list.v1.MedicationStatement
 
-mapping:
+mappings:
   - name: "fallIdentifikationIdentifier"
     extension: "add"
     with:
-      fhir: "$resource.encounter.identifier"
+      fhir: "$resource.context.as(Reference).identifier"
       openehr: "$composition/context/other_context[at0005]/items[openEHR-EHR-CLUSTER.case_identification.v0]"
     slotArchetype: "CLUSTER.case_identification.v0"
 
   - name: "fallIdentifikationReference" # if reference is accessible overwrite fallIdentifikationIdentifier
     extension: "add"
     with:
-      fhir: "$resource.encounter"
       openehr: "$reference"
-    reference:
+      fhir: "$resource.context"
+    reference: #type None
       resourceType: "Encounter"
       mappings:
         - name: "identifierInReference"
@@ -36,3 +36,9 @@ mapping:
           link:
             meaning: "the case this composition relates to"
             type: "case"
+
+  - name: "status"
+    extension: "add"
+    with:
+      fhir: "$resource.status"
+      openehr: "$composition/context/other_context[at0005]/items[openEHR-EHR-CLUSTER.case_identification.v0]/items[at0003]"

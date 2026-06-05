@@ -38,3 +38,28 @@ mappings:
     with:
       fhir: "$resource.dateAsserted"
       openehr: "$composition/context/start_time"
+
+  - name: "effectivePeriod"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "effective.as(Period)"
+      openehr: "$composition"
+    followedBy:
+      mappings:
+        - name: "effectiveEnd"
+          with:
+            fhir: "end"
+            openehr: "context/end_time"
+
+
+        - name: "effectiveStart"
+          with:
+            fhir: "start"
+            openehr: "context/start_time"
+
+
+  - name: "effectiveDateTime"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "effective.as(DateTime)"
+      openehr: "$composition/context/start_time"

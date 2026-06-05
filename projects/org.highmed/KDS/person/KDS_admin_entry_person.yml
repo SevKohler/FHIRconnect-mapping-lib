@@ -14,7 +14,7 @@ mappings:
     with:
       fhir: "$resource"
       openehr: "$composition"
-    slotArchetype: "COMPOSITION.person.v1"
+    slotArchetype: "COMPOSITION.person.v0"
 
   - name: "identifier"
     with:

@@ -6,9 +6,9 @@ metadata:
 spec:
   system: FHIR
   version: R4
-  extends: COMPOSITION.person.v1.yml
+  extends: COMPOSITION.person.v1
 
-mapping:
+mappings:
   - name: "gender"
     extension: "add"
     with:

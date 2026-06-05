@@ -32,5 +32,5 @@ context:
     - "KDS_address"
     - "KDS_structured_name.v1.person_name-structured_name"
     - "KDS_admin_entry_person.v0"
-    - "KDS_composition"
+    - "KDS_composition_person.v0"
   start: "ADMIN_ENTRY.person_data.v0"

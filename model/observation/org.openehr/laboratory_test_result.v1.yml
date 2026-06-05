@@ -17,12 +17,49 @@ preprocessor:
   hierarchy:
     with:
       fhir: "$resource"
-      openEHR: "$archetype/data[at0001]/events[at0002]"
+      openehr: "$archetype/data[at0001]/events[at0002]"
     split:
       fhir:
         create: "resource"
 
+
 mappings:
+
+  - name: "healthCareFacility"
+    with:
+      fhir: "$resource.performer"
+      openehr: "$composition/context/health_care_facility"
+
+  - name: "participations"
+    with:
+      fhir: "$resource.resultsInterpreter"
+      openehr: "$composition/context/participations"  # reference to part
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name : "participationFunction"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openEHRRoot"
+          manual:
+            - name: "function"
+              openehr:
+                - path: "function"
+                  value: "result interpreter"
+        - name: "performer"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+  - name: "composer"
+    with:
+      fhir: "$resource.performer"
+      openehr: "$composition/composer" #take the first one if its 0..n ?!
+
+  - name: "performer"
+    with:
+      fhir: "$resource.performer"
+      openehr: "$composition/perfomer"
+
   - name: "otherParticipants"
     with:
       fhir: "$resource.resultsInterpreter"
@@ -42,42 +79,98 @@ mappings:
         - name: "performer"
           with:
             fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
+  - name: "effectivePeriod"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(Period)"
+      openehr: "$composition"
+    followedBy:
+      mappings:
+        - name: "effectiveEnd"
+          with:
+            fhir: "end"
+            openehr: "context/end_time"
+
+
+        - name: "effectiveStart"
+          with:
+            fhir: "start"
+            openehr: "context/start_time"
+
+
+  - name: "effectiveDateTime"
+    unidirectional: "fhir->openehr"
+    with:
+      fhir: "$resource.effective.as(DateTime)"
+      openehr: "$composition/context/start_time"
+
+  - name: "issued"
+    unidirectional: "openehr->fhir"
+    with:
+      fhir: "$resource.issued"
+      openehr: "$composition/context/start_time"
   - name: "eventParent"
     with:
       fhir: "$resource"
       openehr: "$archetype/data[at0001]/events[at0002]"
-      type: "NONE"
     followedBy:
       mappings:
-        - name: "eventTime" #TODO needs to be adressed in WG how we resolve that cleanly
+        - name: "eventTime"
           with:
             fhir: "effective"
-            openehr: "time" #TODO should do period -> interval event, datetime to pointInTime event now does only time for now
+            openehr: "$openehrRoot"
 
-        - name: "eventTimeEmpty"
+        - name: "categoryLoinc"
           with:
-            fhir: "effective"
-            openehr: "time"
-          fhirCondition:
-            targetRoot: "$resource"
-            targetAttribute: "effective"
-            operator: "empty"
-          manual:
-            - name: "no information"
-              openehr:
-                - path: "null_flavour/value"
-                  value: "no information"
-                - path: "null_flavour/defining_code/terminology_id"
-                  value: "openehr"
-                - path: "null_flavour/defining_code/code_string"
-                  value: "271"
+            fhir: "category"
+            openehr: "$openehrRoot"
+          followedBy:
+            mappings:
+              - name: "categoryCoding"
+                with:
+                  fhir: "coding"
+                  openehr: "$openehrRoot"
+                manual:
+                  - name: "laboratoryCategory"
+                    fhir:
+                      - path: "system"
+                        value: "http://loinc.org"
+                      - path: "code"
+                        value: "26436-6"
+                      - path: "text"
+                        value: "laboratory"
+
+              - name: "categoryHl7"
+                with:
+                  fhir: "coding"
+                  openehr: "$openehrRoot"
+                manual:
+                  - name: "laboratoryCategory"
+                    fhir:
+                      - path: "system"
+                        value: "http://terminology.hl7.org/CodeSystem/v2-0074"
+                      - path: "code"
+                        value: "LAB"
+                      - path: "text"
+                        value: "laboratory"
+
+              - name: "text"
+                with:
+                  fhir: "text"
+                  openehr: "$openehrRoot"
+                manual:
+                  - name: "laboratoryCategory"
+                    fhir:
+                      - path: "$fhirRoot"
+                        value: "laboratory"
 
         - name: "code"
           with:
             fhir: "code"
             openehr: "data[at0003]/items[at0005]"
+
 
         - name: "status"
           with:
@@ -304,18 +397,6 @@ mappings:
                 operator: "one of"
                 criteria: "unknown"
 
-        - name: "statusDefault"
-          with:
-            fhir: "$resource"
-          openehrCondition:
-            targetRoot: "$openehrRoot"
-            targetAttribute: "data[at0003]/items[at0073]"
-            operator: "empty"
-          manual:
-            - name: "final"
-              fhir:
-                - path: "status"
-                  value: "final"
 
         - name: "conclusion"
           with:
@@ -325,27 +406,31 @@ mappings:
         - name: "issued"
           with:
             fhir: "issued"
-            openehr: "data[at0003]/items[at0075]"
+            openehr: "time"
 
         - name: "specimen"
           with:
             fhir: "specimen"
-            openehr: "$reference"
-            type: "NONE"
-          reference:
-            resourceType: "Specimen"
+            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+          followedBy:
             mappings:
               - name: "specimenReference"
                 with:
                   fhir: "$fhirRoot"
-                  openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-                slotArchetype: "CLUSTER.specimen.v1"
+                  openehr: "$reference"
+                reference:
+                  resourceType: "Specimen"
+                  mappings:
+                    - name: "specimenReference"
+                      with:
+                        fhir: "$fhirRoot"
+                        openehr: "$openehrRoot"
+                      slotArchetype: "CLUSTER.specimen.v1"
 
         - name: "basedOn"
           with:
-            fhir: "basedOn.ofType(Reference)"
+            fhir: "basedOn.as(Reference)"
             openehr: "$archetype"
-            type: "NONE"
           followedBy: # type automatic since not provided, if no profile url is registered skip mapping
             mappings:
               - name: "identifierInReference"
@@ -360,3 +445,7 @@ mappings:
                   meaning: "the identifier which it derived from"
                   type: "based on"
 
+  - name: "eventTime"
+    with:
+      fhir: "$resource.effective"
+      openehr: "$archetype/data[at0001]/events[at0002]" # period -> interval event, datetime to pointInTime event
