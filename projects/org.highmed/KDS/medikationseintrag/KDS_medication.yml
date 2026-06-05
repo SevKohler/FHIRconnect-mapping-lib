@@ -82,16 +82,24 @@ mappings:
       mappings:
         - name: "relation"
           with:
-            fhir: "$fhirRoot.ingredients.extension"
+            fhir: "extension"
             openehr: "$archetype"
             type: "NONE"
           fhirCondition:
-            targetRoot: "$fhirRoot.ingredients.extension"
+            targetRoot: "extension"
             targetAttribute: "url"
             operator: "one of"
             criteria: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstoffrelation"
           followedBy:
             mappings:
+              - name: "url"
+                with:
+                  fhir: "$fhirRoot"
+                manual:
+                  - name: "extensionUrl"
+                    fhir:
+                      - path: "url"
+                        value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstoffrelation"
               - name: "ingriedientsReference"
                 with:
                   fhir: "extension"
@@ -103,9 +111,17 @@ mappings:
                   criteria: "ingredientReference"
                 followedBy:
                   mappings:
+                    - name: "url"
+                      with:
+                        fhir: "$fhirRoot"
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "ingredientReference"
                     - name: "relationMedication"
                       with:
-                        fhir: "extension.value.as(Reference)"
+                        fhir: "extension.value"
                         openehr: "$reference"
                       reference:
                         resourceType: "Medication"
@@ -117,7 +133,7 @@ mappings:
                             slotArchetype: "CLUSTER.medication.v2"
                     - name: "substanceRelation"
                       with:
-                        fhir: "extension.value.as(Reference)"
+                        fhir: "extension.value"
                         openehr: "$reference"
                       reference:
                         resourceType: "Substance"
@@ -130,10 +146,24 @@ mappings:
 
               - name: "ingridientsURI"
                 with:
-                  fhir: "extension.value.ofType(Uri)"
-                  openehr: "$openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
+                  fhir: "extension"
+                  openehr: "$openehrRoot"
                 fhirCondition:
                   targetRoot: "extension"
                   targetAttribute: "url"
                   operator: "one of"
                   criteria: "ingredientUri"
+                followedBy:
+                  mappings:
+                    - name: "url"
+                      with:
+                        fhir: "$fhirRoot"
+                      manual:
+                        - name: "extensionUrl"
+                          fhir:
+                            - path: "url"
+                              value: "ingredientUri"
+                    - name: "value"
+                      with:
+                        fhir: "value"
+                        openehr: "$openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
