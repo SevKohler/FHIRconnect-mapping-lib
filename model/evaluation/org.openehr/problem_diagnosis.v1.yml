@@ -57,7 +57,7 @@ mappings:
   - name: "other_participations"
     with:
       fhir: "$resource.asserter"
-      openehr: "$archetype/diagnose/other_participations"  # reference to part
+      openehr: "$archetype/other_participations"  # reference to part
       type: "NONE"
     followedBy:
       mappings:
@@ -100,7 +100,7 @@ mappings:
   - name: "bodySite"
     with:
       fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0012]"
+      openehr: "$archetype/data[at0001]/items[at0012]"
 
   - name: "bodySiteCluster"
     with:
