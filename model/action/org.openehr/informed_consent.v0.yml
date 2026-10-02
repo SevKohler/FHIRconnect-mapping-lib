@@ -15,159 +15,159 @@ spec:
 
 mappings:
 
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.dateTime"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.dateTime
+      openehr: $composition/context/start_time
 
-  - name: "healthCareFacility"
+  - name: healthCareFacility
     with:
-      fhir: "$resource.organization"
-      openehr: "$composition/context/health_care_facility"
+      fhir: $resource.organization
+      openehr: $composition/context/health_care_facility
 
-  - name: "ISMTransition"
+  - name: ISMTransition
     with:
-      fhir: "$resource" # there needs to be a mapping table
-      openehr: "$archetype/ism_transition/current_state"
+      fhir: $resource # there needs to be a mapping table
+      openehr: $archetype/ism_transition/current_state
     manual:
-      - name: "draft"
+      - name: draft
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "value"
-            value: "Initial"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: value
+            value: Initial
+          - path: defining_code/code_string
             value: "524"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "draft"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: draft
 
         fhir:
-          - path: "status"
-            value: "draft"
+          - path: status
+            value: draft
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "524"
 
-      - name: "proposed"
+      - name: proposed
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "value"
-            value: "Planned"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: value
+            value: Planned
+          - path: defining_code/code_string
             value: "526"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "proposed"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: proposed
         fhir:
-          - path: "status"
-            value: "proposed"
+          - path: status
+            value: proposed
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "526"
 
-      - name: "active"
+      - name: active
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "value"
-            value: "Active"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: value
+            value: Active
+          - path: defining_code/code_string
             value: "245"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "active"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: active
         fhir:
-          - path: "status"
-            value: "active"
+          - path: status
+            value: active
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "245"
 
-      - name: "rejected"
+      - name: rejected
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "value"
-            value: "Cancelled"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: value
+            value: Cancelled
+          - path: defining_code/code_string
             value: "528"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "rejected"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: rejected
         fhir:
-          - path: "status"
-            value: "rejected"
+          - path: status
+            value: rejected
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "528"
 
-      - name: "inactive"
+      - name: inactive
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "value"
-            value: "Completed"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: value
+            value: Completed
+          - path: defining_code/code_string
             value: "532"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "inactive"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: inactive
         fhir:
-          - path: "status"
-            value: "inactive"
+          - path: status
+            value: inactive
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "532"
 
-      - name: "entered-in-error"
+      - name: entered-in-error
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "value"
-            value: "Cancelled"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: value
+            value: Cancelled
+          - path: defining_code/code_string
             value: "528"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "entered-in-error"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: entered-in-error
         fhir:
-          - path: "status"
-            value: "entered-in-error"
+          - path: status
+            value: entered-in-error
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "528"
 
-  - name: "study"
+  - name: study
     with:
-      fhir: "$resource"
-      openehr: "$archetype/description[at0001]/items[openEHR-EHR-CLUSTER.study_participation.v1]"
-    slotArchetype: "CLUSTER.study_participation.v1"
+      fhir: $resource
+      openehr: $archetype/description[at0001]/items[openEHR-EHR-CLUSTER.study_participation.v1]
+    slotArchetype: CLUSTER.study_participation.v1
 
 
 #waiting for template update

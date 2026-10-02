@@ -9,82 +9,82 @@ spec:
   extends: OBSERVATION.medication_statement.v0
 
 mappings:
-  - name: "metaURL"
-    extension: "add"
-    unidirectional: "openEHR->fhir"
+  - name: metaURL
+    extension: add
+    unidirectional: openEHR->fhir
     with:
-      fhir: "$resource.meta"
+      fhir: $resource.meta
     manual:
-      - name: "profileUrl"
+      - name: profileUrl
         fhir:
-          - path: "profile"
-            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationStatement"
+          - path: profile
+            value: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationStatement
 
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.medication_list.v1.MedicationStatement"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.medication_list.v1.MedicationStatement
 
-  - name: "protocol0004Parent"
-    extension: "add"
+  - name: protocol0004Parent
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$archetype/protocol[at0004]"
+      fhir: $resource
+      openehr: $archetype/protocol[at0004]
     followedBy:
       mappings:
-        - name: "externalIdentifier"
+        - name: externalIdentifier
           with:
-            fhir: "identifier"
-            openehr: "items[openEHR-EHR-CLUSTER.identifier_fhir.v0]"
-          slotArchetype: "CLUSTER.identifier_fhir.v0"
+            fhir: identifier
+            openehr: items[openEHR-EHR-CLUSTER.identifier_fhir.v0]
+          slotArchetype: CLUSTER.identifier_fhir.v0
 
-        - name: "category"
+        - name: category
           with:
-            fhir: "category"
-            openehr: "items[openEHR-EHR-CLUSTER.entry_category.v0]"
-          slotArchetype: "CLUSTER.entry_category.v0"
+            fhir: category
+            openehr: items[openEHR-EHR-CLUSTER.entry_category.v0]
+          slotArchetype: CLUSTER.entry_category.v0
 
   # KDS override: prevent openEHR -> FHIR from setting medication[x] as CodeableConcept
   # Keep the CodeableConcept mapping only for FHIR -> openEHR direction
-  - name: "medicationReference"
-    extension: "add"
+  - name: medicationReference
+    extension: add
     with:
-      fhir: "$resource.medication.as(Reference)"
-      openehr: "$reference"
+      fhir: $resource.medication.as(Reference)
+      openehr: $reference
     reference:
-      resourceType: "Medication"
+      resourceType: Medication
       mappings:
-        - name: "medicationReferenceKds"
+        - name: medicationReferenceKds
           with:
-            fhir: "$fhirRoot"
-            openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
-          slotArchetype: "CLUSTER.medication.v2"
+            fhir: $fhirRoot
+            openehr: data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]
+          slotArchetype: CLUSTER.medication.v2
 
-  - name: "medicationCode"
-    extension: "overwrite"
-    unidirectional: "fhir->openEHR"
+  - name: medicationCode
+    extension: overwrite
+    unidirectional: fhir->openEHR
     with:
-      fhir: "medication.as(CodeableConcept)"
-      openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
+      fhir: medication.as(CodeableConcept)
+      openehr: data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]
     openehrCondition:
-      targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
+      targetRoot: data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]
       targetAttributes:
-        - "items[at0071]"
-        - "items[at0115]"
-      operator: "empty"
+        - items[at0071]
+        - items[at0115]
+      operator: empty
 
-  - name: "medicationCodeR"
-    extension: "overwrite"
-    unidirectional: "fhir->openEHR"
+  - name: medicationCodeR
+    extension: overwrite
+    unidirectional: fhir->openEHR
     with:
-      fhir: "medication.as(CodeableConcept)"
-      openehr: "data[at0003]/items[at0006]"
+      fhir: medication.as(CodeableConcept)
+      openehr: data[at0003]/items[at0006]
     openehrCondition:
-      targetRoot: "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]"
-      targetAttribute: "items[at0132]"
-      operator: "empty"
+      targetRoot: data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]
+      targetAttribute: items[at0132]
+      operator: empty
 
 
 

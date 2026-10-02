@@ -9,28 +9,28 @@ spec:
 
 context:
   profile:
-    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-person/StructureDefinition/Patient"
-    version: "2025.0.0"
+    url: https://www.medizininformatik-initiative.de/fhir/core/modul-person/StructureDefinition/Patient
+    version: 2025.0.0
   template:
-    id: "KDS_Person"
-    sem_ver: "58.0.0"
+    id: KDS_Person
+    sem_ver: 58.0.0
   archetypes:
-    - "EVALUATION.gender.v1"
-    - "ADMIN_ENTRY.person_data.v0"
-    - "CLUSTER.person.v1"
-    - "CLUSTER.structured_name.v1"
-    - "CLUSTER.address.v1"
-    - "CLUSTER.organisation.v1"
-    - "CLUSTER.person_birth_data_iso.v0"
-    - "CLUSTER.death_details.v1"
-    - "COMPOSITION.person.v0"
-    - "ADMIN_ENTRY.versicherungsinformationen.v0"
+    - EVALUATION.gender.v1
+    - ADMIN_ENTRY.person_data.v0
+    - CLUSTER.person.v1
+    - CLUSTER.structured_name.v1
+    - CLUSTER.address.v1
+    - CLUSTER.organisation.v1
+    - CLUSTER.person_birth_data_iso.v0
+    - CLUSTER.death_details.v1
+    - COMPOSITION.person.v0
+    - ADMIN_ENTRY.versicherungsinformationen.v0
   extensions:
-    - "KDS_person_data.v0"
-    - "KDS_gender.v1"
-    - "KDS_cluster_person.v1"
-    - "KDS_address"
-    - "KDS_structured_name.v1.person_name-structured_name"
-    - "KDS_admin_entry_person.v0"
-    - "KDS_composition_person.v0"
-  start: "ADMIN_ENTRY.person_data.v0"
+    - KDS_person_data.v0
+    - KDS_gender.v1
+    - KDS_cluster_person.v1
+    - KDS_address
+    - KDS_structured_name.v1.person_name-structured_name
+    - KDS_admin_entry_person.v0
+    - KDS_composition_person.v0
+  start: ADMIN_ENTRY.person_data.v0

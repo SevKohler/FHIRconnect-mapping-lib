@@ -13,71 +13,71 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Patient
 
 mappings:
-  - name: "healthcareFacility"
+  - name: healthcareFacility
     with:
-      fhir: "$resource.serviceProvider"
-      openehr: "$composition/context/health_care_facility"
+      fhir: $resource.serviceProvider
+      openehr: $composition/context/health_care_facility
 
-  - name: "contextPeriod"
+  - name: contextPeriod
     with:
-      fhir: "$resource.period"
-      openehr: "$composition/context"
-      type: "NONE"
+      fhir: $resource.period
+      openehr: $composition/context
+      type: NONE
     followedBy:
       mappings:
-        - name: "contextStart"
+        - name: contextStart
           with:
-            fhir: "start"
-            openehr: "start_time"
-        - name: "contextEnd"
+            fhir: start
+            openehr: start_time
+        - name: contextEnd
           with:
-            fhir: "end"
-            openehr: "end_time"
+            fhir: end
+            openehr: end_time
 
-  - name: "contextStartTimeEmpty"
+  - name: contextStartTimeEmpty
     with:
-      fhir: "$resource"
-      openehr: "$composition/context"
-      type: "NONE"
-    unidirectional: "fhir->openehr"
+      fhir: $resource
+      openehr: $composition/context
+      type: NONE
+    unidirectional: fhir->openehr
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "period"
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: period
+      operator: empty
     followedBy:
       mappings:
-        - name: "effectiveStart"
+        - name: effectiveStart
           with:
-            openehr: "start_time"
+            openehr: start_time
           manual:
-            - name: "no information"
+            - name: no information
               openehr:
-                - path: "null_flavour/value"
-                  value: "no information"
-                - path: "null_flavour/defining_code/terminology_id"
-                  value: "openehr"
-                - path: "null_flavour/defining_code/code_string"
+                - path: null_flavour/value
+                  value: no information
+                - path: null_flavour/defining_code/terminology_id
+                  value: openehr
+                - path: null_flavour/defining_code/code_string
                   value: "271"
 
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.serviceProvider"
-      openehr: "$composition/composer"
+      fhir: $resource.serviceProvider
+      openehr: $composition/composer
 
-  - name: "composerEmpty"
+  - name: composerEmpty
     with:
-      fhir: "$resource.serviceProvider"
-      openehr: "$composition/composer"
+      fhir: $resource.serviceProvider
+      openehr: $composition/composer
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "serviceProvider"
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: serviceProvider
+      operator: empty
     manual:
-      - name: "no information"
+      - name: no information
         openehr:
-          - path: "null_flavour/value"
-            value: "no information"
-          - path: "null_flavour/defining_code/terminology_id"
-            value: "openehr"
-          - path: "null_flavour/defining_code/code_string"
+          - path: null_flavour/value
+            value: no information
+          - path: null_flavour/defining_code/terminology_id
+            value: openehr
+          - path: null_flavour/defining_code/code_string
             value: "271"

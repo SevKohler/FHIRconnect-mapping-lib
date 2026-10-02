@@ -10,9 +10,9 @@ spec:
 
 mappings:
 
-  - name: "contextStartTime" #non-detereministic behaviour bug
-    extension: "overwrite"
+  - name: contextStartTime #non-detereministic behaviour bug
+    extension: overwrite
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
-      type: "NONE"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
+      type: NONE

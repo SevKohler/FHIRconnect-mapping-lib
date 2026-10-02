@@ -13,74 +13,74 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/CodeableConcept
 
 mappings:
-  - name: "diagnoseRole"
+  - name: diagnoseRole
     with:
-      fhir: "$fhirRoot.coding"
-      openehr: "$archetype/items[at0003]"
+      fhir: $fhirRoot.coding
+      openehr: $archetype/items[at0003]
     fhirCondition:
-      targetRoot: "$fhirRoot.coding"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+      targetRoot: $fhirRoot.coding
+      targetAttribute: system
+      operator: one of
+      criteria: http://terminology.hl7.org/CodeSystem/diagnosis-role
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0003]"
-      operator: "not empty"
+      targetRoot: $archetype
+      targetAttribute: items[at0003]
+      operator: not empty
     followedBy:
       mappings:
-        - name: "diagnoseRoleSystem"
+        - name: diagnoseRoleSystem
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "diagnoseRoleSystem"
+            - name: diagnoseRoleSystem
               fhir:
-                - path: "system"
-                  value: "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+                - path: system
+                  value: http://terminology.hl7.org/CodeSystem/diagnosis-role
 
-  - name: "diagnoseTyp"
+  - name: diagnoseTyp
     with:
-      fhir: "$fhirRoot.coding"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot.coding
+      openehr: $archetype/items[at0001]
     fhirCondition:
-      targetRoot: "$fhirRoot.coding"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://fhir.de/CodeSystem/DiagnoseTyp"
+      targetRoot: $fhirRoot.coding
+      targetAttribute: system
+      operator: one of
+      criteria: http://fhir.de/CodeSystem/DiagnoseTyp
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0001]"
-      operator: "not empty"
+      targetRoot: $archetype
+      targetAttribute: items[at0001]
+      operator: not empty
     followedBy:
       mappings:
-        - name: "diagnoseTypSystem"
+        - name: diagnoseTypSystem
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "diagnoseTypSystem"
+            - name: diagnoseTypSystem
               fhir:
-                - path: "system"
-                  value: "http://fhir.de/CodeSystem/DiagnoseTyp"
+                - path: system
+                  value: http://fhir.de/CodeSystem/DiagnoseTyp
 
-  - name: "diagnoseSubTyp"
+  - name: diagnoseSubTyp
     with:
-      fhir: "$fhirRoot.coding"
-      openehr: "$archetype/items[at0002]"
+      fhir: $fhirRoot.coding
+      openehr: $archetype/items[at0002]
     fhirCondition:
-      targetRoot: "$fhirRoot.coding"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://fhir.de/CodeSystem/Diagnosesubtyp"
+      targetRoot: $fhirRoot.coding
+      targetAttribute: system
+      operator: one of
+      criteria: http://fhir.de/CodeSystem/Diagnosesubtyp
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0002]"
-      operator: "not empty"
+      targetRoot: $archetype
+      targetAttribute: items[at0002]
+      operator: not empty
     followedBy:
       mappings:
-        - name: "diagnoseSubTypSystem"
+        - name: diagnoseSubTypSystem
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "diagnoseSubTypSystem"
+            - name: diagnoseSubTypSystem
               fhir:
-                - path: "system"
-                  value: "http://fhir.de/CodeSystem/Diagnosesubtyp"
+                - path: system
+                  value: http://fhir.de/CodeSystem/Diagnosesubtyp

@@ -9,161 +9,161 @@ spec:
   extends: CLUSTER.medication.v2
 
 mappings:
-  - name: "metaURL"
-    extension: "add"
-    unidirectional: "openEHR->fhir"
+  - name: metaURL
+    extension: add
+    unidirectional: openEHR->fhir
     with:
-      fhir: "$resource.meta"
+      fhir: $resource.meta
     manual:
-      - name: "profileUrl"
+      - name: profileUrl
         fhir:
-          - path: "profile"
-            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/Medication"
+          - path: profile
+            value: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/Medication
 
 #because in kds template, at0132 is a string
-  - name: "name"
-    extension: "overwrite"
+  - name: name
+    extension: overwrite
     with:
-      fhir: "$resource.code.coding.code"
-      openehr: "$archetype/items[at0132]"
+      fhir: $resource.code.coding.code
+      openehr: $archetype/items[at0132]
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0132]"
-      operator: "type"
-      criteria: "DV_TEXT"
+      targetRoot: $archetype
+      targetAttribute: items[at0132]
+      operator: type
+      criteria: DV_TEXT
 
 # because medication.v2 has sometime at0132 as text and other times as coded text...i.e. Arzneimittel-Name vs Bestandteil
-  - name: "nameStructured"
-    extension: "add"
+  - name: nameStructured
+    extension: add
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/items[at0132]"
+      fhir: $resource.code
+      openehr: $archetype/items[at0132]
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0132]"
-      operator: "type"
-      criteria: "DV_CODED_TEXT"
+      targetRoot: $archetype
+      targetAttribute: items[at0132]
+      operator: type
+      criteria: DV_CODED_TEXT
 
 
-  - name: "wirkstofftyp"
-    extension: "append"
-    appendTo: "ingredients"
+  - name: wirkstofftyp
+    extension: append
+    appendTo: ingredients
     followedBy:
       mappings:
-        - name: "wirkstofftypExtended"
+        - name: wirkstofftypExtended
           with:
-            fhir: "extension"
-            openehr: "$archetype"
+            fhir: extension
+            openehr: $archetype
           fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstofftyp"
+            targetRoot: extension
+            targetAttribute: url
+            operator: one of
+            criteria: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstofftyp
           followedBy:
             mappings:
-              - name: "value"
+              - name: value
                 with:
-                  fhir: "value"
-                  openehr: "items[at0142]"
+                  fhir: value
+                  openehr: items[at0142]
 
-              - name: "url"
+              - name: url
                 with:
-                  fhir: "$fhirRoot"
+                  fhir: $fhirRoot
                 manual:
-                  - name: "extensionUrl"
+                  - name: extensionUrl
                     fhir:
-                      - path: "url"
-                        value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstofftyp"
+                      - path: url
+                        value: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstofftyp
 
-  - name: "wirkstoffrelation"
-    extension: "append"
-    appendTo: "ingredients"
+  - name: wirkstoffrelation
+    extension: append
+    appendTo: ingredients
     followedBy:
       mappings:
-        - name: "relation"
+        - name: relation
           with:
-            fhir: "extension"
-            openehr: "$archetype"
-            type: "NONE"
+            fhir: extension
+            openehr: $archetype
+            type: NONE
           fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstoffrelation"
+            targetRoot: extension
+            targetAttribute: url
+            operator: one of
+            criteria: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstoffrelation
           followedBy:
             mappings:
-              - name: "url"
+              - name: url
                 with:
-                  fhir: "$fhirRoot"
+                  fhir: $fhirRoot
                 manual:
-                  - name: "extensionUrl"
+                  - name: extensionUrl
                     fhir:
-                      - path: "url"
-                        value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstoffrelation"
-              - name: "ingriedientsReference"
+                      - path: url
+                        value: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstoffrelation
+              - name: ingriedientsReference
                 with:
-                  fhir: "extension"
-                  openehr: "$openehrRoot"
+                  fhir: extension
+                  openehr: $openehrRoot
                 fhirCondition:
-                  targetRoot: "extension"
-                  targetAttribute: "url"
-                  operator: "one of"
-                  criteria: "ingredientReference"
+                  targetRoot: extension
+                  targetAttribute: url
+                  operator: one of
+                  criteria: ingredientReference
                 followedBy:
                   mappings:
-                    - name: "url"
+                    - name: url
                       with:
-                        fhir: "$fhirRoot"
+                        fhir: $fhirRoot
                       manual:
-                        - name: "extensionUrl"
+                        - name: extensionUrl
                           fhir:
-                            - path: "url"
-                              value: "ingredientReference"
-                    - name: "relationMedication"
+                            - path: url
+                              value: ingredientReference
+                    - name: relationMedication
                       with:
-                        fhir: "extension.value"
-                        openehr: "$reference"
+                        fhir: extension.value
+                        openehr: $reference
                       reference:
-                        resourceType: "Medication"
+                        resourceType: Medication
                         mappings:
-                          - name: "wirkstoffRelationMedication"
+                          - name: wirkstoffRelationMedication
                             with:
-                              fhir: "$fhirRoot"
-                              openehr: "$openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]"
-                            slotArchetype: "CLUSTER.medication.v2"
-                    - name: "substanceRelation"
+                              fhir: $fhirRoot
+                              openehr: $openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]
+                            slotArchetype: CLUSTER.medication.v2
+                    - name: substanceRelation
                       with:
-                        fhir: "extension.value"
-                        openehr: "$reference"
+                        fhir: extension.value
+                        openehr: $reference
                       reference:
-                        resourceType: "Substance"
+                        resourceType: Substance
                         mappings:
-                          - name: "wirkstoffRelationSubstance"
+                          - name: wirkstoffRelationSubstance
                             with:
-                              fhir: "$fhirRoot"
-                              openehr: "$openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]"
-                            slotArchetype: "CLUSTER.medication.v2.substance"
+                              fhir: $fhirRoot
+                              openehr: $openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]
+                            slotArchetype: CLUSTER.medication.v2.substance
 
-              - name: "ingridientsURI"
+              - name: ingridientsURI
                 with:
-                  fhir: "extension"
-                  openehr: "$openehrRoot"
+                  fhir: extension
+                  openehr: $openehrRoot
                 fhirCondition:
-                  targetRoot: "extension"
-                  targetAttribute: "url"
-                  operator: "one of"
-                  criteria: "ingredientUri"
+                  targetRoot: extension
+                  targetAttribute: url
+                  operator: one of
+                  criteria: ingredientUri
                 followedBy:
                   mappings:
-                    - name: "url"
+                    - name: url
                       with:
-                        fhir: "$fhirRoot"
+                        fhir: $fhirRoot
                       manual:
-                        - name: "extensionUrl"
+                        - name: extensionUrl
                           fhir:
-                            - path: "url"
-                              value: "ingredientUri"
-                    - name: "value"
+                            - path: url
+                              value: ingredientUri
+                    - name: value
                       with:
-                        fhir: "value"
-                        openehr: "$openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
+                        fhir: value
+                        openehr: $openehrRoot/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]

@@ -13,19 +13,19 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/CodeableConcept
 
 mappings:
-  - name: "category"
+  - name: category
     with:
-      fhir: "$fhirRoot"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $fhirRoot
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "coding"
+        - name: coding
           with:
-            fhir: "coding"
-            openehr: "items[at0002]"
-        - name: "comment"
+            fhir: coding
+            openehr: items[at0002]
+        - name: comment
           with:
-            fhir: "text"
-            openehr: "items[at0003]"
+            fhir: text
+            openehr: items[at0003]
 

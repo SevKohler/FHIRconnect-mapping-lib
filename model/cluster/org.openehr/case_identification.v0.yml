@@ -13,8 +13,8 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Identifier
 
 mappings:
-  - name: "identifierCaseParent"
+  - name: identifierCaseParent
     with:
-      fhir: "$fhirRoot"
-      openehr: "items[at0001]"
+      fhir: $fhirRoot
+      openehr: items[at0001]
 

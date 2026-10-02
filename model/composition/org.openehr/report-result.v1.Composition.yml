@@ -16,107 +16,107 @@ mappings:
 # date
 # title missing
 
-  - name: "reportId"
+  - name: reportId
     with:
-      fhir: "$resource.identifier"
-      openehr: "$composition/context/other_context[at0001]/items[at0002]"
+      fhir: $resource.identifier
+      openehr: $composition/context/other_context[at0001]/items[at0002]
 
-  - name: "status"
+  - name: status
     with:
-      fhir: "$resource.status"
-      openehr: "$composition/context/other_context[at0001]/items[at0005]"
+      fhir: $resource.status
+      openehr: $composition/context/other_context[at0001]/items[at0005]
 
-  - name: "status_emtpy"
+  - name: status_emtpy
     with:
-      fhir: "$resource.status"
-      openehr: "$composition/context/other_context[at0001]/items[at0005]"
-    unidirectional: "openehr->fhir"
+      fhir: $resource.status
+      openehr: $composition/context/other_context[at0001]/items[at0005]
+    unidirectional: openehr->fhir
     manual:
-      - name: "data-absent" # map data absence, since most openEHR templates do not require status
+      - name: data-absent # map data absence, since most openEHR templates do not require status
         fhir:
-          - path: "extension.url"
-            value: "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-          - path: "extension.code"
-            value: "unsupported"
+          - path: extension.url
+            value: http://hl7.org/fhir/StructureDefinition/data-absent-reason
+          - path: extension.code
+            value: unsupported
     openehrCondition:
-      targetRoot: "$composition/context/other_context[at0001]" # if no status is provided, status is always 1..1
-      targetAttribute: "items[at0005]"
-      operator: "empty"
+      targetRoot: $composition/context/other_context[at0001] # if no status is provided, status is always 1..1
+      targetAttribute: items[at0005]
+      operator: empty
 
-  - name: "date"
+  - name: date
     with:
-      fhir: "$resource.date"
-      openehr: "$composition/context/start_time" #Is not the correct thing to ingest but to export, correct would be commit time, but thats in the versioned object.
-    unidirectional: "openehr->fhir"
+      fhir: $resource.date
+      openehr: $composition/context/start_time #Is not the correct thing to ingest but to export, correct would be commit time, but thats in the versioned object.
+    unidirectional: openehr->fhir
 
-  - name: "author"
+  - name: author
     with:
-      fhir: "$resource.author"
-      openehr: "$composition/composer"
+      fhir: $resource.author
+      openehr: $composition/composer
 
-  - name: "attester" #participations
+  - name: attester #participations
     with:
-      fhir: "$resource.attester"
-      openehr: "$composition/context/participations"
-      type: "NONE"
+      fhir: $resource.attester
+      openehr: $composition/context/participations
+      type: NONE
     followedBy:
       mappings:
-        - name: "function"
+        - name: function
           with:
-            fhir: "$fhirRoot"
-            openehr: "$reference"
+            fhir: $fhirRoot
+            openehr: $reference
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "attester"
+                - path: function
+                  value: attester
 
-        - name: "mode"
+        - name: mode
           with:
-            fhir: "mode"
-            openehr: "$reference"
+            fhir: mode
+            openehr: $reference
           manual:
-            - name: "modeManual"
+            - name: modeManual
               fhir:
-                - path: "$fhirRoot"
-                  value: "official"
+                - path: $fhirRoot
+                  value: official
 
-        - name: "time"
+        - name: time
           with:
-            fhir: "time"
-            openehr: "time"
+            fhir: time
+            openehr: time
 
-        - name: "party"
+        - name: party
           with:
-            fhir: "party"
-            openehr: "performer"
+            fhir: party
+            openehr: performer
 
 
-  - name: "custodian"
+  - name: custodian
     with:
-      fhir: "$resource.custodian"
-      openehr: "$composition/health_care_facility"
+      fhir: $resource.custodian
+      openehr: $composition/health_care_facility
 
-  - name: "event"
-    extension: "add"
+  - name: event
+    extension: add
     with:
-      fhir: "$resource.event"
-      openehr: "$composition"
+      fhir: $resource.event
+      openehr: $composition
     followedBy:
       mappings:
-        - name: "period"
+        - name: period
           with:
-            fhir: "period"
-            openehr: "$composition/context"
-            type: "NONE"
+            fhir: period
+            openehr: $composition/context
+            type: NONE
           followedBy:
             mappings:
-              - name: "contextStart"
+              - name: contextStart
                 with:
-                  fhir: "start"
-                  openehr: "start_time"
+                  fhir: start
+                  openehr: start_time
 
-              - name: "contextEnd"
+              - name: contextEnd
                 with:
-                  fhir: "end"
-                  openehr: "end_time"
+                  fhir: end
+                  openehr: end_time

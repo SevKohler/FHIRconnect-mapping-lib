@@ -14,20 +14,20 @@ spec:
 
 mappings:
 
-  - name: "dosageTiming"
+  - name: dosageTiming
     with:
-      fhir: "$fhirRoot.timing.repeat"
-      openehr: "$archetype"
-    mappingCode: "timingNonDaily"
+      fhir: $fhirRoot.timing.repeat
+      openehr: $archetype
+    mappingCode: timingNonDaily
     followedBy:
       mappings:
-        - name: "when"
+        - name: when
           with:
-            fhir: "when"
-            openehr: "items[at0006]/items[at0005]"
+            fhir: when
+            openehr: items[at0006]/items[at0005]
 
-        - name: "offset"
+        - name: offset
           with:
-            fhir: "offset"
-            openehr: "items[at0006]/items[at0009]"
+            fhir: offset
+            openehr: items[at0006]/items[at0009]
 

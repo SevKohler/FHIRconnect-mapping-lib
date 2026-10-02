@@ -14,31 +14,31 @@ spec:
 
 mappings:
 
-  - name: "dosageTiming"
+  - name: dosageTiming
     with:
-      fhir: "$fhirRoot.timing.repeat"
-      openehr: "$archetype"
-    mappingCode: "timingToDaily"
+      fhir: $fhirRoot.timing.repeat
+      openehr: $archetype
+    mappingCode: timingToDaily
     followedBy:
       mappings:
-        - name: "when"
+        - name: when
           with:
-            fhir: "when.as(Enumeration)"
-            openehr: "items[at0039]/items[at0026]"
+            fhir: when.as(Enumeration)
+            openehr: items[at0039]/items[at0026]
 
-        - name: "offset"
+        - name: offset
           with:
-            fhir: "offset"
-            openehr: "items[at0039]/items[at0040]"
+            fhir: offset
+            openehr: items[at0039]/items[at0040]
 
-  - name: "asNeeded"
+  - name: asNeeded
     with:
-      fhir: "$fhirRoot.asNeeded.as(Boolean)"
-      openehr: "$archetype/items[at0024]"
+      fhir: $fhirRoot.asNeeded.as(Boolean)
+      openehr: $archetype/items[at0024]
 
-  - name: "asNeededCode"
+  - name: asNeededCode
     with:
-      fhir: "$fhirRoot.asNeeded.as(CodeableConcept)"
-      openehr: "$archetype/items[at0025]"
+      fhir: $fhirRoot.asNeeded.as(CodeableConcept)
+      openehr: $archetype/items[at0025]
 
 

@@ -9,85 +9,85 @@ spec:
   extends: CLUSTER.person.v1
 
 mappings:
-  - name: "identifier"
-    extension: "add"
+  - name: identifier
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "anonymizedPseudnomyzed"
+        - name: anonymizedPseudnomyzed
           with:
-            fhir: "identifier"
-            openehr: "/items[at0003]"
+            fhir: identifier
+            openehr: /items[at0003]
           openehrCondition:
-            targetRoot: "/items[at0003]"
-            targetAttribute: "type"
-            operator: "one of"
+            targetRoot: /items[at0003]
+            targetAttribute: type
+            operator: one of
             criterias:
-              - "ANONYED"
-              - "PSEUDED"
+              - ANONYED
+              - PSEUDED
           fhirCondition:
-            targetRoot: "identifier"
-            targetAttribute: "type.coding.code"
-            operator: "one of"
+            targetRoot: identifier
+            targetAttribute: type.coding.code
+            operator: one of
             criterias:
-              - "ANONYED"
-              - "PSEUDED"
+              - ANONYED
+              - PSEUDED
           followedBy:
             mappings:
-              - name: "staticUrl"
+              - name: staticUrl
                 with:
-                  fhir: "$fhirRoot.type.coding"
-                  openehr: "$reference"
+                  fhir: $fhirRoot.type.coding
+                  openehr: $reference
                 manual:
-                  - name: "system"
+                  - name: system
                     fhir:
-                      - path: "system"
-                        value: "http://terminology.hl7.org/CodeSystem/v3-ObservationValue"
+                      - path: system
+                        value: http://terminology.hl7.org/CodeSystem/v3-ObservationValue
 
-        - name: "otherIdentifiers"
+        - name: otherIdentifiers
           with:
-            fhir: "identifier"
-            openehr: "/items[at0003]"
+            fhir: identifier
+            openehr: /items[at0003]
           openehrCondition:
-            targetRoot: "/items[at0003]"
-            targetAttribute: "type"
-            operator: "not of"
+            targetRoot: /items[at0003]
+            targetAttribute: type
+            operator: not of
             criterias:
-              - "ANONYED"
-              - "PSEUDED"
+              - ANONYED
+              - PSEUDED
           fhirCondition:
-            targetRoot: "identifier"
-            targetAttribute: "type.coding.code"
-            operator: "not of"
+            targetRoot: identifier
+            targetAttribute: type.coding.code
+            operator: not of
             criterias:
-              - "ANONYED"
-              - "PSEUDED"
+              - ANONYED
+              - PSEUDED
 
-  - name: "address" #Straßenanschrift
-    extension: "overwrite"
+  - name: address #Straßenanschrift
+    extension: overwrite
     with:
-      fhir: "$resource.address"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.address.v1 and name/value='Straßenanschrift']"
-    slotArchetype: "CLUSTER.address.v1"
+      fhir: $resource.address
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.address.v1 and name/value='Straßenanschrift']
+    slotArchetype: CLUSTER.address.v1
     fhirCondition:
-      targetRoot: "$resource.address"
-      targetAttribute: "type"
-      operator: "one of"
-      criteria: "both"
+      targetRoot: $resource.address
+      targetAttribute: type
+      operator: one of
+      criteria: both
 
-  - name: "addressPostfach"
-    extension: "add"
+  - name: addressPostfach
+    extension: add
     with:
-      fhir: "$resource.address"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.address.v1 and name/value='Postfach']"
-    slotArchetype: "CLUSTER.address.v1"
+      fhir: $resource.address
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.address.v1 and name/value='Postfach']
+    slotArchetype: CLUSTER.address.v1
     fhirCondition:
-      targetRoot: "$resource.address"
-      targetAttribute: "type"
-      operator: "one of"
-      criteria: "postal"
+      targetRoot: $resource.address
+      targetAttribute: type
+      operator: one of
+      criteria: postal
 
 

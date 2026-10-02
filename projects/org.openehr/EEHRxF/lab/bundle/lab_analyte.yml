@@ -9,16 +9,16 @@ spec:
   extends: CLUSTER.laboratory_test_analyte.v1
 
 mappings:
-  - name: "hasMember"
-    extension: "add"
+  - name: hasMember
+    extension: add
     with:
-      fhir: "hasMember"
-      openehr: "$reference"
+      fhir: hasMember
+      openehr: $reference
     reference:
-      resourceType: "Observation"
+      resourceType: Observation
       mappings:
-        - name: "observationRecurring"
+        - name: observationRecurring
           with:
-            fhir: "$fhirRoot"
-            openehr: "items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]"
-          slotArchetype: "CLUSTER.laboratory_test_analyte.v1"
+            fhir: $fhirRoot
+            openehr: items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]
+          slotArchetype: CLUSTER.laboratory_test_analyte.v1

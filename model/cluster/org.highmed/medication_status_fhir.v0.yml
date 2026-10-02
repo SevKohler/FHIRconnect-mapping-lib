@@ -14,12 +14,12 @@ spec:
 
 
 mappings:
-  - name: "status"
+  - name: status
     with:
-      fhir: "$resource.status"
-      openehr: "$archetype/items[at0001]"
+      fhir: $resource.status
+      openehr: $archetype/items[at0001]
 
-  - name: "statusReason"
+  - name: statusReason
     with:
-      fhir: "$resource.statusReason"
-      openehr: "$archetype/items[at0014]"
+      fhir: $resource.statusReason
+      openehr: $archetype/items[at0014]
