@@ -1,0 +1,12 @@
+{
+  "name": "de.einwilligungsmanagement",
+  "version": "1.0.1",
+  "description": "Einwilligungsmanagement",
+  "author": "stefanlang1",
+  "fhirVersions": [
+    "4.0.1"
+  ],
+  "dependencies": {
+    "hl7.fhir.r4.core": "4.0.1"
+  }
+}

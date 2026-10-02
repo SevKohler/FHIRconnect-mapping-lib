@@ -1,0 +1,1 @@
+{"resourceType":"Patient","id":"a8e49578-e40f-4a65-bdaa-a579801b37f3","meta":{"lastUpdated":"2020-12-11T09:08:07.5320994+00:00","profile":["http://fhir.de/ConsentManagement/StructureDefinition/Patient"]},"identifier":[{"type":{"coding":[{"system":"http://hl7.org/fhir/v2/0203","code":"ANON"}]},"system":"https://ths-greifswald.de/gpas","value":"MII/jzhwb4p"}]}

@@ -1,0 +1,291 @@
+﻿{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "IPS Server Capability Statement",
+    "description": "This CapabilityStatement describes the expected capabilities of the [IPS Server actor](ActorDefinition-Server.html) which is responsible for providing responses to the queries submitted for IPS documents. The list of FHIR profiles and operations supported by IPS Servers are defined in this CapabilityStatement.",
+    "license": {
+      "name": "Creative Commons Zero v1.0 Universal",
+      "url": "http://spdx.org/licenses/CC0-1.0.html"
+    },
+    "version": "2.0.1",
+    "contact": {
+      "name": "HL7 International / Patient Care",
+      "url": "http://www.hl7.org/Special/committees/patientcare"
+    }
+  },
+  "externalDocs": {
+    "url": "http://hl7.org/fhir/uv/ips/CapabilityStatement/ips-server",
+    "description": "FHIR CapabilityStatement"
+  },
+  "paths": {
+    "/metadata": {
+      "summary": "Access to the Server\u0027s Capability Statement",
+      "description": "All FHIR Servers return a CapabilityStatement that describes what services they perform",
+      "get": {
+        "summary": "Return the server\u0027s capability statement",
+        "operationId": "metadata",
+        "responses": {
+          "default": {
+            "description": "Error, with details",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/OperationOutcome"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/OperationOutcome.xsd"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "the capbility statement",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/CapabilityStatement"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/CapabilityStatement.xsd"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/format"
+          },
+          {
+            "$ref": "#/components/parameters/pretty"
+          },
+          {
+            "$ref": "#/components/parameters/summary"
+          },
+          {
+            "$ref": "#/components/parameters/elements"
+          }
+        ]
+      }
+    },
+    "/Patient/$summary": {
+      "summary": "Operation $summary on type Patient",
+      "description": "Operation $summary on type Patient",
+      "get": {
+        "summary": "$summary on type Patient",
+        "description": "This operation returns an IPS document in response to a POST/GET request (see [FHIR Operations](https://hl7.org/fhir/operations.html)).  The returned document MAY be generated on-demand and SHOULD represent the latest available information. This operation would not necessarily create a persisted IPS instance on the server responding to the request. When historic records or other documents are desired, this operation is not appropriate. For alternative operations and IPS generation guidance, please see [IPS Generation and Data Inclusion](./Generation-and-Data-Inclusion.html) \n\nGenerally when a patient\u0027s logical id is known, that id would be used to request the patient summary from a FHIR server (see [id] pattern below). When it is not known, servers MAY support using other identifiers (see identifier parameter below). When [base]/Patient/$summary is used, requestors SHALL provide an identifier.\n\nServers MAY support profiles beyond the IPS. When supported, other profiles can be specified using the profile parameter. When not supported, servers MAY use the universal IPS Composition profile to identify what profile is returned by default.  \n",
+        "operationId": "op-summary-Patient",
+        "responses": {
+          "default": {
+            "description": "Error, with details",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/OperationOutcome"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/OperationOutcome.xsd"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Operation response",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/Parameters"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/Parameters.xsd"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Patient/{rid}/$summary": {
+      "summary": "Operation $summary on instance of Patient",
+      "description": "Operation $summary on an instance of Patient",
+      "get": {
+        "summary": "$summary on Patient instance",
+        "description": "This operation returns an IPS document in response to a POST/GET request (see [FHIR Operations](https://hl7.org/fhir/operations.html)).  The returned document MAY be generated on-demand and SHOULD represent the latest available information. This operation would not necessarily create a persisted IPS instance on the server responding to the request. When historic records or other documents are desired, this operation is not appropriate. For alternative operations and IPS generation guidance, please see [IPS Generation and Data Inclusion](./Generation-and-Data-Inclusion.html) \n\nGenerally when a patient\u0027s logical id is known, that id would be used to request the patient summary from a FHIR server (see [id] pattern below). When it is not known, servers MAY support using other identifiers (see identifier parameter below). When [base]/Patient/$summary is used, requestors SHALL provide an identifier.\n\nServers MAY support profiles beyond the IPS. When supported, other profiles can be specified using the profile parameter. When not supported, servers MAY use the universal IPS Composition profile to identify what profile is returned by default.  \n",
+        "operationId": "op-summary-Patient-instance",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/rid"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Error, with details",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/OperationOutcome"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/OperationOutcome.xsd"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Operation response",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/Parameters"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/Parameters.xsd"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/DocumentReference/$docref": {
+      "summary": "Operation $docref on type DocumentReference",
+      "description": "Operation $docref on type DocumentReference",
+      "get": {
+        "summary": "$docref on type DocumentReference",
+        "description": "This operation is used to return all the references to documents related to a\npatient. It is invoked on a FHIR Server\u0027s DocumentReference endpoint (e.g., `[base]/DocumentReference/$docref`) and operates across all DocumentReference instances. \n\n The operation requires a patient id and takes the optional input parameters: \n  - start date\n  - end date\n  - document type \n  - on-demand\n  - profile  \n\nand returns a *searchset* [Bundle](http://hl7.org/fhir/bundle.html) containing [DocumentReference](StructureDefinition-ipa-documentreference.html) resources for the patient. If the server has stored documents or can create documents for the patient and those documents are available for the user, the server returns the DocumentReference resources associated with documents. This operation\u0027s intended use is to provide a way for providers or patients to access their available documents. The document itself can be subsequently retrieved using the link provided  in the `DocumentReference.content.attachment.url element`. The link could be a FHIR endpoint to a [Binary](http://hl7.org/fhir/R4/binary.html) Resource or some other document repository. \n\nThis operation is *different* from a FHIR RESTful query on DocumentReference by patient and type and date range because: \n\n1. It is used to request a server to *generate* a document based on the specified parameters.\n\n1. If no parameters are specified, the server SHALL return a DocumentReference to the patient\u0027s most current summary document. The type of such summary document will depend on jurisdiction. For example, it may be a C-CDA CCD. It is expected that such a summary document will always exist or can be dynamically generated; however, a jurisdiction may define the outcome of the operation when such a document is missing.\n\n1. If the server cannot *generate* a document based on the specified parameters, the operation will return an empty search bundle.\n\nUnless the client indicates they are only interested in \u0027on-demand\u0027 documents using the *on-demand* parameter, the server SHOULD return DocumentReference instances for *existing* documents that meet the request parameters  In this regard, this operation is *similar* to a FHIR RESTful query.",
+        "operationId": "op-docref-DocumentReference",
+        "responses": {
+          "default": {
+            "description": "Error, with details",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/OperationOutcome"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/OperationOutcome.xsd"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Operation response",
+            "content": {
+              "application/fhir+json": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/fhir.schema.json#/definitions/Parameters"
+                }
+              },
+              "application/fhir+xml": {
+                "schema": {
+                  "$ref": "https://hl7.org/fhir/R4/Parameters.xsd"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "rid": {
+        "name": "rid",
+        "in": "path",
+        "description": "id of the resource (\u003dResource.id)",
+        "required": true,
+        "allowEmptyValue": false,
+        "style": "simple",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "hid": {
+        "name": "hid",
+        "in": "path",
+        "description": "id of the history entry (\u003dResource.meta.versionId)",
+        "required": true,
+        "allowEmptyValue": false,
+        "style": "simple",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "summary": {
+        "name": "_summary",
+        "in": "query",
+        "description": "Requests the server to return a designated subset of the resource",
+        "allowEmptyValue": true,
+        "style": "form",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "true",
+            "text",
+            "data",
+            "count",
+            "false"
+          ]
+        }
+      },
+      "format": {
+        "name": "_format",
+        "in": "query",
+        "description": "Specify alternative response formats by their MIME-types (when a client is unable acccess accept: header)",
+        "allowEmptyValue": true,
+        "style": "form",
+        "schema": {
+          "type": "string",
+          "format": "mime-type"
+        }
+      },
+      "pretty": {
+        "name": "_pretty",
+        "in": "query",
+        "description": "Ask for a pretty printed response for human convenience",
+        "allowEmptyValue": true,
+        "style": "form",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "elements": {
+        "name": "_elements",
+        "in": "query",
+        "description": "Requests the server to return a collection of elements from the resource",
+        "allowEmptyValue": true,
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "format": "string",
+          "items": {
+            "format": "string"
+          }
+        }
+      },
+      "count": {
+        "name": "_count",
+        "in": "query",
+        "description": "The maximum number of search results on a page. The server is not bound to return the number requested, but cannot return more",
+        "schema": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

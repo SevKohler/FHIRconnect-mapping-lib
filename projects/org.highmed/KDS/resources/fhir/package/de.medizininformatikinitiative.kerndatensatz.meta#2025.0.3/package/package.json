@@ -1,0 +1,30 @@
+{
+  "name": "de.medizininformatikinitiative.kerndatensatz.meta",
+  "version": "2025.0.3",
+  "description": "Medizininformatik Initiative - Modul Meta",
+  "author": "juliansass",
+  "keywords": [
+    "MII",
+    "KDS",
+    "Meta"
+  ],
+  "license": "CC-BY-4.0",
+  "homepage": "https://www.medizininformatik-initiative.de/",
+  "directories": {
+    "lib": "package",
+    "example": "examples"
+  },
+  "title": "MII IG Meta",
+  "fhirVersions": [
+    "4.0.1"
+  ],
+  "maintainers": [
+    {
+      "name": "Medizininformatik Initiative"
+    }
+  ],
+  "jurisdiction": "http://unstats.un.org/unsd/methods/m49/m49.htm#276",
+  "dependencies": {
+    "hl7.fhir.r4.core": "4.0.1"
+  }
+}

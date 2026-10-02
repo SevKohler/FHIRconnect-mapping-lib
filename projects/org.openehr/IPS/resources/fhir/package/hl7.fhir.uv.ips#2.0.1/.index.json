@@ -1,0 +1,614 @@
+{
+  "index-version" : 2,
+  "files" : [{
+    "filename" : "ImplementationGuide-hl7.fhir.uv.ips.json",
+    "resourceType" : "ImplementationGuide",
+    "id" : "hl7.fhir.uv.ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ImplementationGuide/hl7.fhir.uv.ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "Basic-Consumer.json",
+    "resourceType" : "Basic",
+    "id" : "Consumer"
+  },
+  {
+    "filename" : "Basic-Creator.json",
+    "resourceType" : "Basic",
+    "id" : "Creator"
+  },
+  {
+    "filename" : "Basic-Server.json",
+    "resourceType" : "Basic",
+    "id" : "Server"
+  },
+  {
+    "filename" : "CapabilityStatement-ips-server.json",
+    "resourceType" : "CapabilityStatement",
+    "id" : "ips-server",
+    "url" : "http://hl7.org/fhir/uv/ips/CapabilityStatement/ips-server",
+    "version" : "2.0.1",
+    "kind" : "requirements"
+  },
+  {
+    "filename" : "OperationDefinition-summary.json",
+    "resourceType" : "OperationDefinition",
+    "id" : "summary",
+    "url" : "http://hl7.org/fhir/uv/ips/OperationDefinition/summary",
+    "version" : "2.0.1",
+    "kind" : "operation",
+    "type" : "true"
+  },
+  {
+    "filename" : "StructureDefinition-AllergyIntolerance-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "AllergyIntolerance-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/AllergyIntolerance-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "AllergyIntolerance",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Bundle-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Bundle-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Bundle-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Bundle",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-CodeableConcept-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "CodeableConcept-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/CodeableConcept-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "complex-type",
+    "type" : "CodeableConcept",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Coding-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Coding-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Coding-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "complex-type",
+    "type" : "Coding",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Composition-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Composition-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Composition",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Condition-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Condition-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Condition-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Condition",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Device-observer-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Device-observer-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Device-observer-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Device",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Device-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Device-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Device-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Device",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-DeviceUseStatement-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "DeviceUseStatement-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/DeviceUseStatement-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "DeviceUseStatement",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-DiagnosticReport-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "DiagnosticReport-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/DiagnosticReport-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "DiagnosticReport",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Document.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Document",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Document",
+    "version" : "2.0.1",
+    "kind" : "logical",
+    "type" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Document",
+    "derivation" : "specialization"
+  },
+  {
+    "filename" : "StructureDefinition-DocumentSection.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "DocumentSection",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/DocumentSection",
+    "version" : "2.0.1",
+    "kind" : "logical",
+    "type" : "http://hl7.org/fhir/uv/ips/StructureDefinition/DocumentSection",
+    "derivation" : "specialization"
+  },
+  {
+    "filename" : "StructureDefinition-Flag-alert-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Flag-alert-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Flag-alert-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Flag",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-IPSSectionsLM.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "IPSSectionsLM",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/IPSSectionsLM",
+    "version" : "2.0.1",
+    "kind" : "logical",
+    "type" : "http://hl7.org/fhir/uv/ips/StructureDefinition/IPSSectionsLM",
+    "derivation" : "specialization"
+  },
+  {
+    "filename" : "StructureDefinition-ImagingStudy-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "ImagingStudy-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/ImagingStudy-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "ImagingStudy",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Immunization-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Immunization-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Immunization-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Immunization",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Medication-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Medication-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Medication-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Medication",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-MedicationRequest-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "MedicationRequest-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/MedicationRequest-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "MedicationRequest",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-MedicationStatement-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "MedicationStatement-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/MedicationStatement-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "MedicationStatement",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Observation-alcoholuse-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Observation-alcoholuse-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-alcoholuse-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Observation",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Observation-pregnancy-edd-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Observation-pregnancy-edd-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-pregnancy-edd-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Observation",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Observation-pregnancy-outcome-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Observation-pregnancy-outcome-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-pregnancy-outcome-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Observation",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Observation-pregnancy-status-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Observation-pregnancy-status-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-pregnancy-status-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Observation",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Observation-results-laboratory-pathology-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Observation-results-laboratory-pathology-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-results-laboratory-pathology-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Observation",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Observation-results-radiology-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Observation-results-radiology-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-results-radiology-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Observation",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Observation-tobaccouse-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Observation-tobaccouse-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-tobaccouse-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Observation",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Organization-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Organization-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Organization-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Organization",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Patient-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Patient-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Patient-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Patient",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Practitioner-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Practitioner-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Practitioner-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Practitioner",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-PractitionerRole-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "PractitionerRole-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/PractitionerRole-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "PractitionerRole",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Procedure-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Procedure-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Procedure-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Procedure",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "StructureDefinition-Specimen-uv-ips.json",
+    "resourceType" : "StructureDefinition",
+    "id" : "Specimen-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/StructureDefinition/Specimen-uv-ips",
+    "version" : "2.0.1",
+    "kind" : "resource",
+    "type" : "Specimen",
+    "derivation" : "constraint"
+  },
+  {
+    "filename" : "ValueSet-allergies-intolerances-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "allergies-intolerances-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/allergies-intolerances-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-allergy-reaction-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "allergy-reaction-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/allergy-reaction-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-body-site-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "body-site-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/body-site-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-current-smoking-status-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "current-smoking-status-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/current-smoking-status-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-diagnostics-report-status-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "diagnostics-report-status-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/diagnostics-report-status-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-edd-method-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "edd-method-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/edd-method-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-healthcare-professional-roles-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "healthcare-professional-roles-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/healthcare-professional-roles-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-imaging-study-status-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "imaging-study-status-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/imaging-study-status-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-medical-devices-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "medical-devices-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/medical-devices-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-medication-example-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "medication-example-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/medication-example-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-medication-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "medication-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/medication-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-medicine-active-substances-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "medicine-active-substances-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/medicine-active-substances-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-medicine-doseform.json",
+    "resourceType" : "ValueSet",
+    "id" : "medicine-doseform",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/medicine-doseform",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-medicine-route-of-administration.json",
+    "resourceType" : "ValueSet",
+    "id" : "medicine-route-of-administration",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/medicine-route-of-administration",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-personal-relationship-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "personal-relationship-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/personal-relationship-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-pregnancies-summary-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "pregnancies-summary-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/pregnancies-summary-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-pregnancy-status-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "pregnancy-status-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/pregnancy-status-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-problem-type-loinc.json",
+    "resourceType" : "ValueSet",
+    "id" : "problem-type-loinc",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/problem-type-loinc",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-problem-type-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "problem-type-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/problem-type-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-problems-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "problems-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/problems-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-procedures-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "procedures-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/procedures-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-blood-group-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-blood-group-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-blood-group-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-coded-values-laboratory-pathology-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-coded-values-laboratory-pathology-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-coded-values-laboratory-pathology-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-laboratory-pathology-observations-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-laboratory-pathology-observations-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-laboratory-pathology-observations-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-microorganism-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-microorganism-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-microorganism-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-pathology-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-pathology-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-pathology-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-presence-absence-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-presence-absence-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-presence-absence-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-radiology-component-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-radiology-component-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-radiology-component-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-radiology-observations-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-radiology-observations-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-radiology-observations-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-specimen-collection-method-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-specimen-collection-method-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-specimen-collection-method-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-specimen-type-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-specimen-type-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-specimen-type-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-results-status-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "results-status-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/results-status-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-target-diseases-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "target-diseases-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/target-diseases-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-vaccines-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "vaccines-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/vaccines-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-vaccines-whoatc-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "vaccines-whoatc-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/vaccines-whoatc-uv-ips",
+    "version" : "2.0.1"
+  },
+  {
+    "filename" : "ValueSet-whoatc-uv-ips.json",
+    "resourceType" : "ValueSet",
+    "id" : "whoatc-uv-ips",
+    "url" : "http://hl7.org/fhir/uv/ips/ValueSet/whoatc-uv-ips",
+    "version" : "2.0.1"
+  }]
+}
