@@ -27,106 +27,96 @@ Both directions unless a row says otherwise. Starts at `ACTION.medication.v1`; c
 
 | FHIR | openEHR | how | notes |
 |---|---|---|---|
-| `MedicationAdministration.effective (Period).start` | `time` *(RM attribute)* | direct | FHIR → openEHR only |
-| `MedicationAdministration.effective (DateTime)` | `time` *(RM attribute)* | direct |  |
-| `MedicationAdministration.actor.performer` | `provider` *(RM attribute)* | direct |  |
-| `MedicationAdministration.note.text` | **Kommentar** `at0024` | direct |  |
-| `MedicationAdministration.dosage` | CLUSTER.dosage.v2 | → table **CLUSTER.dosage.v2.BackboneElement** |  |
-| `MedicationAdministration.dosage.route` | **Verabreichungsweg** `at0147` | direct |  |
-| `MedicationAdministration.dosage.site` | **Körperstelle** `at0141` | direct |  |
-| `MedicationAdministration.dosage.method` | **Methode der Verabreichung** `at0143` | direct |  |
-| `MedicationAdministration.medication` | *(the referenced resource)* | reference → Medication |  |
-| `MedicationAdministration.medication` | CLUSTER.medication.v2 | → table **CLUSTER.medication.v2** |  |
-| `MedicationAdministration.medication (CodeableConcept).coding` | CLUSTER.medication.v2 · **Arzneimittel-Name** `at0132` | direct | only if openEHR `/items[at0071], /items[at0142], /items[at0153], /items[at0153], /items[at0157], /items[at0115], /items[at0151], /items[at0150], /items[at0003], /items[at0003], /items[at0138], /items[at0139], /items[at0148], /items[at0127], /items[at0133], /items[at0141]` is empty; *KDS_medikamentenverabreichung* |
-| `MedicationAdministration.reasonCode.coding.display` | **Klinische Indikation** `at0156` | direct | *KDS_medikamentenverabreichung* |
-| `MedicationAdministration.partOf` | `links` *(RM attribute)* | LINK to the partOf composition |  |
-| `MedicationAdministration.request` | **ID der Verordnung** `at0103` | direct |  |
-| `MedicationAdministration.request` | *(the referenced resource)* | reference → MedicationRequest | only if openEHR `links` is not empty |
-| `MedicationAdministration.request` | `links` *(RM attribute)* | LINK to the medicationRequest composition |  |
-| `MedicationAdministration` | `ism_transition/current_state` *(RM attribute)* | value table | `in-progress` ↔ Active (245)<br>`not-done` ↔ Cancelled (528)<br>`on-hold` ↔ Suspended (530)<br>`completed` ↔ Completed (532)<br>`entered-in-error` ↔ Cancelled (528)<br>`stopped` ↔ Aborted (531); FHIR → openEHR only |
-| `MedicationAdministration` | `ism_transition/current_state` *(RM attribute)* | value table | `in-progress` ↔ Active (245)<br>`on-hold` ↔ Suspended (530)<br>`stopped` ↔ Aborted (531)<br>`completed` ↔ Completed (532)<br>`not-done` ↔ Cancelled (528)<br>`unknown` ↔ Initial (524)<br>`unknown` ↔ Planned (526)<br>`unknown` ↔ Postponed (527)<br>`unknown` ↔ Scheduled (529)<br>`unknown` ↔ Expired (533); openEHR → FHIR only |
-| `MedicationAdministration` | composition | → table **COMPOSITION.report.v1.MedicationAdministration** | *KDS_medikamentenverabreichung* |
-| `MedicationAdministration.meta` |  | fixed | profile = `https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationAdministration`; openEHR → FHIR only; *KDS_medikamentenverabreichung* |
+| [`MedicationAdministration.effective (Period).start`](../../../../model/action/org.openehr/medication.v1.yml#effectivePeriod "ACTION.medication.v1#effectivePeriod") | [`time` *(RM attribute)*](../../../../model/action/org.openehr/medication.v1.yml#effectivePeriod "ACTION.medication.v1#effectivePeriod") | direct | FHIR → openEHR only |
+| [`MedicationAdministration.effective (DateTime)`](../../../../model/action/org.openehr/medication.v1.yml#effectiveDateTime "ACTION.medication.v1#effectiveDateTime") | [`time` *(RM attribute)*](../../../../model/action/org.openehr/medication.v1.yml#effectiveDateTime "ACTION.medication.v1#effectiveDateTime") | direct |  |
+| [`MedicationAdministration.actor.performer`](../../../../model/action/org.openehr/medication.v1.yml#provider "ACTION.medication.v1#provider") | [`provider` *(RM attribute)*](../../../../model/action/org.openehr/medication.v1.yml#provider "ACTION.medication.v1#provider") | direct |  |
+| [`MedicationAdministration.note.text`](../../../../model/action/org.openehr/medication.v1.yml#note "ACTION.medication.v1#note") | [**Kommentar** `at0024`](../../../../model/action/org.openehr/medication.v1.yml#note "ACTION.medication.v1#note") | direct |  |
+| [`MedicationAdministration.dosage`](../../../../model/action/org.openehr/medication.v1.yml#dosage "ACTION.medication.v1#dosage") | [CLUSTER.dosage.v2](../../../../model/action/org.openehr/medication.v1.yml#dosage "ACTION.medication.v1#dosage") | → table **CLUSTER.dosage.v2.BackboneElement** |  |
+| [`MedicationAdministration.dosage.route`](../../../../model/action/org.openehr/medication.v1.yml#route "ACTION.medication.v1#route") | [**Verabreichungsweg** `at0147`](../../../../model/action/org.openehr/medication.v1.yml#route "ACTION.medication.v1#route") | direct |  |
+| [`MedicationAdministration.dosage.site`](../../../../model/action/org.openehr/medication.v1.yml#bodySite "ACTION.medication.v1#bodySite") | [**Körperstelle** `at0141`](../../../../model/action/org.openehr/medication.v1.yml#bodySite "ACTION.medication.v1#bodySite") | direct |  |
+| [`MedicationAdministration.dosage.method`](../../../../model/action/org.openehr/medication.v1.yml#method "ACTION.medication.v1#method") | [**Methode der Verabreichung** `at0143`](../../../../model/action/org.openehr/medication.v1.yml#method "ACTION.medication.v1#method") | direct |  |
+| [`MedicationAdministration.medication`](../../../../model/action/org.openehr/medication.v1.yml#medication "ACTION.medication.v1#medication") | [*(the referenced resource)*](../../../../model/action/org.openehr/medication.v1.yml#medication "ACTION.medication.v1#medication") | reference → Medication |  |
+| [`MedicationAdministration.medication`](../../../../model/action/org.openehr/medication.v1.yml#medicationReference "ACTION.medication.v1#medicationReference") | [CLUSTER.medication.v2](../../../../model/action/org.openehr/medication.v1.yml#medicationReference "ACTION.medication.v1#medicationReference") | → table **CLUSTER.medication.v2** |  |
+| [`MedicationAdministration.medication (CodeableConcept).coding`](KDS_medikamentenverabreichung.yml#medicationCode "KDS_medikamentenverabreichung#medicationCode") | [CLUSTER.medication.v2 · **Arzneimittel-Name** `at0132`](KDS_medikamentenverabreichung.yml#medicationCode "KDS_medikamentenverabreichung#medicationCode") | direct | only if openEHR `/items[at0071], /items[at0142], /items[at0153], /items[at0153], /items[at0157], /items[at0115], /items[at0151], /items[at0150], /items[at0003], /items[at0003], /items[at0138], /items[at0139], /items[at0148], /items[at0127], /items[at0133], /items[at0141]` is empty; *KDS_medikamentenverabreichung* |
+| [`MedicationAdministration.reasonCode.coding.display`](KDS_medikamentenverabreichung.yml#clinicalIndication "KDS_medikamentenverabreichung#clinicalIndication") | [**Klinische Indikation** `at0156`](KDS_medikamentenverabreichung.yml#clinicalIndication "KDS_medikamentenverabreichung#clinicalIndication") | direct | *KDS_medikamentenverabreichung* |
+| [`MedicationAdministration.partOf`](../../../../model/action/org.openehr/medication.v1.yml#partOf "ACTION.medication.v1#partOf") | [`links` *(RM attribute)*](../../../../model/action/org.openehr/medication.v1.yml#partOf "ACTION.medication.v1#partOf") | LINK to the partOf composition |  |
+| [`MedicationAdministration.request`](../../../../model/action/org.openehr/medication.v1.yml#request "ACTION.medication.v1#request") | [**ID der Verordnung** `at0103`](../../../../model/action/org.openehr/medication.v1.yml#request "ACTION.medication.v1#request") | direct |  |
+| [`MedicationAdministration.request`](../../../../model/action/org.openehr/medication.v1.yml#identifierInReference "ACTION.medication.v1#identifierInReference") | [*(the referenced resource)*](../../../../model/action/org.openehr/medication.v1.yml#identifierInReference "ACTION.medication.v1#identifierInReference") | reference → MedicationRequest | only if openEHR `links` is not empty |
+| [`MedicationAdministration.request`](../../../../model/action/org.openehr/medication.v1.yml#medicationRequestMapping "ACTION.medication.v1#medicationRequestMapping") | [`links` *(RM attribute)*](../../../../model/action/org.openehr/medication.v1.yml#medicationRequestMapping "ACTION.medication.v1#medicationRequestMapping") | LINK to the medicationRequest composition |  |
+| [`MedicationAdministration`](../../../../model/action/org.openehr/medication.v1.yml#ISMTransitionFhirToOpenEhr "ACTION.medication.v1#ISMTransitionFhirToOpenEhr") | [`ism_transition/current_state` *(RM attribute)*](../../../../model/action/org.openehr/medication.v1.yml#ISMTransitionFhirToOpenEhr "ACTION.medication.v1#ISMTransitionFhirToOpenEhr") | value table | `in-progress` ↔ Active (245)<br>`not-done` ↔ Cancelled (528)<br>`on-hold` ↔ Suspended (530)<br>`completed` ↔ Completed (532)<br>`entered-in-error` ↔ Cancelled (528)<br>`stopped` ↔ Aborted (531); FHIR → openEHR only |
+| [`MedicationAdministration`](../../../../model/action/org.openehr/medication.v1.yml#ISMTransitionOpenEhrToFhir "ACTION.medication.v1#ISMTransitionOpenEhrToFhir") | [`ism_transition/current_state` *(RM attribute)*](../../../../model/action/org.openehr/medication.v1.yml#ISMTransitionOpenEhrToFhir "ACTION.medication.v1#ISMTransitionOpenEhrToFhir") | value table | `in-progress` ↔ Active (245)<br>`on-hold` ↔ Suspended (530)<br>`stopped` ↔ Aborted (531)<br>`completed` ↔ Completed (532)<br>`not-done` ↔ Cancelled (528)<br>`unknown` ↔ Initial (524)<br>`unknown` ↔ Planned (526)<br>`unknown` ↔ Postponed (527)<br>`unknown` ↔ Scheduled (529)<br>`unknown` ↔ Expired (533); openEHR → FHIR only |
+| [`MedicationAdministration`](KDS_medikamentenverabreichung.yml#compositionMapping "KDS_medikamentenverabreichung#compositionMapping") | [composition](KDS_medikamentenverabreichung.yml#compositionMapping "KDS_medikamentenverabreichung#compositionMapping") | → table **COMPOSITION.report.v1.MedicationAdministration** | *KDS_medikamentenverabreichung* |
+| [`MedicationAdministration.meta`](KDS_medikamentenverabreichung.yml#metaURL "KDS_medikamentenverabreichung#metaURL") |  | fixed | profile = `https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationAdministration`; openEHR → FHIR only; *KDS_medikamentenverabreichung* |
 
 ## Wirkstoff — CLUSTER.medication.v2
 
 | FHIR | openEHR | how | notes |
 |---|---|---|---|
-| `….code` | **Arzneimittel-Name** `at0132` | direct |  |
-| `….form` | **Darreichungsform** `at0071` | direct |  |
-| `….amount` | **Wirkstärke (Konzentration)** `at0115` | direct |  |
-| `….batch.lotNumber` | `items[at0150]` *(not in this template)* | direct |  |
-| `….batch.expirationDate` | `items[at0003]` *(not in this template)* | direct |  |
-| `….ingredient.item (CodeableConcept).text` | **Arzneimittel-Name** `at0132` | direct |  |
-| `….ingredient.item (CodeableConcept).coding` | **Wirkstofftyp** `at0142` | direct |  |
-| `….ingredient.item` | *(the referenced resource)* | reference → Medication |  |
-| `….ingredient.item` | CLUSTER.medication.v2 | → table **CLUSTER.medication.v2** |  |
-| `….ingredient.item` | *(the referenced resource)* | reference → Substance | FHIR → openEHR only |
-| `….ingredient.item` | *(the referenced resource)* | → table **CLUSTER.medication.v2.substance** |  |
-| `….ingredient.strength` | **Wirkstoffmenge** `at0152` | direct |  |
-| `….ingredient.strength.numerator` | **Zähler** `at0153` | direct |  |
-| `….ingredient.strength.denominator` | **Nenner** `at0157` | direct |  |
-| `….ingredient.extension.value` | **Wirkstofftyp** `at0142` | direct | *KDS_medication.v3* |
-| `….ingredient.extension` |  | fixed | url = `https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstofftyp`; *KDS_medication.v3* |
-| `….ingredient.extension` |  | fixed | url = `https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/wirkstoffrelation`; *KDS_medication.v3* |
-| `….ingredient.extension.extension` |  | fixed | url = `ingredientReference`; *KDS_medication.v3* |
-| `….ingredient.extension.extension.extension.value` | *(the referenced resource)* | reference → Medication | *KDS_medication.v3* |
-| `….ingredient.extension.extension.extension.value` | CLUSTER.medication.v2 | → table **CLUSTER.medication.v2** | *KDS_medication.v3* |
-| `….ingredient.extension.extension.extension.value` | *(the referenced resource)* | reference → Substance | *KDS_medication.v3* |
-| `….ingredient.extension.extension.extension.value` | CLUSTER.medication.v2 | → table **CLUSTER.medication.v2.substance** | *KDS_medication.v3* |
-| `….ingredient.extension.extension` |  | fixed | url = `ingredientUri`; *KDS_medication.v3* |
-| `….ingredient.extension.extension.value` | **Arzneimittel-Name** `at0132` | direct | *KDS_medication.v3* |
+| [`….code`](../../../../model/cluster/org.openehr/medication.v2.yml#name "CLUSTER.medication.v2#name") | [**Arzneimittel-Name** `at0132`](../../../../model/cluster/org.openehr/medication.v2.yml#name "CLUSTER.medication.v2#name") | direct |  |
+| [`….form`](../../../../model/cluster/org.openehr/medication.v2.yml#form "CLUSTER.medication.v2#form") | [**Darreichungsform** `at0071`](../../../../model/cluster/org.openehr/medication.v2.yml#form "CLUSTER.medication.v2#form") | direct |  |
+| [`….amount`](../../../../model/cluster/org.openehr/medication.v2.yml#amount "CLUSTER.medication.v2#amount") | [**Wirkstärke (Konzentration)** `at0115`](../../../../model/cluster/org.openehr/medication.v2.yml#amount "CLUSTER.medication.v2#amount") | direct |  |
+| [`….batch.lotNumber`](../../../../model/cluster/org.openehr/medication.v2.yml#id "CLUSTER.medication.v2#id") | [`items[at0150]` *(not in this template)*](../../../../model/cluster/org.openehr/medication.v2.yml#id "CLUSTER.medication.v2#id") | direct |  |
+| [`….batch.expirationDate`](../../../../model/cluster/org.openehr/medication.v2.yml#expirationDate "CLUSTER.medication.v2#expirationDate") | [`items[at0003]` *(not in this template)*](../../../../model/cluster/org.openehr/medication.v2.yml#expirationDate "CLUSTER.medication.v2#expirationDate") | direct |  |
+| [`….ingredient.item (CodeableConcept).text`](../../../../model/cluster/org.openehr/medication.v2.yml#itemtext "CLUSTER.medication.v2#itemtext") | [**Arzneimittel-Name** `at0132`](../../../../model/cluster/org.openehr/medication.v2.yml#itemtext "CLUSTER.medication.v2#itemtext") | direct |  |
+| [`….ingredient.item (CodeableConcept).coding`](../../../../model/cluster/org.openehr/medication.v2.yml#wirkstofftyp "CLUSTER.medication.v2#wirkstofftyp") | [**Wirkstofftyp** `at0142`](../../../../model/cluster/org.openehr/medication.v2.yml#wirkstofftyp "CLUSTER.medication.v2#wirkstofftyp") | direct |  |
+| [`….ingredient.item`](../../../../model/cluster/org.openehr/medication.v2.yml#medication "CLUSTER.medication.v2#medication") | [*(the referenced resource)*](../../../../model/cluster/org.openehr/medication.v2.yml#medication "CLUSTER.medication.v2#medication") | reference → Medication |  |
+| [`….ingredient.item`](../../../../model/cluster/org.openehr/medication.v2.yml#medicationMedicationReference "CLUSTER.medication.v2#medicationMedicationReference") | [CLUSTER.medication.v2](../../../../model/cluster/org.openehr/medication.v2.yml#medicationMedicationReference "CLUSTER.medication.v2#medicationMedicationReference") | → table **CLUSTER.medication.v2** |  |
+| [`….ingredient.item`](../../../../model/cluster/org.openehr/medication.v2.yml#medicationSubstance "CLUSTER.medication.v2#medicationSubstance") | [*(the referenced resource)*](../../../../model/cluster/org.openehr/medication.v2.yml#medicationSubstance "CLUSTER.medication.v2#medicationSubstance") | reference → Substance | FHIR → openEHR only |
+| [`….ingredient.item`](../../../../model/cluster/org.openehr/medication.v2.yml#medicationSubstanceReference "CLUSTER.medication.v2#medicationSubstanceReference") | [*(the referenced resource)*](../../../../model/cluster/org.openehr/medication.v2.yml#medicationSubstanceReference "CLUSTER.medication.v2#medicationSubstanceReference") | → table **CLUSTER.medication.v2.substance** |  |
+| [`….ingredient.strength`](../../../../model/cluster/org.openehr/medication.v2.yml#strength "CLUSTER.medication.v2#strength") | [**Wirkstoffmenge** `at0152`](../../../../model/cluster/org.openehr/medication.v2.yml#strength "CLUSTER.medication.v2#strength") | direct |  |
+| [`….ingredient.strength.numerator`](../../../../model/cluster/org.openehr/medication.v2.yml#numerator "CLUSTER.medication.v2#numerator") | [**Zähler** `at0153`](../../../../model/cluster/org.openehr/medication.v2.yml#numerator "CLUSTER.medication.v2#numerator") | direct |  |
+| [`….ingredient.strength.denominator`](../../../../model/cluster/org.openehr/medication.v2.yml#denominator "CLUSTER.medication.v2#denominator") | [**Nenner** `at0157`](../../../../model/cluster/org.openehr/medication.v2.yml#denominator "CLUSTER.medication.v2#denominator") | direct |  |
 
 ## Dosierung — CLUSTER.dosage.v2.BackboneElement
 
 | FHIR | openEHR | how | notes |
 |---|---|---|---|
-| `….dose` | **Dosis** `at0144` | direct |  |
-| `….text` | **Dosierung Freitext** `at0178` | direct |  |
-| `….rate (Quantity)` | **Verabreichungsrate** `at0134` | direct | only if openEHR `items[at0134]` type `DV_QUANTITY` |
-| `….rate (Ratio)` | CLUSTER.dosage.v2 | engine code `ratio_to_dosage_action` | only if openEHR `items[at0102]` is not empty |
+| [`….dose`](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#doseQuantityValue "CLUSTER.dosage.v2.BackboneElement#doseQuantityValue") | [**Dosis** `at0144`](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#doseQuantityValue "CLUSTER.dosage.v2.BackboneElement#doseQuantityValue") | direct |  |
+| [`….text`](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#doseDescription "CLUSTER.dosage.v2.BackboneElement#doseDescription") | [**Dosierung Freitext** `at0178`](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#doseDescription "CLUSTER.dosage.v2.BackboneElement#doseDescription") | direct |  |
+| [`….rate (Quantity)`](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#rateQuantity "CLUSTER.dosage.v2.BackboneElement#rateQuantity") | [**Verabreichungsrate** `at0134`](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#rateQuantity "CLUSTER.dosage.v2.BackboneElement#rateQuantity") | direct | only if openEHR `items[at0134]` type `DV_QUANTITY` |
+| [`….rate (Ratio)`](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#rateRatio "CLUSTER.dosage.v2.BackboneElement#rateRatio") | [CLUSTER.dosage.v2](../../../../model/cluster/org.openehr/dosage.v2.BackboneElement.yml#rateRatio "CLUSTER.dosage.v2.BackboneElement#rateRatio") | engine code `ratio_to_dosage_action` | only if openEHR `items[at0102]` is not empty |
 
 ## Fallidentifikation — CLUSTER.case_identification.v0
 
 | FHIR | openEHR | how | notes |
 |---|---|---|---|
-| `…` | **Fall-Kennung** `at0001` | direct |  |
+| [`…`](../../../../model/cluster/org.openehr/case_identification.v0.yml#identifierCaseParent "CLUSTER.case_identification.v0#identifierCaseParent") | [**Fall-Kennung** `at0001`](../../../../model/cluster/org.openehr/case_identification.v0.yml#identifierCaseParent "CLUSTER.case_identification.v0#identifierCaseParent") | direct |  |
 
 ## Wirkstoff — CLUSTER.medication.v2.substance
 
 | FHIR | openEHR | how | notes |
 |---|---|---|---|
-| `….code.coding.display` | **Arzneimittel-Name** `at0132` | direct | *KDS_medication.v2.substance* |
-| `….ingredient.substance (CodeableConcept).text` | **Arzneimittel-Name** `at0132` | direct |  |
-| `….ingredient.substance (CodeableConcept).coding` | **Wirkstofftyp** `at0142` | direct |  |
-| `….ingredient.substance` | *(the referenced resource)* | reference → Substance |  |
-| `….ingredient.substance` | CLUSTER.medication.v2 | → table **CLUSTER.medication.v2.substance** |  |
-| `….ingredient.quantity` | **Wirkstoffmenge** `at0152` | direct |  |
-| `….ingredient.quantity.numerator` | **Zähler** `at0153` | direct |  |
-| `….ingredient.quantity.denominator` | **Nenner** `at0157` | direct |  |
-| `….instance.quantity` | **Wirkstärke (Konzentration)** `at0115` | direct |  |
+| [`….code.coding.display`](KDS_medication_substance.yml#name "KDS_medication.v2.substance#name") | [**Arzneimittel-Name** `at0132`](KDS_medication_substance.yml#name "KDS_medication.v2.substance#name") | direct | *KDS_medication.v2.substance* |
+| [`….ingredient.substance (CodeableConcept).text`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#itemText "CLUSTER.medication.v2.substance#itemText") | [**Arzneimittel-Name** `at0132`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#itemText "CLUSTER.medication.v2.substance#itemText") | direct |  |
+| [`….ingredient.substance (CodeableConcept).coding`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#wirkstofftyp "CLUSTER.medication.v2.substance#wirkstofftyp") | [**Wirkstofftyp** `at0142`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#wirkstofftyp "CLUSTER.medication.v2.substance#wirkstofftyp") | direct |  |
+| [`….ingredient.substance`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#substanceSubstance "CLUSTER.medication.v2.substance#substanceSubstance") | [*(the referenced resource)*](../../../../model/cluster/org.openehr/medication.v2.substance.yml#substanceSubstance "CLUSTER.medication.v2.substance#substanceSubstance") | reference → Substance |  |
+| [`….ingredient.substance`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#medicationSubstanceReference "CLUSTER.medication.v2.substance#medicationSubstanceReference") | [CLUSTER.medication.v2](../../../../model/cluster/org.openehr/medication.v2.substance.yml#medicationSubstanceReference "CLUSTER.medication.v2.substance#medicationSubstanceReference") | → table **CLUSTER.medication.v2.substance** |  |
+| [`….ingredient.quantity`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#quantity "CLUSTER.medication.v2.substance#quantity") | [**Wirkstoffmenge** `at0152`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#quantity "CLUSTER.medication.v2.substance#quantity") | direct |  |
+| [`….ingredient.quantity.numerator`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#numerator "CLUSTER.medication.v2.substance#numerator") | [**Zähler** `at0153`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#numerator "CLUSTER.medication.v2.substance#numerator") | direct |  |
+| [`….ingredient.quantity.denominator`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#denominator "CLUSTER.medication.v2.substance#denominator") | [**Nenner** `at0157`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#denominator "CLUSTER.medication.v2.substance#denominator") | direct |  |
+| [`….instance.quantity`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#instance "CLUSTER.medication.v2.substance#instance") | [**Wirkstärke (Konzentration)** `at0115`](../../../../model/cluster/org.openehr/medication.v2.substance.yml#instance "CLUSTER.medication.v2.substance#instance") | direct |  |
 
 ## KDS_Medikamentenverabreichungen — COMPOSITION.report.v1.MedicationAdministration
 
 | FHIR | openEHR | how | notes |
 |---|---|---|---|
-| `….request.requester` | composition · `context/health_care_facility` | direct |  |
-| `…` |  | fixed | status = `final`; only if openEHR `items[at0005]` is empty; *KDS_composition.MedicationAdministration* |
-| `….performer.actor` | composition · composer | direct |  |
-| `….performer.actor` | composition · composer | fixed | openEHR null_flavour/value = `no information`, null_flavour/defining_code/terminology_id = `openehr`, null_flavour/defining_code/code_string = `271`; only if FHIR `request.performer.actor` is empty |
-| `….effective (Period)` | composition | direct | only if openEHR `end_time` is not empty |
-| `….effective (Period).end` | composition · end time | direct |  |
-| `….effective (Period).start` | composition · start time | direct |  |
-| `….effective (DateTime)` | composition · start time | direct | FHIR → openEHR only |
-| `…` | composition · start time | fixed | openEHR _null_flavour/value = `no information`, _null_flavour/defining_code/terminology_id = `openehr`, _null_flavour/defining_code/code_string = `271` |
-| `….category.coding` | composition · `context/setting` | value table | `outpatient` ↔ primary medical care (228)<br>`inpatient` ↔ secondary medical care (232)<br>`community` ↔ Community (238) |
-| `….category.coding` | composition | fixed | extension.url = `http://hl7.org/fhir/StructureDefinition/data-absent-reason`, extension.code = `unsupported`; only if openEHR `context` is empty |
-| `….identifier` | composition · `context/other_context[at0001]/items[at0002]` | direct | *KDS_composition.MedicationAdministration* |
-| `….status` | composition · `context/other_context[at0001]/items[at0005]` | direct | *KDS_composition.MedicationAdministration* |
-| `….context (Reference).identifier` | CLUSTER.case_identification.v0 | → table **CLUSTER.case_identification.v0** | *KDS_composition.MedicationAdministration* |
-| `….context` | *(the referenced resource)* | reference → Encounter | *KDS_composition.MedicationAdministration* |
-| `….context.identifier` | CLUSTER.case_identification.v0 | → table **CLUSTER.case_identification.v0** | *KDS_composition.MedicationAdministration* |
-| `….context` | CLUSTER.case_identification.v0 · `links` *(RM attribute)* | LINK to the case composition | *KDS_composition.MedicationAdministration* |
+| [`….request.requester`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#healthcareFacility "COMPOSITION.report.v1.MedicationAdministration#healthcareFacility") | [composition · `context/health_care_facility`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#healthcareFacility "COMPOSITION.report.v1.MedicationAdministration#healthcareFacility") | direct |  |
+| [`…`](KDS_composition.yml#statusDefault "KDS_composition.MedicationAdministration#statusDefault") |  | fixed | status = `final`; only if openEHR `items[at0005]` is empty; *KDS_composition.MedicationAdministration* |
+| [`….performer.actor`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#composer "COMPOSITION.report.v1.MedicationAdministration#composer") | [composition · composer](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#composer "COMPOSITION.report.v1.MedicationAdministration#composer") | direct |  |
+| [`….performer.actor`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#composerEmpty "COMPOSITION.report.v1.MedicationAdministration#composerEmpty") | [composition · composer](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#composerEmpty "COMPOSITION.report.v1.MedicationAdministration#composerEmpty") | fixed | openEHR null_flavour/value = `no information`, null_flavour/defining_code/terminology_id = `openehr`, null_flavour/defining_code/code_string = `271`; only if FHIR `request.performer.actor` is empty |
+| [`….effective (Period)`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectivePeriodContext "COMPOSITION.report.v1.MedicationAdministration#effectivePeriodContext") | [composition](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectivePeriodContext "COMPOSITION.report.v1.MedicationAdministration#effectivePeriodContext") | direct | only if openEHR `end_time` is not empty |
+| [`….effective (Period).end`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveEnd "COMPOSITION.report.v1.MedicationAdministration#effectiveEnd") | [composition · end time](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveEnd "COMPOSITION.report.v1.MedicationAdministration#effectiveEnd") | direct |  |
+| [`….effective (Period).start`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveStart "COMPOSITION.report.v1.MedicationAdministration#effectiveStart") | [composition · start time](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveStart "COMPOSITION.report.v1.MedicationAdministration#effectiveStart") | direct |  |
+| [`….effective (DateTime)`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveDateTimeContext "COMPOSITION.report.v1.MedicationAdministration#effectiveDateTimeContext") | [composition · start time](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveDateTimeContext "COMPOSITION.report.v1.MedicationAdministration#effectiveDateTimeContext") | direct | FHIR → openEHR only |
+| [`…`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveStart "COMPOSITION.report.v1.MedicationAdministration#effectiveStart") | [composition · start time](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#effectiveStart "COMPOSITION.report.v1.MedicationAdministration#effectiveStart") | fixed | openEHR _null_flavour/value = `no information`, _null_flavour/defining_code/terminology_id = `openehr`, _null_flavour/defining_code/code_string = `271` |
+| [`….category.coding`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#category "COMPOSITION.report.v1.MedicationAdministration#category") | [composition · `context/setting`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#category "COMPOSITION.report.v1.MedicationAdministration#category") | value table | `outpatient` ↔ primary medical care (228)<br>`inpatient` ↔ secondary medical care (232)<br>`community` ↔ Community (238) |
+| [`….category.coding`](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#categoryEmpty "COMPOSITION.report.v1.MedicationAdministration#categoryEmpty") | [composition](../../../../model/composition/org.openehr/report.v1.MedicationAdministration.yml#categoryEmpty "COMPOSITION.report.v1.MedicationAdministration#categoryEmpty") | fixed | extension.url = `http://hl7.org/fhir/StructureDefinition/data-absent-reason`, extension.code = `unsupported`; only if openEHR `context` is empty |
+| [`….identifier`](KDS_composition.yml#berichtId "KDS_composition.MedicationAdministration#berichtId") | [composition · `context/other_context[at0001]/items[at0002]`](KDS_composition.yml#berichtId "KDS_composition.MedicationAdministration#berichtId") | direct | *KDS_composition.MedicationAdministration* |
+| [`….status`](KDS_composition.yml#status "KDS_composition.MedicationAdministration#status") | [composition · `context/other_context[at0001]/items[at0005]`](KDS_composition.yml#status "KDS_composition.MedicationAdministration#status") | direct | *KDS_composition.MedicationAdministration* |
+| [`….context (Reference).identifier`](KDS_composition.yml#fallIdentifikationIdentifier "KDS_composition.MedicationAdministration#fallIdentifikationIdentifier") | [CLUSTER.case_identification.v0](KDS_composition.yml#fallIdentifikationIdentifier "KDS_composition.MedicationAdministration#fallIdentifikationIdentifier") | → table **CLUSTER.case_identification.v0** | *KDS_composition.MedicationAdministration* |
+| [`….context`](KDS_composition.yml#fallIdentifikationReference "KDS_composition.MedicationAdministration#fallIdentifikationReference") | [*(the referenced resource)*](KDS_composition.yml#fallIdentifikationReference "KDS_composition.MedicationAdministration#fallIdentifikationReference") | reference → Encounter | *KDS_composition.MedicationAdministration* |
+| [`….context.identifier`](KDS_composition.yml#identifierInReference "KDS_composition.MedicationAdministration#identifierInReference") | [CLUSTER.case_identification.v0](KDS_composition.yml#identifierInReference "KDS_composition.MedicationAdministration#identifierInReference") | → table **CLUSTER.case_identification.v0** | *KDS_composition.MedicationAdministration* |
+| [`….context`](KDS_composition.yml#encounterMapping "KDS_composition.MedicationAdministration#encounterMapping") | [CLUSTER.case_identification.v0 · `links` *(RM attribute)*](KDS_composition.yml#encounterMapping "KDS_composition.MedicationAdministration#encounterMapping") | LINK to the case composition | *KDS_composition.MedicationAdministration* |
 
 ---
 *Generated from the mapping YAML with `fhirconnect-mapping/scripts/mapping_readme.py`. Regenerate after changing a mapping.*
