@@ -46,3 +46,7 @@ mappings:
                 - path: code
                   value: KVZ10
 
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# data[at0001]/items[at0002]  Versicherungstyp
+# data[at0001]/items[at0010]  Institutionskennzeichen der Krankenkasse
+# data[at0001]/items[at0011]  Name der Versicherung

@@ -31,3 +31,14 @@ mappings:
             fhir: offset
             openehr: items[at0006]/items[at0009]
 
+# unmapped openEHR  (archetype 2.0.2, CKM latest 1.1.2)
+# items[at0001]                Specific date
+# items[at0002]                Repetition interval
+# items[at0003]                Specific day of week
+# items[at0004]                Specific day of month
+# items[at0010]/items[at0011]  On
+# items[at0010]/items[at0012]  Off
+# items[at0010]/items[at0013]  Repetitions
+# items[at0014]                Days per time period
+# items[at0021]                Timing description
+# items[at0022]                Activities per time period

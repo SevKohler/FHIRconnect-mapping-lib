@@ -111,3 +111,11 @@ mappings:
                   fhir: denominator
                   openehr: items[at0157]
 
+# unmapped openEHR  (archetype 2.0.1, CKM latest 2.0.6)
+# items[at0127]                Role
+# items[at0133]                Description
+# items[at0139]                Amount
+# items[at0148]                Alternate amount
+# items[at0151]                Manufacturer
+# items[at0152]/items[at0153]  Strength numerator    referenced with a different path, check
+# items[at0152]/items[at0157]  Strength denominator  referenced with a different path, check

@@ -43,3 +43,9 @@ mappings:
       targetRoot: $archetype
       targetAttribute: items[at0102]
       operator: not empty
+
+# unmapped openEHR  (archetype 2.0.2, CKM latest 2.0.3)
+# items[at0102]  Administration duration  used in a condition only
+# items[at0135]  Dose formula
+# items[at0164]  Dosage sequence
+# items[at0176]  Alternate dose

@@ -27,3 +27,7 @@ mappings:
     with:
       fhir: $fhirRoot.name
       openehr: $archetype/items[at0052]
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# items[at0046]  Location description
+# items[at0050]  Active/Inactive

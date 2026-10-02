@@ -113,4 +113,22 @@ mappings:
       fhir: $resource.severity
       openehr: $archetype/data[at0001]/items[at0005]
 
-
+# unmapped openEHR  (archetype 1.4.1, CKM latest 1.7.4)
+# data[at0001]/items[at0003]      Date/time clinically recognised  KDS maps it (KDS_problem_diagnose)
+# data[at0001]/items[at0009]      Clinical description
+# data[at0001]/items[at0012]      Body site                        referenced with a different path, check
+# data[at0001]/items[at0030]      Date/time of resolution
+# data[at0001]/items[at0072]      Course description
+# data[at0001]/items[at0073]      Diagnostic certainty             KDS maps it (KDS_problem_diagnose)
+# data[at0001]/items[at0078]      Cause
+# data[at0001]/items[at0079]      Variant
+# data[at0001]/items[at0080]      Impact
+# protocol[at0032]/items[at0070]  Last updated
+# unmapped FHIR  (Condition R4)
+# Condition.identifier
+# Condition.clinicalStatus
+# Condition.verificationStatus
+# Condition.category
+# Condition.abatement[x]
+# Condition.stage
+# Condition.evidence

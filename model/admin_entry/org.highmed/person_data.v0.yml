@@ -74,3 +74,20 @@ mappings:
                   with:
                     fhir: $fhirRoot.link.type.value
                     openehr: $archetype/links/type
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# data[at0001]/items[at0008]  Art der Person
+# unmapped FHIR  (Patient R4)
+# Patient.identifier            KDS maps it (KDS_admin_entry_perso_pseudo); KDS maps it (KDS_admin_entry_person.v0)
+# Patient.active
+# Patient.name
+# Patient.telecom
+# Patient.gender
+# Patient.address
+# Patient.maritalStatus
+# Patient.multipleBirth[x]
+# Patient.photo
+# Patient.contact
+# Patient.communication
+# Patient.generalPractitioner
+# Patient.managingOrganization

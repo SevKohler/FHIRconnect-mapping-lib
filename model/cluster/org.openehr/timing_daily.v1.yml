@@ -41,4 +41,12 @@ mappings:
       fhir: $fhirRoot.asNeeded.as(CodeableConcept)
       openehr: $archetype/items[at0025]
 
-
+# unmapped openEHR  (archetype 2.0.2, CKM latest 1.0.2)
+# items[at0003]                Frequency
+# items[at0004]                Specific time
+# items[at0014]                Interval
+# items[at0023]                Exact timing critical?
+# items[at0027]                Timing description
+# items[at0035]/items[at0036]  On
+# items[at0035]/items[at0037]  Off
+# items[at0035]/items[at0038]  Repetitions
