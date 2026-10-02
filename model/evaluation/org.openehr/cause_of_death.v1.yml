@@ -13,91 +13,91 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
 
 mappings:
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.report.v1.Condition"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.report.v1.Condition
 
-  - name: "other_participations"
+  - name: other_participations
     with:
-      fhir: "$resource.asserter"
-      openehr: "$archetype/other_participations"  # reference to part
-      type: "NONE"
+      fhir: $resource.asserter
+      openehr: $archetype/other_participations  # reference to part
+      type: NONE
     followedBy:
       mappings:
         - name : "participationFunction"
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "asserter"
-        - name: "performer"
+                - path: function
+                  value: asserter
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openehrRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openehrRoot/performer # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-  - name: "provider"
+  - name: provider
     with:
-      fhir: "$resource.recorder"
-      openehr: "$archetype/provider"
+      fhir: $resource.recorder
+      openehr: $archetype/provider
 
-  - name: "status" #clincalStatus
+  - name: status #clincalStatus
     with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
-    slotArchetype: "CLUSTER.problem_qualifier.v2"
+      fhir: $resource
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]
+    slotArchetype: CLUSTER.problem_qualifier.v2
 
-  - name: "causeOfDeath"
+  - name: causeOfDeath
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/data[at0001]/items[at0002]"
+      fhir: $resource.code
+      openehr: $archetype/data[at0001]/items[at0002]
 
-  - name: "category"
+  - name: category
     with:
-      fhir: "$resource.category"
-      openehr: "$archetype"
-    unidirectional: "openEHR->fhir"
+      fhir: $resource.category
+      openehr: $archetype
+    unidirectional: openEHR->fhir
     followedBy:
       mappings:
-        - name: "categoryCodeCodingLoinc"
+        - name: categoryCodeCodingLoinc
           with:
-            fhir: "coding"
-            openehr: "$archetype"
+            fhir: coding
+            openehr: $archetype
           manual:
-            - name: "loincCode"
+            - name: loincCode
               fhir:
-                - path: "code"
-                  value: "79378-6"
+                - path: code
+                  value: 79378-6
 
-            - name: "loincSystem"
+            - name: loincSystem
               fhir:
-                - path: "system"
-                  value: "http://loinc.org"
+                - path: system
+                  value: http://loinc.org
 
 
-        - name: "categoryCodeCodingSnomed"
+        - name: categoryCodeCodingSnomed
           with:
-            fhir: "coding"
-            openehr: "$archetype"
+            fhir: coding
+            openehr: $archetype
           manual:
-            - name: "snomedCode"
+            - name: snomedCode
               fhir:
-                - path: "code"
+                - path: code
                   value: "16100001"
 
-            - name: "snomedSystem"
+            - name: snomedSystem
               fhir:
-                - path: "system"
-                  value: "http://snomed.info/sct"
+                - path: system
+                  value: http://snomed.info/sct
 
 
-  - name: "comment"
+  - name: comment
     with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/data[at0001]/items[at0013]"
+      fhir: $resource.note.text
+      openehr: $archetype/data[at0001]/items[at0013]
 

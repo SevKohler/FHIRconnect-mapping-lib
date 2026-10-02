@@ -11,57 +11,57 @@ spec:
   extends: EVALUATION.vital_status.v1
 
 mappings:
-  - name: "metaURL"
-    extension: "add"
-    unidirectional: "openEHR->fhir"
+  - name: metaURL
+    extension: add
+    unidirectional: openEHR->fhir
     with:
-      fhir: "$resource.meta"
+      fhir: $resource.meta
     manual:
-      - name: "profileUrl"
+      - name: profileUrl
         fhir:
-          - path: "profile"
-            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus"
+          - path: profile
+            value: https://www.medizininformatik-initiative.de/fhir/core/modul-person/CodeSystem/Vitalstatus
 
 
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.report.v1.Observation"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.report.v1.Observation
 
-  - name: "category"
-    extension: "add"
+  - name: category
+    extension: add
     with:
-      fhir: "$resource.category"
-      openehr: "$archetype"
+      fhir: $resource.category
+      openehr: $archetype
     followedBy:
       mappings:
-        - name: "manual"
+        - name: manual
           with:
-            fhir: "coding"
+            fhir: coding
           manual:
-            - name: "survey"
+            - name: survey
               fhir:
-                - path: "code"
-                  value: "survey"
-                - path: "system"
-                  value: "http://terminology.hl7.org/CodeSystem/observation-category"
+                - path: code
+                  value: survey
+                - path: system
+                  value: http://terminology.hl7.org/CodeSystem/observation-category
 
-  - name: "code"
-    extension: "add"
+  - name: code
+    extension: add
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype"
+      fhir: $resource.code
+      openehr: $archetype
     followedBy:
       mappings:
-        - name: "manual"
+        - name: manual
           with:
-            fhir: "coding"
+            fhir: coding
           manual:
-            - name: "survey"
+            - name: survey
               fhir:
-                - path: "code"
-                  value: "67162-8"
-                - path: "system"
-                  value: "http://loinc.org"
+                - path: code
+                  value: 67162-8
+                - path: system
+                  value: http://loinc.org

@@ -12,102 +12,102 @@ spec:
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/BackboneElement
 mappings:
-  - name: "name"
+  - name: name
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/items[at0132]"
+      fhir: $resource.code
+      openehr: $archetype/items[at0132]
 
-  - name: "form"
+  - name: form
     with:
-      fhir: "$resource.form"
-      openehr: "$archetype/items[at0071]"
+      fhir: $resource.form
+      openehr: $archetype/items[at0071]
 
-  - name: "amount"
+  - name: amount
     with:
-      fhir: "$resource.amount"
-      openehr: "$archetype/items[at0115]"
+      fhir: $resource.amount
+      openehr: $archetype/items[at0115]
 
-  - name: "batch"
+  - name: batch
     with:
-      fhir: "$resource.batch"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.batch
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "id"
+        - name: id
           with:
-            fhir: "lotNumber"
-            openehr: "items[at0150]"
+            fhir: lotNumber
+            openehr: items[at0150]
 
-        - name: "expirationDate"
+        - name: expirationDate
           with:
-            fhir: "expirationDate"
-            openehr: "items[at0003]"
+            fhir: expirationDate
+            openehr: items[at0003]
 
-  - name: "ingredients"
+  - name: ingredients
     with:
-      fhir: "$resource.ingredient"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.medication.v2]" # cluster in cluster
-      type: "NONE"
+      fhir: $resource.ingredient
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.medication.v2] # cluster in cluster
+      type: NONE
     followedBy:
       mappings:
-        - name: "ingredient"
+        - name: ingredient
           with:
-            fhir: "item.as(CodeableConcept)" # todo: what do we map to when going from openEHR to FHIR? Because all these 3 below
+            fhir: item.as(CodeableConcept) # todo: what do we map to when going from openEHR to FHIR? Because all these 3 below
                                             # todo are mapping the same thing. CodeableConcept, Medication?
-            openehr: "$openehrRoot"
-            type: "NONE"
+            openehr: $openehrRoot
+            type: NONE
           followedBy:
             mappings:
-              - name: "itemtext"
+              - name: itemtext
                 with:
-                  fhir: "text"
-                  openehr: "items[at0132]"
+                  fhir: text
+                  openehr: items[at0132]
 
-              - name: "wirkstofftyp"
+              - name: wirkstofftyp
                 with:
-                  fhir: "coding"
-                  openehr: "items[at0142]"
+                  fhir: coding
+                  openehr: items[at0142]
 
-        - name: "medication"
+        - name: medication
           with:
-            fhir: "item"
-            openehr: "$reference"
+            fhir: item
+            openehr: $reference
           reference:
-            resourceType: "Medication"
+            resourceType: Medication
             mappings:
-              - name: "medicationMedicationReference"
+              - name: medicationMedicationReference
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "$openehrRoot"
-                slotArchetype: "CLUSTER.medication.v2" # depending on the resourceType picks the correct one
+                  fhir: $fhirRoot
+                  openehr: $openehrRoot
+                slotArchetype: CLUSTER.medication.v2 # depending on the resourceType picks the correct one
 
-        - name: "medicationSubstance"
+        - name: medicationSubstance
           with:
-            fhir: "item"
-            openehr: "$reference"
-          unidirectional: "fhir->openEHR" # wont convert from openEHR to fhir otherwise would be two mappings
+            fhir: item
+            openehr: $reference
+          unidirectional: fhir->openEHR # wont convert from openEHR to fhir otherwise would be two mappings
           reference:
-            resourceType: "Substance"
+            resourceType: Substance
             mappings:
-              - name: "medicationSubstanceReference"
+              - name: medicationSubstanceReference
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "items[openEHR-EHR-CLUSTER.medication.v2]"
-                slotArchetype: "CLUSTER.medication.v2.substance" # depending on the resourceType picks the correct one
+                  fhir: $fhirRoot
+                  openehr: items[openEHR-EHR-CLUSTER.medication.v2]
+                slotArchetype: CLUSTER.medication.v2.substance # depending on the resourceType picks the correct one
 
-        - name: "strength"
+        - name: strength
           with:
-            fhir: "strength"
-            openehr: "items[at0152]"
+            fhir: strength
+            openehr: items[at0152]
           followedBy:
             mappings:
-              - name: "numerator"
+              - name: numerator
                 with:
-                  fhir: "numerator"
-                  openehr: "items[at0153]"
-              - name: "denominator"
+                  fhir: numerator
+                  openehr: items[at0153]
+              - name: denominator
                 with:
-                  fhir: "denominator"
-                  openehr: "items[at0157]"
+                  fhir: denominator
+                  openehr: items[at0157]
 

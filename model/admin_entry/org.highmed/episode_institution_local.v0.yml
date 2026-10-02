@@ -14,61 +14,61 @@ spec:
 
 mappings:
 
-  - name: "healthcareFacility"
+  - name: healthcareFacility
     with:
-      fhir: "$resource.serviceProvider"
-      openehr: "$composition/context/health_care_facility"
+      fhir: $resource.serviceProvider
+      openehr: $composition/context/health_care_facility
 
-  - name: "contextPeriod"
+  - name: contextPeriod
     with:
-      fhir: "$resource.period"
-      openehr: "$composition/context"
+      fhir: $resource.period
+      openehr: $composition/context
     followedBy:
       mappings:
-        - name: "contextStart"
+        - name: contextStart
           with:
-            fhir: "start"
-            openehr: "start_time"
-        - name: "contextEnd"
+            fhir: start
+            openehr: start_time
+        - name: contextEnd
           with:
-            fhir: "end"
-            openehr: "end_time"
+            fhir: end
+            openehr: end_time
 
-  - name: "location"
+  - name: location
     with:
-      fhir: "$resource.location"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.location.v1]"
-    slotArchetype: "CLUSTER.location.v1"
+      fhir: $resource.location
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.location.v1]
+    slotArchetype: CLUSTER.location.v1
 
-  - name: "period"
+  - name: period
     with:
-      fhir: "$resource.period"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.period
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "admissionDate"
+        - name: admissionDate
           with:
-            fhir: "start"
-            openehr: "data[at0001]/items[at0004]"
+            fhir: start
+            openehr: data[at0001]/items[at0004]
 
-        - name: "seperationDate"
+        - name: seperationDate
           with:
-            fhir: "end"
-            openehr: "data[at0001]/items[at0002]"
+            fhir: end
+            openehr: data[at0001]/items[at0002]
 
 
-        - name: "bed"
+        - name: bed
           with:
-            fhir: "location.identifier"
-            openehr: "items[at0024]"
+            fhir: location.identifier
+            openehr: items[at0024]
           fhirCondition:
-            targetRoot: "$fhirRoot"
-            targetAttribute: "physicalType.coding.code"
-            operator: "one of"
-            criteria: "bd"
+            targetRoot: $fhirRoot
+            targetAttribute: physicalType.coding.code
+            operator: one of
+            criteria: bd
 
-        - name: "locationStatus"
+        - name: locationStatus
           with:
-            fhir: "status"
-            openehr: "items[at0028]"
+            fhir: status
+            openehr: items[at0028]

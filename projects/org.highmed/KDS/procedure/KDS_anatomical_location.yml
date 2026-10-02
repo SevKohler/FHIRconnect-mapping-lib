@@ -9,15 +9,15 @@ spec:
   extends: CLUSTER.anatomical_location.v1
 
 mappings:
-  - name: "bodySiteCoded"
-    extension: "overwrite"
+  - name: bodySiteCoded
+    extension: overwrite
     with:
-      fhir: "$fhirRoot.bodySite"
-      openehr: "$archetype/items[at0001]" #Name of body site
+      fhir: $fhirRoot.bodySite
+      openehr: $archetype/items[at0001] #Name of body site
 
-  - name: "seitenlokalisationFromOpsCode"
-    unidirectional: "fhir->openehr"
-    extension: "add"
+  - name: seitenlokalisationFromOpsCode
+    unidirectional: fhir->openehr
+    extension: add
     with:
-      fhir: "$resource.code.coding.extension.value"
-      openehr: "$archetype/items[at0002]"
+      fhir: $resource.code.coding.extension.value
+      openehr: $archetype/items[at0002]

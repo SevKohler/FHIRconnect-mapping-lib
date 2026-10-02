@@ -13,12 +13,12 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Organization
 
 mappings:
-  - name: "orgName"
+  - name: orgName
     with:
-      fhir: "$fhirRoot.name"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot.name
+      openehr: $archetype/items[at0001]
 
-  - name: "orgId"
+  - name: orgId
     with:
-      fhir: "$fhirRoot.identifier"
-      openehr: "$archetype/items[at0003]"
+      fhir: $fhirRoot.identifier
+      openehr: $archetype/items[at0003]

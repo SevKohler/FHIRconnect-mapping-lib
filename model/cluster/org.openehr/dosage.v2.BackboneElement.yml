@@ -14,32 +14,32 @@ spec:
 
 mappings:
 
-  - name: "doseQuantityValue"
+  - name: doseQuantityValue
     with:
-      fhir: "$fhirRoot.dose"
-      openehr: "$archetype/items[at0144]"
+      fhir: $fhirRoot.dose
+      openehr: $archetype/items[at0144]
 
-  - name: "doseDescription"
+  - name: doseDescription
     with:
-      fhir: "$fhirRoot.text"
-      openehr: "$archetype/items[at0178]"
+      fhir: $fhirRoot.text
+      openehr: $archetype/items[at0178]
 
-  - name: "rateQuantity"
+  - name: rateQuantity
     with:
-      fhir: "$fhirRoot.rate.as(Quantity)"
-      openehr: "$archetype/items[at0134]"
+      fhir: $fhirRoot.rate.as(Quantity)
+      openehr: $archetype/items[at0134]
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0134]"
-      operator: "type"
-      criteria: "DV_QUANTITY"
+      targetRoot: $archetype
+      targetAttribute: items[at0134]
+      operator: type
+      criteria: DV_QUANTITY
 
-  - name: "rateRatio"
+  - name: rateRatio
     with:
-      fhir: "$fhirRoot.rate.as(Ratio)"
-      openehr: "$archetype"
-    mappingCode: "ratio_to_dosage_action"
+      fhir: $fhirRoot.rate.as(Ratio)
+      openehr: $archetype
+    mappingCode: ratio_to_dosage_action
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0102]"
-      operator: "not empty"
+      targetRoot: $archetype
+      targetAttribute: items[at0102]
+      operator: not empty

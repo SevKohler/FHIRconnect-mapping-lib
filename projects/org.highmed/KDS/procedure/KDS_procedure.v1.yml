@@ -9,111 +9,111 @@ spec:
   extends: ACTION.procedure.v1
 
 mappings:
-  - name: "metaURL"
-    extension: "add"
-    unidirectional: "openEHR->fhir"
+  - name: metaURL
+    extension: add
+    unidirectional: openEHR->fhir
     with:
-      fhir: "$resource.meta"
+      fhir: $resource.meta
     manual:
-      - name: "profileUrl"
+      - name: profileUrl
         fhir:
-          - path: "profile"
-            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+          - path: profile
+            value: https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure
 
 
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.report.v1.Procedure"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.report.v1.Procedure
 
-  - name: "durchführungsabsicht"
-    extension: "add"
+  - name: durchführungsabsicht
+    extension: add
     with:
-      fhir: "$resource.extension"
-      openehr: "$archetype"
+      fhir: $resource.extension
+      openehr: $archetype
     fhirCondition:
-      targetRoot: "$resource.extension"
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Durchfuehrungsabsicht"
+      targetRoot: $resource.extension
+      targetAttribute: url
+      operator: one of
+      criteria: https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Durchfuehrungsabsicht
     followedBy:
       mappings:
-        - name: "value"
+        - name: value
           with:
-            fhir: "value.as(Coding)"
-            openehr: "description[at0001]/items[at0014]"
-        - name: "staticUrl"
+            fhir: value.as(Coding)
+            openehr: description[at0001]/items[at0014]
+        - name: staticUrl
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "manualUrl"
+            - name: manualUrl
               fhir:
-                - path: "url"
-                  value: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Durchfuehrungsabsicht"
+                - path: url
+                  value: https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Durchfuehrungsabsicht
 
-  - name: "contextStartDokumentationsdatum"
-    extension: "add"
+  - name: contextStartDokumentationsdatum
+    extension: add
     with:
-      fhir: "$resource.extension"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.extension
+      openehr: $composition/context/start_time
     fhirCondition:
-      targetRoot: "$resource.extension"
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "http://fhir.de/StructureDefinition/ProzedurDokumentationsdatum"
+      targetRoot: $resource.extension
+      targetAttribute: url
+      operator: one of
+      criteria: http://fhir.de/StructureDefinition/ProzedurDokumentationsdatum
     followedBy:
       mappings:
-        - name: "staticUrl"
+        - name: staticUrl
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "manualUrl"
+            - name: manualUrl
               fhir:
-                - path: "url"
-                  value: "http://fhir.de/StructureDefinition/ProzedurDokumentationsdatum"
+                - path: url
+                  value: http://fhir.de/StructureDefinition/ProzedurDokumentationsdatum
 
-  - name: "bodySite"
-    extension: "overwrite"
+  - name: bodySite
+    extension: overwrite
     with:
-      fhir: "$resource"
-      openehr: "$archetype/description[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
+      fhir: $resource
+      openehr: $archetype/description[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]
+    slotArchetype: CLUSTER.anatomical_location.v1
 
 
-  - name: "bfarm"
-    extension: "append"
-    appendTo: "name"
+  - name: bfarm
+    extension: append
+    appendTo: name
     followedBy:
       mappings:
-        - name: "codingBfarm"
-          unidirectional: "openEHR->fhir"
+        - name: codingBfarm
+          unidirectional: openEHR->fhir
           with:
-            fhir: "coding"
-            openehr: "$archetype"
+            fhir: coding
+            openehr: $archetype
           openehrCondition:
-            targetRoot: "$openehrRoot/items[at0001]"
-            targetAttribute: "defining_code/code_string"
-            operator: "one of"
-            criteria: "http://fhir.de/CodeSystem/bfarm/ops"
+            targetRoot: $openehrRoot/items[at0001]
+            targetAttribute: defining_code/code_string
+            operator: one of
+            criteria: http://fhir.de/CodeSystem/bfarm/ops
           followedBy:
             mappings:
-              - name: "seitenlokalisationExtension"
+              - name: seitenlokalisationExtension
                 with:
-                  fhir: "extension"
-                  openehr: "$openehrRoot"
+                  fhir: extension
+                  openehr: $openehrRoot
                 followedBy:
                   mappings:
-                    - name: "seitenlokalisationValue"
+                    - name: seitenlokalisationValue
                       with:
-                        fhir: "value.as(Coding)"
-                        openehr: "description[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]"
-                    - name: "seitenlokalisationUrl"
+                        fhir: value.as(Coding)
+                        openehr: description[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]
+                    - name: seitenlokalisationUrl
                       with:
-                        fhir: "$fhirRoot"
+                        fhir: $fhirRoot
                       manual:
-                        - name: "staticUrl"
+                        - name: staticUrl
                           fhir:
-                            - path: "url"
-                              value: "http://fhir.de/StructureDefinition/seitenlokalisation"
+                            - path: url
+                              value: http://fhir.de/StructureDefinition/seitenlokalisation

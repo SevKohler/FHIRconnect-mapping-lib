@@ -16,101 +16,101 @@ spec:
 
 preprocessor:
   fhirCondition:
-    targetRoot: "$resource" # exclude all conditions with entered-in-error, since there is no mapping for this code
-    targetAttribute: "verificationStatus.coding.code"
-    operator: "not of"
-    criteria: "entered-in-error"
+    targetRoot: $resource # exclude all conditions with entered-in-error, since there is no mapping for this code
+    targetAttribute: verificationStatus.coding.code
+    operator: not of
+    criteria: entered-in-error
 
 mappings:
 
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
 
-  - name: "participations"
+  - name: participations
     with:
-      fhir: "$resource.asserter"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
+      fhir: $resource.asserter
+      openehr: $composition/context/participations  # reference to part
+      type: NONE
     followedBy:
       mappings:
         - name : "participationFunction"
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "asserter"
-        - name: "performer"
+                - path: function
+                  value: asserter
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out#
-  - name: "composer"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out#
+  - name: composer
     with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer" # often required therefore simplified mapping engine is to resolve Reference -> Composer
+      fhir: $resource.recorder
+      openehr: $composition/composer # often required therefore simplified mapping engine is to resolve Reference -> Composer
 
 
-  - name: "other_participations"
+  - name: other_participations
     with:
-      fhir: "$resource.asserter"
-      openehr: "$archetype/diagnose/other_participations"  # reference to part
-      type: "NONE"
+      fhir: $resource.asserter
+      openehr: $archetype/diagnose/other_participations  # reference to part
+      type: NONE
     followedBy:
       mappings:
         - name : "participationFunction"
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "asserter"
-        - name: "performer"
+                - path: function
+                  value: asserter
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openEHRRoot # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-  - name: "provider"
+  - name: provider
     with:
-      fhir: "$resource.recorder"
-      openehr: "$archetype/provider"  # often required therefore simplified mapping engine is to resolve Reference -> Participations
+      fhir: $resource.recorder
+      openehr: $archetype/provider  # often required therefore simplified mapping engine is to resolve Reference -> Participations
 
 
-  - name: "problemDiagnose"
+  - name: problemDiagnose
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/data[at0001]/items[at0002]"
+      fhir: $resource.code
+      openehr: $archetype/data[at0001]/items[at0002]
 
 
-  - name: "note"
+  - name: note
     with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/data[at0001]/items[at0069]"
+      fhir: $resource.note.text
+      openehr: $archetype/data[at0001]/items[at0069]
 
-  - name: "dateTime"
+  - name: dateTime
     with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]
 
-  - name: "bodySite"
+  - name: bodySite
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0012]"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0012]
 
-  - name: "bodySiteCluster"
+  - name: bodySiteCluster
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]
+    slotArchetype: CLUSTER.anatomical_location.v1
 
-  - name: "severity"
+  - name: severity
     with:
-      fhir: "$resource.severity"
-      openehr: "$archetype/data[at0001]/items[at0005]"
+      fhir: $resource.severity
+      openehr: $archetype/data[at0001]/items[at0005]
 
 

@@ -9,205 +9,205 @@ spec:
   extends: ADMIN_ENTRY.episode_institution_local.v0
 
 mappings:
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.fall.v1.encounter"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.fall.v1.encounter
 
-  - name: "serviceProvider" # TODO deprecated needs to be deleted
-    extension: "add"
+  - name: serviceProvider # TODO deprecated needs to be deleted
+    extension: add
     with:
-      fhir: "$resource.serviceProvider.as(Organization)"
-      openehr: "$reference"
+      fhir: $resource.serviceProvider.as(Organization)
+      openehr: $reference
     reference:
-      resourceType: "Organization"
+      resourceType: Organization
       mappings:
-        - name: "organization"
+        - name: organization
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.organisation.v1]"
-          slotArchetype: "CLUSTER.organisation.v1"
+            fhir: $fhirRoot
+            openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.organisation.v1]
+          slotArchetype: CLUSTER.organisation.v1
 
-  - name: "aufnahmegrundExtension"
-    extension: "add"
+  - name: aufnahmegrundExtension
+    extension: add
     with:
-      fhir: "$resource.extension"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.extension
+      openehr: $archetype
+      type: NONE
     fhirCondition:
-      targetRoot: "$resource.extension"
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "http://fhir.de/StructureDefinition/Aufnahmegrund"
+      targetRoot: $resource.extension
+      targetAttribute: url
+      operator: one of
+      criteria: http://fhir.de/StructureDefinition/Aufnahmegrund
     followedBy:
       mappings:
-        - name: "aufnahmegrund"
+        - name: aufnahmegrund
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "extension"
+            - name: extension
               fhir:
-                - path: "url"
-                  value: "http://fhir.de/StructureDefinition/Aufnahmegrund"
+                - path: url
+                  value: http://fhir.de/StructureDefinition/Aufnahmegrund
 
-        - name: "ersteUndZweiteStelle"
+        - name: ersteUndZweiteStelle
           with:
-            fhir: "extension" # since its two extensions nested
-            openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']"
+            fhir: extension # since its two extensions nested
+            openehr: data[at0001]/items[at0008 and name/value='Aufnahmegrund - ErsteUndZweiteStelle']
           fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "ErsteUndZweiteStelle"
+            targetRoot: extension
+            targetAttribute: url
+            operator: one of
+            criteria: ErsteUndZweiteStelle
           followedBy:
             mappings:
-              - name: "ersteUndZweiteStelleValue"
+              - name: ersteUndZweiteStelleValue
                 with:
-                  fhir: "value.as(Coding)"
-                  openehr: "$openehrRoot"
-              - name: "ersteUndZweiteStelleUrl"
+                  fhir: value.as(Coding)
+                  openehr: $openehrRoot
+              - name: ersteUndZweiteStelleUrl
                 with:
-                  fhir: "$fhirRoot"
+                  fhir: $fhirRoot
                 manual:
-                  - name: "ErsteUndZweiteStelleUrl"
+                  - name: ErsteUndZweiteStelleUrl
                     fhir:
-                      - path: "url"
-                        value: "ErsteUndZweiteStelle"
+                      - path: url
+                        value: ErsteUndZweiteStelle
 
-        - name: "dritteStelle"
+        - name: dritteStelle
           with:
-            fhir: "extension" # since its two extensions nested
-            openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']"
+            fhir: extension # since its two extensions nested
+            openehr: data[at0001]/items[at0008 and name/value='Aufnahmegrund - Dritte Stelle']
           fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "DritteStelle"
+            targetRoot: extension
+            targetAttribute: url
+            operator: one of
+            criteria: DritteStelle
           followedBy:
             mappings:
-              - name: "DritteStelleValue"
+              - name: DritteStelleValue
                 with:
-                  fhir: "value.as(Coding)"
-                  openehr: "$openehrRoot"
-              - name: "DritteStelleUrl"
+                  fhir: value.as(Coding)
+                  openehr: $openehrRoot
+              - name: DritteStelleUrl
                 with:
-                  fhir: "$fhirRoot"
+                  fhir: $fhirRoot
                 manual:
-                  - name: "DritteStelleUrl"
+                  - name: DritteStelleUrl
                     fhir:
-                      - path: "url"
-                        value: "DritteStelle"
+                      - path: url
+                        value: DritteStelle
 
-        - name: "vierteStelle"
+        - name: vierteStelle
           with:
-            fhir: "extension" # since its two extensions nested
-            openehr: "data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']"
+            fhir: extension # since its two extensions nested
+            openehr: data[at0001]/items[at0008 and name/value='Aufnahmegrund - Vierte Stelle']
           fhirCondition:
-            targetRoot: "extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "VierteStelle"
+            targetRoot: extension
+            targetAttribute: url
+            operator: one of
+            criteria: VierteStelle
           followedBy:
             mappings:
-              - name: "VierteStelleValue"
+              - name: VierteStelleValue
                 with:
-                  fhir: "value.as(Coding)"
-                  openehr: "$openehrRoot"
-              - name: "VierteStelleUrl"
+                  fhir: value.as(Coding)
+                  openehr: $openehrRoot
+              - name: VierteStelleUrl
                 with:
-                  fhir: "$fhirRoot"
+                  fhir: $fhirRoot
                 manual:
-                  - name: "VierteStelleUrl"
+                  - name: VierteStelleUrl
                     fhir:
-                      - path: "url"
-                        value: "VierteStelle"
+                      - path: url
+                        value: VierteStelle
 
 
-  - name: "recordingDismissal"
-    extension: "add"
+  - name: recordingDismissal
+    extension: add
     with:
-      fhir: "$resource.hospitalization"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.hospitalization
+      openehr: $archetype
+      type: NONE
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "data[at0001]/items[at0009]"
-      operator: "not empty"
+      targetRoot: $archetype
+      targetAttribute: data[at0001]/items[at0009]
+      operator: not empty
     followedBy:
       mappings:
-        - name: "aufnahmekategorie"
+        - name: aufnahmekategorie
           with:
-            fhir: "admitSource.coding"
-            openehr: "data[at0001]/items[at0009]"
+            fhir: admitSource.coding
+            openehr: data[at0001]/items[at0009]
 
-        - name: "entlassungsgrund"
+        - name: entlassungsgrund
           with:
-            fhir: "dischargeDisposition.extension"
-            openehr: "$openehrRoot"
+            fhir: dischargeDisposition.extension
+            openehr: $openehrRoot
           fhirCondition:
-            targetRoot: "dischargeDisposition.extension"
-            targetAttribute: "url"
-            operator: "one of"
-            criteria: "http://fhir.de/StructureDefinition/Entlassungsgrund"
+            targetRoot: dischargeDisposition.extension
+            targetAttribute: url
+            operator: one of
+            criteria: http://fhir.de/StructureDefinition/Entlassungsgrund
           followedBy:
             mappings:
-              - name: "entlassungsgrundUrl"
+              - name: entlassungsgrundUrl
                 with:
-                  fhir: "$fhirRoot"
+                  fhir: $fhirRoot
                 manual:
-                  - name: "extension"
+                  - name: extension
                     fhir:
-                      - path: "url"
-                        value: "http://fhir.de/StructureDefinition/Entlassungsgrund"
-              - name: "entlassungsgrundExtension"
+                      - path: url
+                        value: http://fhir.de/StructureDefinition/Entlassungsgrund
+              - name: entlassungsgrundExtension
                 with:
-                  fhir: "extension"
-                  openehr: "data[at0001]"
+                  fhir: extension
+                  openehr: data[at0001]
                 fhirCondition:
-                  targetRoot: "extension"
-                  targetAttribute: "url"
-                  operator: "one of"
-                  criteria: "ErsteUndZweiteStelle"
+                  targetRoot: extension
+                  targetAttribute: url
+                  operator: one of
+                  criteria: ErsteUndZweiteStelle
                 followedBy:
                   mappings:
-                    - name: "entlassungsgrundExtensionValue"
+                    - name: entlassungsgrundExtensionValue
                       with:
-                        fhir: "value.as(Coding)"
-                        openehr: "items[at0006]"
-                    - name: "entlassungsgrundUrl"
+                        fhir: value.as(Coding)
+                        openehr: items[at0006]
+                    - name: entlassungsgrundUrl
                       with:
-                        fhir: "$fhirRoot"
+                        fhir: $fhirRoot
                       manual:
-                        - name: "extension"
+                        - name: extension
                           fhir:
-                            - path: "url"
-                              value: "ErsteUndZweiteStelle"
+                            - path: url
+                              value: ErsteUndZweiteStelle
 
-  - name: "problemDiagnoseParent"
-    extension: "add"
+  - name: problemDiagnoseParent
+    extension: add
     with:
-      fhir: "$resource.diagnosis"
-      openehr: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+      fhir: $resource.diagnosis
+      openehr: $composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
     followedBy:
       mappings:
-        - name: "conditionReference"
+        - name: conditionReference
           with:
-            fhir: "condition"
-            openehr: "$reference"
+            fhir: condition
+            openehr: $reference
           reference:
-            resourceType: "Condition" # this creates an extra encounter with a condition inside
+            resourceType: Condition # this creates an extra encounter with a condition inside
             mappings:
-              - name: "condition"
+              - name: condition
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "$composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
-                slotArchetype: "EVALUATION.problem_diagnosis.v1"
+                  fhir: $fhirRoot
+                  openehr: $composition/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+                slotArchetype: EVALUATION.problem_diagnosis.v1
 
-        - name: "diagnoseTyp"
+        - name: diagnoseTyp
           with:
-            fhir: "use"
-            openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.diagnosetyp.v0]"
-          slotArchetype: "CLUSTER.diagnosetyp.v0"
+            fhir: use
+            openehr: data[at0001]/items[openEHR-EHR-CLUSTER.diagnosetyp.v0]
+          slotArchetype: CLUSTER.diagnosetyp.v0
 

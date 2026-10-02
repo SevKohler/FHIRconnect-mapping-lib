@@ -9,45 +9,45 @@ spec:
   extends: CLUSTER.lebensphase.v0
 
 mappings:
-  - name: "periodOnsetStart"
-    extension: "add"
+  - name: periodOnsetStart
+    extension: add
     with:
-      fhir: "$fhirRoot.start.extension"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot.start.extension
+      openehr: $archetype/items[at0001]
     fhirCondition:
-      targetRoot: "$fhirRoot.start.extension"
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "http://fhir.de/StructureDefinition/lebensphase"
+      targetRoot: $fhirRoot.start.extension
+      targetAttribute: url
+      operator: one of
+      criteria: http://fhir.de/StructureDefinition/lebensphase
     followedBy:
       mappings:
-        - name: "extension"
+        - name: extension
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "physicalType"
+            - name: physicalType
               fhir:
-                - path: "url"
-                  value: "http://fhir.de/StructureDefinition/lebensphase"
+                - path: url
+                  value: http://fhir.de/StructureDefinition/lebensphase
 
-  - name: "periodOnsetEnd"
-    extension: "add"
+  - name: periodOnsetEnd
+    extension: add
     with:
-      fhir: "$fhirRoot.end.extension"
-      openehr: "$archetype/items[at0002]"
+      fhir: $fhirRoot.end.extension
+      openehr: $archetype/items[at0002]
     fhirCondition:
-      targetRoot: "$fhirRoot.end.extension"
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "http://fhir.de/StructureDefinition/lebensphase"
+      targetRoot: $fhirRoot.end.extension
+      targetAttribute: url
+      operator: one of
+      criteria: http://fhir.de/StructureDefinition/lebensphase
     followedBy:
       mappings:
-        - name: "extension"
+        - name: extension
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "physicalType"
+            - name: physicalType
               fhir:
-                - path: "url"
-                  value: "http://fhir.de/StructureDefinition/lebensphase"
+                - path: url
+                  value: http://fhir.de/StructureDefinition/lebensphase
 

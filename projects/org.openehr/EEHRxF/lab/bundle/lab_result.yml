@@ -10,73 +10,73 @@ spec:
 
 
 mappings:
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.report-result.v1.DiagnosticReport"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.report-result.v1.DiagnosticReport
 
-  - name: "status"
-    extension: "overwrite"
+  - name: status
+    extension: overwrite
     with:
-      fhir: "$resource.status"
-      openehr: "/data[at0003]/items[at0073]"
+      fhir: $resource.status
+      openehr: /data[at0003]/items[at0073]
 
-  - name: "eventTime"
-    extension: "overwrite"
+  - name: eventTime
+    extension: overwrite
     with:
-      fhir: "$resource.effective.ofType(DateTimeType)"
-      openehr: "$archetype/data[at0001]/events[at0002]/time" # period -> interval event, datetime to pointInTime event
+      fhir: $resource.effective.ofType(DateTimeType)
+      openehr: $archetype/data[at0001]/events[at0002]/time # period -> interval event, datetime to pointInTime event
 
-  - name: "resultAppendToParent" #/data[at0001]/events[at0002] add new for each laboratory analyte.
-    extension: "append"
-    appendTo: "eventParent"
+  - name: resultAppendToParent #/data[at0001]/events[at0002] add new for each laboratory analyte.
+    extension: append
+    appendTo: eventParent
     followedBy:
       mappings:
-        - name: "result"
+        - name: result
           with:
-            fhir: "result"
-            openehr: "$reference" #will create FOR each result ONE event.
+            fhir: result
+            openehr: $reference #will create FOR each result ONE event.
           reference:
-            resourceType: "Observation"
+            resourceType: Observation
             mappings:
-              - name: "observationRecurring"
+              - name: observationRecurring
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]"
-                slotArchetype: "CLUSTER.laboratory_test_analyte.v1"
+                  fhir: $fhirRoot
+                  openehr: data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]
+                slotArchetype: CLUSTER.laboratory_test_analyte.v1
 
-  - name: "eventParent.code" #TODO not working in openFHIR, needs to be validated
-    extension: "overwrite"
+  - name: eventParent.code #TODO not working in openFHIR, needs to be validated
+    extension: overwrite
     with:
-      fhir: "code"
-      openehr: "$reference"
-      type: "NONE"
+      fhir: code
+      openehr: $reference
+      type: NONE
     followedBy:
       mappings:
-        - name: "staticValue"
-          unidirectional: "openEHR->fhir"
+        - name: staticValue
+          unidirectional: openEHR->fhir
           with:
-            fhir: "coding"
+            fhir: coding
           manual:
-            - name: "manifestation"
+            - name: manifestation
               openehr:
-                - path: "coding.system"
-                  value: "http://loinc.org"
-                - path: "coding.code"
-                  value: "11502-2"
-                - path: "coding.display"
-                  value: "Laboratory report"
+                - path: coding.system
+                  value: http://loinc.org
+                - path: coding.code
+                  value: 11502-2
+                - path: coding.display
+                  value: Laboratory report
 
-        - name: "nonStatic"
+        - name: nonStatic
           with:
-            fhir: "coding" # map each one that is not lab report
-            openehr: "data[at0003]/items[at0005]"
+            fhir: coding # map each one that is not lab report
+            openehr: data[at0003]/items[at0005]
           fhirCondition:
-            targetRoot: "code.coding"
-            targetAttribute: "code"
-            operator: "not of"
-            criteria: "11502-2"
+            targetRoot: code.coding
+            targetAttribute: code
+            operator: not of
+            criteria: 11502-2
 
           # Category is missing i would do this as term mapping or as an extension cluster to the composition itself since its for hl7 compability

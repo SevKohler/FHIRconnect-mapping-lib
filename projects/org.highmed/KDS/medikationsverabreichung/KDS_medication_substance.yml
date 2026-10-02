@@ -11,9 +11,9 @@ spec:
 #todo: example of fhir data please, what should this map to??
 mappings:
 
-  - name: "name"
-    extension: "overwrite"
+  - name: name
+    extension: overwrite
     with:
-      fhir: "$resource.code.coding.display" # currently dv_text should to be DV_CODED_TEXT soon
-      openehr: "$archetype/items[at0132]"
+      fhir: $resource.code.coding.display # currently dv_text should to be DV_CODED_TEXT soon
+      openehr: $archetype/items[at0132]
       

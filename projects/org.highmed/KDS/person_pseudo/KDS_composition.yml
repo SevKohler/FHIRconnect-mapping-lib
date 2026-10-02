@@ -9,9 +9,9 @@ spec:
   extends: COMPOSITION.person.v1
 
 mappings:
-  - name: "gender"
-    extension: "add"
+  - name: gender
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition/content[openEHR-EHR-EVALUATION.gender.v1]"
-    slotArchetype: "EVALUATION.gender.v1"
+      fhir: $resource
+      openehr: $composition/content[openEHR-EHR-EVALUATION.gender.v1]
+    slotArchetype: EVALUATION.gender.v1

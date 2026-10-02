@@ -10,14 +10,14 @@ spec:
     archetype: openEHR-EHR-EVALUATION.gender.v1
     revision: 1.1.1
   fhirConfig:
-    structureDefinition: "http://hl7.org/fhir/StructureDefinition/Patient"
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Patient
 
 mappings:
 
-  - name: "gender"
+  - name: gender
     with:
-      fhir: "$resource.gender"
-      openehr: "$archetype/data[at0002]/items[at0022]"
+      fhir: $resource.gender
+      openehr: $archetype/data[at0002]/items[at0022]
 #
 #  - name: "sex"
 #    with:

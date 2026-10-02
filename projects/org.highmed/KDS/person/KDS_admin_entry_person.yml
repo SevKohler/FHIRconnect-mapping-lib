@@ -9,15 +9,15 @@ spec:
   extends: ADMIN_ENTRY.person_data.v0
 
 mappings:
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.person.v0"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.person.v0
 
-  - name: "identifier"
+  - name: identifier
     with:
-      fhir: "$resource.identifier"
-      openehr: "$reference"
-    mappingCode: "ehrStatusAddExternalREF" #these identifiers of FHIR need to go to the EHR status to be honest as external references.
+      fhir: $resource.identifier
+      openehr: $reference
+    mappingCode: ehrStatusAddExternalREF #these identifiers of FHIR need to go to the EHR status to be honest as external references.

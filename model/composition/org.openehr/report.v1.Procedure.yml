@@ -15,102 +15,102 @@ spec:
 mappings:
  #status is mapped in ISM transiition
 
-  - name: "participations"
+  - name: participations
     with:
-      fhir: "$resource.performer.actor"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
+      fhir: $resource.performer.actor
+      openehr: $composition/context/participations  # reference to part
+      type: NONE
     followedBy:
       mappings:
-        - name: "participationFunction"
+        - name: participationFunction
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "asserter"
-        - name: "performer"
+                - path: function
+                  value: asserter
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openEHRRoot # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
   #  reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
+      fhir: $resource.recorder
+      openehr: $composition/composer
 
-  - name: "composerEmpty"
+  - name: composerEmpty
     with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
+      fhir: $resource.recorder
+      openehr: $composition/composer
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "recorder"
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: recorder
+      operator: empty
     manual:
-      - name: "no information"
+      - name: no information
         openehr:
-          - path: "null_flavour/value"
-            value: "no information"
-          - path: "null_flavour/defining_code/terminology_id"
-            value: "openehr"
-          - path: "null_flavour/defining_code/code_string"
+          - path: null_flavour/value
+            value: no information
+          - path: null_flavour/defining_code/terminology_id
+            value: openehr
+          - path: null_flavour/defining_code/code_string
             value: "271"
 
-  - name: "context"
+  - name: context
     with:
-      fhir: "$resource"
-      openehr: "$composition/context"
-      type: "NONE"
-    unidirectional: "fhir->openehr" #action time also exists thats why
+      fhir: $resource
+      openehr: $composition/context
+      type: NONE
+    unidirectional: fhir->openehr #action time also exists thats why
     followedBy:
       mappings:
-        - name: "performed"
+        - name: performed
           with:
-            fhir: "performed.ofType(Period)"
-            openehr: "$reference"
+            fhir: performed.ofType(Period)
+            openehr: $reference
           followedBy:
             mappings:
-              - name: "performedEnd"
+              - name: performedEnd
                 with:
-                  fhir: "end"
-                  openehr: "end_time"
+                  fhir: end
+                  openehr: end_time
 
-              - name: "performedStart"
+              - name: performedStart
                 with:
-                  fhir: "start"
-                  openehr: "start_time"
+                  fhir: start
+                  openehr: start_time
 
-        - name: "performedDateTime"
+        - name: performedDateTime
           with:
-            fhir: "performed.ofType(DateTimeType)"
-            openehr: "start_time"
+            fhir: performed.ofType(DateTimeType)
+            openehr: start_time
 
-  - name: "contextStartTimeEmpty"
+  - name: contextStartTimeEmpty
     with:
-      fhir: "$resource"
-      openehr: "$composition/context"
-      type: "NONE"
-    unidirectional: "fhir->openehr"
+      fhir: $resource
+      openehr: $composition/context
+      type: NONE
+    unidirectional: fhir->openehr
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "performed"
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: performed
+      operator: empty
     followedBy:
       mappings:
-        - name: "performedStart"
+        - name: performedStart
           with:
-            openehr: "start_time"
+            openehr: start_time
           manual:
-            - name: "no information"
+            - name: no information
               openehr:
-                - path: "null_flavour/value"
-                  value: "no information"
-                - path: "null_flavour/defining_code/terminology_id"
-                  value: "openehr"
-                - path: "null_flavour/defining_code/code_string"
+                - path: null_flavour/value
+                  value: no information
+                - path: null_flavour/defining_code/terminology_id
+                  value: openehr
+                - path: null_flavour/defining_code/code_string
                   value: "271"
 

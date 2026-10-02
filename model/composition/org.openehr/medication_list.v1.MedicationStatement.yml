@@ -13,53 +13,53 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/MedicationStatement
 
 mappings:
-  - name: "statusDefault"
+  - name: statusDefault
     with:
-      fhir: "$resource"
+      fhir: $resource
     manual:
-      - name: "final"
+      - name: final
         fhir:
-          - path: "status"
-            value: "final"
+          - path: status
+            value: final
 
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.informationSource"
-      openehr: "$composition/composer" # often required therefore simplified mapping engine is to resolve Reference -> Composer
+      fhir: $resource.informationSource
+      openehr: $composition/composer # often required therefore simplified mapping engine is to resolve Reference -> Composer
 
 
-  - name: "healthcareFacility"
+  - name: healthcareFacility
     with:
-      fhir: "$resource.informationSource.ofType(Organization)"
-      openehr: "$composition/context/health_care_facility"
-    unidirectional: "fhir->openehr"
+      fhir: $resource.informationSource.ofType(Organization)
+      openehr: $composition/context/health_care_facility
+    unidirectional: fhir->openehr
 
-  - name: "dateAsserted"
+  - name: dateAsserted
     with:
-      fhir: "$resource.dateAsserted"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.dateAsserted
+      openehr: $composition/context/start_time
 
-  - name: "effectivePeriod"
-    unidirectional: "fhir->openehr"
+  - name: effectivePeriod
+    unidirectional: fhir->openehr
     with:
-      fhir: "effective.as(Period)"
-      openehr: "$composition"
+      fhir: effective.as(Period)
+      openehr: $composition
     followedBy:
       mappings:
-        - name: "effectiveEnd"
+        - name: effectiveEnd
           with:
-            fhir: "end"
-            openehr: "context/end_time"
+            fhir: end
+            openehr: context/end_time
 
 
-        - name: "effectiveStart"
+        - name: effectiveStart
           with:
-            fhir: "start"
-            openehr: "context/start_time"
+            fhir: start
+            openehr: context/start_time
 
 
-  - name: "effectiveDateTime"
-    unidirectional: "fhir->openehr"
+  - name: effectiveDateTime
+    unidirectional: fhir->openehr
     with:
-      fhir: "effective.as(DateTime)"
-      openehr: "$composition/context/start_time"
+      fhir: effective.as(DateTime)
+      openehr: $composition/context/start_time

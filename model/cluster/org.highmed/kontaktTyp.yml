@@ -13,42 +13,42 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/CodeableConcept
 
 mappings:
-  - name: "kontaktEbene"
+  - name: kontaktEbene
     with:
-      fhir: "$fhirRoot.coding"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot.coding
+      openehr: $archetype/items[at0001]
     fhirCondition:
-      targetRoot: "$fhirRoot.coding"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://fhir.de/CodeSystem/Kontaktebene"
+      targetRoot: $fhirRoot.coding
+      targetAttribute: system
+      operator: one of
+      criteria: http://fhir.de/CodeSystem/Kontaktebene
     followedBy:
       mappings:
-        - name: "kontaktEbeneSystem"
+        - name: kontaktEbeneSystem
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "kontaktEbeneSystem"
+            - name: kontaktEbeneSystem
               fhir:
-                - path: "system"
-                  value: "http://fhir.de/CodeSystem/kontaktebene"
+                - path: system
+                  value: http://fhir.de/CodeSystem/kontaktebene
 
-  - name: "kontaktArt"
+  - name: kontaktArt
     with:
-      fhir: "$fhirRoot.coding"
-      openehr: "$archetype/items[at0002]"
+      fhir: $fhirRoot.coding
+      openehr: $archetype/items[at0002]
     fhirCondition:
-      targetRoot: "$fhirRoot.coding"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://fhir.de/CodeSystem/kontaktart-de"
+      targetRoot: $fhirRoot.coding
+      targetAttribute: system
+      operator: one of
+      criteria: http://fhir.de/CodeSystem/kontaktart-de
     followedBy:
       mappings:
-        - name: "kontaktArtSystem"
+        - name: kontaktArtSystem
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "kontaktArtSystem"
+            - name: kontaktArtSystem
               fhir:
-                - path: "system"
-                  value: "http://fhir.de/CodeSystem/kontaktart-de"
+                - path: system
+                  value: http://fhir.de/CodeSystem/kontaktart-de

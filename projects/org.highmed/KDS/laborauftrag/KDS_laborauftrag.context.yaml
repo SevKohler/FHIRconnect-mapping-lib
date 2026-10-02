@@ -9,17 +9,17 @@ spec:
 
 context:
   profile:
-    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-labor/StructureDefinition/ServiceRequestLab"
-    version: "2025.0.0"
+    url: https://www.medizininformatik-initiative.de/fhir/core/modul-labor/StructureDefinition/ServiceRequestLab
+    version: 2025.0.0
   template:
-    id: "KDS_Laborauftrag"
+    id: KDS_Laborauftrag
   archetypes:
-    - "INSTRUCTION.service_request.v1"
-    - "CLUSTER.specimen.v1"
-    - "CLUSTER.organisation.v1"
-    - "CLUSTER.case_identification.v0"
-    - "COMPOSITION.request.v1.ServiceRequest"
+    - INSTRUCTION.service_request.v1
+    - CLUSTER.specimen.v1
+    - CLUSTER.organisation.v1
+    - CLUSTER.case_identification.v0
+    - COMPOSITION.request.v1.ServiceRequest
   extensions:
-    - "KDS_laborauftrag"
-    - "KDS_composition"
-  start: "INSTRUCTION.service_request.v1"
+    - KDS_laborauftrag
+    - KDS_composition
+  start: INSTRUCTION.service_request.v1
