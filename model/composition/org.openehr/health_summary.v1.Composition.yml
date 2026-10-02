@@ -1,4 +1,6 @@
-# Problem list composition model - used in Update Model Problem List
+# Generic health summary composition model. Profile-specific content (e.g. the
+# IPS profile, title, type and sections) is added by project extensions such as
+# projects/org.openehr/IPS/IPS_composition.yml.
 grammar: FHIRConnect/v1.0.0
 type: model
 metadata:
@@ -13,27 +15,14 @@ spec:
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Composition
 
+preprocessor:
+  fhirCondition:
+    targetRoot: "$resource" # skip compositions that were entered in error; preliminary, final and amended are mapped
+    targetAttribute: "status"
+    operator: "not of"
+    criteria: "entered-in-error"
+
 mappings:
-  - name: meta
-    with:
-      fhir: "$resource.meta"
-      openehr: "$composition"
-    manual:
-      - name: "profile"
-        fhir:
-          - path: "profile"
-            value: "http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips"
-
-  - name: title
-    with:
-      fhir: "$resource"
-      openehr: "$composition"
-    manual:
-      - name: "title"
-        fhir:
-          - path: "title"
-            value: "Patient Summary"
-
   - name: status
     with:
       fhir: "$resource"
@@ -44,66 +33,13 @@ mappings:
           - path: "status"
             value: "final"
 
-  - name: type
+  - name: "date"
     with:
-      fhir: "$resource.type.coding"
-      openehr: "$composition"
-    manual:
-      - name: "code"
-        fhir:
-          - path: "code"
-            value: "60591-5"
-      - name: "system"
-        fhir:
-          - path: "system"
-            value: "http://loinc.org"
-      - name: "display"
-        fhir:
-          - path: "display"
-            value: "Patient summary Document"
+      fhir: "$resource.date"
+      openehr: "$composition/context/start_time" # export only; the true document time is the commit time of the versioned object
+    unidirectional: "openehr->fhir"
 
-  - name: "sectionActiveProblems"
+  - name: "author"
     with:
-      fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Problem List']"
-    slotArchetype: "SECTION.adhoc.v1_problem_list"
-    fhirCondition:
-      targetRoot: "$resource.section"
-      targetAttribute: "code.coding.code"
-      operator: "one of"
-      criteria: "11450-4"
-
-
-  - name: "sectionAllergiesAndIntolerances"
-    with:
-      fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Allergies and Intolerances']"
-    slotArchetype: "SECTION.adhoc.v1_adverse_reaction_list"
-    fhirCondition:
-      targetRoot: "$resource.section"
-      targetAttribute: "code.coding.code"
-      operator: "one of"
-      criteria: "48765-2"
-
-
-  - name: "sectionMedications"
-    with:
-      fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Medication list']"
-    slotArchetype: "SECTION.adhoc.v1_medication_list"
-    fhirCondition:
-      targetRoot: "$resource.section"
-      targetAttribute: "code.coding.code"
-      operator: "one of"
-      criteria: "10160-0"
-
-  - name: "sectionMedicalDevices"
-    with:
-      fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Medical Devices']"
-    slotArchetype: "SECTION.adhoc.v1_medical_devices"
-    fhirCondition:
-      targetRoot: "$resource.section"
-      targetAttribute: "code.coding.code"
-      operator: "one of"
-      criteria: "46264-8"
+      fhir: "$resource.author"
+      openehr: "$composition/composer"

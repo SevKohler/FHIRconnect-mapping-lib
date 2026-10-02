@@ -12,13 +12,20 @@ spec:
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/AllergyIntolerance
 
+preprocessor:
+  fhirCondition:
+    targetRoot: "$resource" # exclude entered-in-error, openEHR verification status has no value for it
+    targetAttribute: "verificationStatus.coding.code"
+    operator: "not of"
+    criteria: "entered-in-error"
+
 mappings:
   - name: "substance"
     with:
       fhir: "$resource.code"
       openehr: "$archetype/data[at0001]/items[at0002]"
 
-  - name: "activeInactive"
+  - name: "activeInactive" # clinicalStatus "resolved" has no openEHR equivalent (at0130 is active | inactive only) and is dropped
     with:
       fhir: "$resource.clinicalStatus"
       openehr: "$archetype"
@@ -256,7 +263,7 @@ mappings:
 
   - name: "onsetDateTime"
     with:
-      fhir: "$resource.onset.as(DateTime)"
+      fhir: "$resource.onset.ofType(DateTime)"
       openehr: "$archetype/data[at0001]/items[at0133]"
     openehrCondition:
       targetRoot: "$archetype"
@@ -266,7 +273,7 @@ mappings:
 
   - name: "onsetDuration"
     with:
-      fhir: "$resource.onset.as(Age)"
+      fhir: "$resource.onset.ofType(Age)"
       openehr: "$archetype/data[at0001]/items[at0133]"
     openehrCondition:
       targetRoot: "$archetype"
@@ -276,7 +283,7 @@ mappings:
 
   - name: "onsetIntervalPeriod"
     with:
-      fhir: "$resource.onset.as(Period)"
+      fhir: "$resource.onset.ofType(Period)"
       openehr: "$archetype/data[at0001]/items[at0133]"
     openehrCondition:
       targetRoot: "$archetype"
@@ -286,7 +293,7 @@ mappings:
 
   - name: "onsetIntervalRange"
     with:
-      fhir: "$resource.onset.as(Range)"
+      fhir: "$resource.onset.ofType(Range)"
       openehr: "$archetype/data[at0001]/items[at0133]"
     openehrCondition:
       targetRoot: "$archetype"
@@ -296,7 +303,7 @@ mappings:
 
   - name: "onsetString"
     with:
-      fhir: "$resource.onset.as(String)"
+      fhir: "$resource.onset.ofType(String)"
       openehr: "$archetype/data[at0001]/items[at0133]"
     openehrCondition:
       targetRoot: "$archetype"

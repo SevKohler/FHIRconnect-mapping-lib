@@ -12,7 +12,7 @@ mappings:
   - name: "dateTime"
     extension: add
     with:
-      fhir: "$resource.abatement.as(DateTime)"
+      fhir: "$resource.abatement.ofType(DateTime)"
       openehr: "$archetype/data[at0001]/items[at0030]"
 
   - name: "certainty"
