@@ -157,3 +157,16 @@ mappings:
       meaning: what the medication is derived from
       type: derivedFrom
 
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# data[at0001]/events[at0002]/data[at0003]/items[at0026]  Last administered
+# data[at0001]/events[at0002]/data[at0003]/items[at0032]  Description
+# data[at0001]/events[at0002]/data[at0003]/items[at0037]  Endpoint
+# data[at0001]/events[at0002]/data[at0003]/items[at0047]  Overall directions description
+# unmapped FHIR  (MedicationStatement R4)
+# MedicationStatement.identifier    KDS maps it (KDS_medikamentenstatement)
+# MedicationStatement.status
+# MedicationStatement.statusReason
+# MedicationStatement.category      KDS maps it (KDS_medikamentenstatement)
+# MedicationStatement.context
+# MedicationStatement.dateAsserted
+# MedicationStatement.derivedFrom

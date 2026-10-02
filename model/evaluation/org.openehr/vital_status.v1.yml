@@ -126,3 +126,19 @@ mappings:
       meaning: Related resource that belongs to the Observation group
       type: hasMember
 
+# unmapped FHIR  (Observation R4)
+# Observation.identifier
+# Observation.status
+# Observation.category          KDS maps it (KDS_vital_status)
+# Observation.code              KDS maps it (KDS_vital_status)
+# Observation.focus
+# Observation.issued
+# Observation.dataAbsentReason
+# Observation.interpretation
+# Observation.bodySite
+# Observation.method
+# Observation.specimen
+# Observation.device
+# Observation.referenceRange
+# Observation.derivedFrom
+# Observation.component

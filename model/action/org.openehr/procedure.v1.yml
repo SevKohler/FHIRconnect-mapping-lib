@@ -402,3 +402,39 @@ mappings:
     with:
       fhir: $resource.bodySite
       openehr: $archetype/description[at0001]/items[at0063]
+
+# unmapped openEHR  (archetype 1.4.7, CKM latest 1.5.3)
+# description[at0001]/items[at0006]  Complication
+# description[at0001]/items[at0014]  Reason                      KDS maps it (KDS_procedure.v1)
+# description[at0001]/items[at0048]  Outcome
+# description[at0001]/items[at0049]  Description
+# description[at0001]/items[at0058]  Urgency
+# description[at0001]/items[at0061]  Total duration
+# description[at0001]/items[at0065]  Method
+# description[at0001]/items[at0066]  Scheduled datetime
+# description[at0001]/items[at0069]  Procedural difficulty
+# description[at0001]/items[at0070]  Indication
+# description[at0001]/items[at0071]  Impact
+# description[at0001]/items[at0072]  Intent
+# description[at0001]/items[at0073]  Start datetime
+# description[at0001]/items[at0074]  Pathway step duration
+# protocol[at0053]/items[at0054]     Requestor order identifier
+# protocol[at0053]/items[at0056]     Receiver order identifier
+# unmapped FHIR  (Procedure R4)
+# Procedure.identifier
+# Procedure.instantiatesCanonical
+# Procedure.instantiatesUri
+# Procedure.basedOn
+# Procedure.partOf
+# Procedure.asserter
+# Procedure.location
+# Procedure.reasonCode
+# Procedure.reasonReference
+# Procedure.outcome
+# Procedure.report
+# Procedure.complication
+# Procedure.complicationDetail
+# Procedure.followUp
+# Procedure.focalDevice
+# Procedure.usedReference
+# Procedure.usedCode

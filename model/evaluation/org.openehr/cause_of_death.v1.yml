@@ -101,3 +101,23 @@ mappings:
       fhir: $resource.note.text
       openehr: $archetype/data[at0001]/items[at0013]
 
+# unmapped openEHR  (archetype 1.0.2)
+# data[at0001]/items[at0003]/items[at0004]  Cause
+# data[at0001]/items[at0003]/items[at0005]  Order
+# data[at0001]/items[at0003]/items[at0009]  Duration
+# data[at0001]/items[at0017]                Direct cause duration
+# data[at0001]/items[at0019]                Description
+# data[at0001]/items[at0020]/items[at0018]  Condition
+# data[at0001]/items[at0020]/items[at0021]  Duration
+# protocol[at0014]/items[at0015]            Last updated
+# unmapped FHIR  (Condition R4)
+# Condition.identifier
+# Condition.clinicalStatus
+# Condition.verificationStatus
+# Condition.severity
+# Condition.bodySite
+# Condition.onset[x]
+# Condition.abatement[x]
+# Condition.recordedDate
+# Condition.stage
+# Condition.evidence

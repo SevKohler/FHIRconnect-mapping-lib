@@ -28,4 +28,3 @@ mappings:
           with:
             fhir: text
             openehr: items[at0003]
-

@@ -33,3 +33,12 @@ mappings:
       fhir: $fhirRoot
       openehr: $archetype/items[openEHR-EHR-CLUSTER.study_details.v1]
     slotArchetype: CLUSTER.study_details.v1
+
+# unmapped openEHR  (archetype 1.0.4)
+# items[at0001]  Study name
+# items[at0005]  Status
+# items[at0014]  Comment
+# items[at0016]  Identification
+# items[at0018]  Legal basis
+# items[at0021]  Assigned arm
+# items[at0022]  Actual Arm

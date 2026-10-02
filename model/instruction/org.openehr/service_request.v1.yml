@@ -83,5 +83,41 @@ mappings:
       fhir: $resource.note.text
       openehr: $archetype/activities[at0001]/description[at0009]/items[at0150]
 
-
-
+# unmapped openEHR  (archetype 1.1.3-alpha, CKM latest 1.1.2)
+# activities[at0001]/description[at0009]/items[at0040]  Service due
+# activities[at0001]/description[at0009]/items[at0062]  Reason for request
+# activities[at0001]/description[at0009]/items[at0064]  Reason description
+# activities[at0001]/description[at0009]/items[at0068]  Urgency
+# activities[at0001]/description[at0009]/items[at0076]  Supplementary information
+# activities[at0001]/description[at0009]/items[at0078]  Information description
+# activities[at0001]/description[at0009]/items[at0135]  Description
+# activities[at0001]/description[at0009]/items[at0152]  Clinical indication
+# activities[at0001]/description[at0009]/items[at0153]  Order detail
+# activities[at0001]/description[at0009]/items[at0154]  Clinical context
+# protocol[at0008]/items[at0011]                        Receiver order identifier
+# protocol[at0008]/items[at0156]                        Billing guidance
+# protocol[at0008]/items[at0158]                        Eligibility guidance
+# unmapped FHIR  (ServiceRequest R4)
+# ServiceRequest.instantiatesCanonical
+# ServiceRequest.instantiatesUri
+# ServiceRequest.basedOn
+# ServiceRequest.replaces
+# ServiceRequest.requisition
+# ServiceRequest.priority
+# ServiceRequest.doNotPerform
+# ServiceRequest.orderDetail
+# ServiceRequest.quantity[x]
+# ServiceRequest.occurrence[x]
+# ServiceRequest.asNeeded[x]
+# ServiceRequest.performerType
+# ServiceRequest.performer
+# ServiceRequest.locationCode
+# ServiceRequest.locationReference
+# ServiceRequest.reasonCode
+# ServiceRequest.reasonReference
+# ServiceRequest.insurance
+# ServiceRequest.supportingInfo
+# ServiceRequest.specimen               KDS maps it (KDS_laborauftrag)
+# ServiceRequest.bodySite
+# ServiceRequest.patientInstruction
+# ServiceRequest.relevantHistory

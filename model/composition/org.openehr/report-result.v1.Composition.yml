@@ -120,3 +120,13 @@ mappings:
                 with:
                   fhir: end
                   openehr: end_time
+
+# unmapped openEHR  (archetype 1.0.3, CKM latest 1.1.0)
+# context/other_context[at0001]/items[at0007]  Comment
+# unmapped FHIR  (Composition R4)
+# Composition.type
+# Composition.category
+# Composition.title
+# Composition.confidentiality
+# Composition.relatesTo
+# Composition.section

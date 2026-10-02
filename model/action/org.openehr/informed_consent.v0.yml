@@ -171,3 +171,30 @@ mappings:
 
 
 #waiting for template update
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# description[at0001]/items[at0002]             Procedure/Trial/Activity
+# description[at0001]/items[at0004]             Form of consent
+# description[at0001]/items[at0007]             Reason
+# description[at0001]/items[at0008]             Start date
+# description[at0001]/items[at0009]             End date
+# description[at0001]/items[at0010]             Caveat
+# description[at0001]/items[at0011]             Consent description
+# description[at0001]/items[at0012]             Evidence link
+# description[at0001]/items[at0030]             Procedure/Trial/Activity description
+# description[at0001]/items[at0031]             Intent
+# description[at0001]/items[at0036]             Comment
+# protocol[at0024]/items[at0025]                Consent document used
+# protocol[at0024]/items[at0026]                Review date
+# protocol[at0024]/items[at0033]/items[at0032]  Name
+# protocol[at0024]/items[at0033]/items[at0035]  Description
+# unmapped FHIR  (Consent R4)
+# Consent.identifier
+# Consent.scope
+# Consent.category
+# Consent.performer
+# Consent.source[x]
+# Consent.policy
+# Consent.policyRule
+# Consent.verification
+# Consent.provision

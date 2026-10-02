@@ -18,3 +18,7 @@ mappings:
       fhir: $fhirRoot
       openehr: items[at0001]
 
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# items[at0002]  Case started
+# items[at0003]  Status
+# items[at0006]  Case identified

@@ -536,3 +536,25 @@ mappings:
             value: "533"
           - path: value
             value: Expired
+
+# unmapped openEHR  (archetype 1.3.0, CKM latest 1.6.0)
+# description[at0017]/items[at0020]  Medication item
+# description[at0017]/items[at0021]  Reason
+# description[at0017]/items[at0025]  Sequence number
+# description[at0017]/items[at0033]  Patient guidance
+# description[at0017]/items[at0043]  Original scheduled date/time
+# description[at0017]/items[at0132]  Substitution                  referenced with a different path, check
+# description[at0017]/items[at0133]  Substitution reason           referenced with a different path, check
+# description[at0017]/items[at0149]  Double-checked?
+# description[at0017]/items[at0154]  Restart date/time
+# description[at0017]/items[at0155]  Restart criterion
+# unmapped FHIR  (MedicationAdministration R4)
+# MedicationAdministration.instantiates
+# MedicationAdministration.statusReason
+# MedicationAdministration.category
+# MedicationAdministration.context
+# MedicationAdministration.supportingInformation
+# MedicationAdministration.performer
+# MedicationAdministration.reasonReference
+# MedicationAdministration.device
+# MedicationAdministration.eventHistory
