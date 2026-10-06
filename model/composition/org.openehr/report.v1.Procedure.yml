@@ -86,7 +86,7 @@ mappings:
 
         - name: performedDateTime
           with:
-            fhir: performed.ofType(DateTimeType)
+            fhir: performed.ofType(dateTime)
             openehr: start_time
 
   - name: contextStartTimeEmpty
