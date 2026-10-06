@@ -49,7 +49,7 @@ mappings:
 
         - name: onsetDateTime
           with:
-            fhir: onset.ofType(DateTimeType)
+            fhir: onset.ofType(dateTime)
             openehr: start_time
 
   - name: contextStartTimeEmpty

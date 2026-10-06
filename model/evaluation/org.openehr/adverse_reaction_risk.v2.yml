@@ -263,7 +263,7 @@ mappings:
 
   - name: "onsetDateTime"
     with:
-      fhir: "$resource.onset.ofType(DateTime)"
+      fhir: "$resource.onset.ofType(dateTime)"
       openehr: "$archetype/data[at0001]/items[at0133]"
     openehrCondition:
       targetRoot: "$archetype"
@@ -303,7 +303,7 @@ mappings:
 
   - name: "onsetString"
     with:
-      fhir: "$resource.onset.ofType(String)"
+      fhir: "$resource.onset.ofType(string)"
       openehr: "$archetype/data[at0001]/items[at0133]"
     openehrCondition:
       targetRoot: "$archetype"

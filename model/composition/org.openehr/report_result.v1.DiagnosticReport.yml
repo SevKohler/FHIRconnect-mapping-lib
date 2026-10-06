@@ -95,7 +95,7 @@ mappings:
 
         - name: effectiveDateTime
           with:
-            fhir: effective.ofType(DateTimeType)
+            fhir: effective.ofType(dateTime)
             openehr: start_time
 
   - name: contextStartTimeEmpty
