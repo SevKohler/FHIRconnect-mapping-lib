@@ -13,3 +13,7 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/CodeableConcept
 
 mappings:
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# items[at0001]  Beginn  KDS maps it (KDS_lebensphase)
+# items[at0002]  Ende    KDS maps it (KDS_lebensphase)

@@ -111,3 +111,7 @@ mappings:
        fhir: $fhirRoot.timing.repeat
        openehr: $archetype/items[at0102]
     mappingCode: dosageDurationToAdministrationDuration
+
+# unmapped openEHR  (archetype 2.0.2, CKM latest 2.0.3)
+# items[at0135]  Dose formula
+# items[at0176]  Alternate dose

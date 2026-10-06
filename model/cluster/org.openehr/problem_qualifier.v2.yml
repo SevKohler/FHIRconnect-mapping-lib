@@ -157,3 +157,19 @@ mappings:
           targetAttribute: items[at0004]/defining_code/code_string
           operator: one of
           criteria: at0088
+
+# unmapped openEHR  (archetype 2.0.1, CKM latest 2.1.1)
+# items[at0001]  Episodicity
+# items[at0003]  Active/Inactive?               KDS maps it (KDS_problem_qualifier); KDS maps it (KDS_problem_qualifier_todesursache)
+# items[at0060]  Current/Past?
+# items[at0063]  Diagnostic category            KDS maps it (KDS_problem_qualifier)
+# items[at0071]  Occurrence
+# items[at0073]  Admission diagnosis?
+# items[at0077]  Course label
+# items[at0083]  Resolution phase
+# items[at0089]  Remission status
+# items[at0098]  Level of control
+# items[at0102]  Progression
+# items[at0107]  Reason for an ongoing episode
+# items[at0110]  Comment
+# items[at0111]  Disorder category

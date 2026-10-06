@@ -449,3 +449,23 @@ mappings:
     with:
       fhir: $resource.effective
       openehr: $archetype/data[at0001]/events[at0002] # period -> interval event, datetime to pointInTime event
+
+# unmapped openEHR  (archetype 1.2.5, CKM latest 1.2.8)
+# data[at0001]/events[at0002]/data[at0003]/items[at0075]   Overall test status timestamp
+# data[at0001]/events[at0002]/data[at0003]/items[at0077]   Diagnostic service category
+# data[at0001]/events[at0002]/data[at0003]/items[at0098]   Test diagnosis
+# data[at0001]/events[at0002]/data[at0003]/items[at0100]   Clinical information provided
+# data[at0001]/events[at0002]/data[at0003]/items[at0101]   Comment
+# data[at0001]/events[at0002]/state[at0112]/items[at0113]  Confounding factors
+# protocol[at0004]/items[at0068]                           Laboratory internal identifier
+# protocol[at0004]/items[at0094]/items[at0062]             Requester order identifier
+# protocol[at0004]/items[at0094]/items[at0106]             Original test requested name
+# protocol[at0004]/items[at0111]                           Point-of-care test
+# protocol[at0004]/items[at0121]                           Test method
+# unmapped FHIR  (DiagnosticReport R4)
+# DiagnosticReport.identifier
+# DiagnosticReport.result          EEHRxF maps it (eehrxf_lab_result); KDS maps it (KDS_laborbericht)
+# DiagnosticReport.imagingStudy
+# DiagnosticReport.media
+# DiagnosticReport.conclusionCode
+# DiagnosticReport.presentedForm

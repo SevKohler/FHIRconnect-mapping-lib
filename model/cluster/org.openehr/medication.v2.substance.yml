@@ -72,3 +72,20 @@ mappings:
     with:
       fhir: $resource.instance.quantity
       openehr: $archetype/items[at0115]
+
+# unmapped openEHR  (archetype 2.0.1, CKM latest 2.0.6)
+# items[at0003]                Expiry
+# items[at0071]                Form
+# items[at0127]                Role
+# items[at0133]                Description
+# items[at0139]                Amount
+# items[at0148]                Alternate amount
+# items[at0150]                Batch ID
+# items[at0151]                Manufacturer
+# items[at0152]/items[at0153]  Strength numerator    referenced with a different path, check
+# items[at0152]/items[at0157]  Strength denominator  referenced with a different path, check
+# unmapped FHIR  (Substance R4)
+# Substance.identifier
+# Substance.status
+# Substance.category
+# Substance.description

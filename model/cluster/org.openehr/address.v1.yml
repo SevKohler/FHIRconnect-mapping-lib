@@ -118,3 +118,12 @@ mappings:
 
         
 
+# unmapped openEHR  (archetype 1.1.2, CKM latest 1.1.3)
+# items[at0003]  District/County
+# items[at0007]  Latitude
+# items[at0008]  Longitude
+# items[at0009]  Altitude
+# items[at0014]  Use
+# items[at0018]  Comment
+# items[at0019]  Map URL
+# items[at0021]  Geolocation code

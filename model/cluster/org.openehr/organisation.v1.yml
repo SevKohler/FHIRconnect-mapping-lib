@@ -22,3 +22,13 @@ mappings:
     with:
       fhir: $fhirRoot.identifier
       openehr: $archetype/items[at0003]
+
+# unmapped FHIR  (Organization R4)
+# Organization.active
+# Organization.type
+# Organization.alias
+# Organization.telecom
+# Organization.address
+# Organization.partOf
+# Organization.contact
+# Organization.endpoint

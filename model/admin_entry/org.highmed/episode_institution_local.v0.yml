@@ -72,3 +72,41 @@ mappings:
           with:
             fhir: status
             openehr: items[at0028]
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# data[at0001]/items[at0003]                Destination category
+# data[at0001]/items[at0006]                Outcome                    KDS maps it (KDS_episode_institution_local)
+# data[at0001]/items[at0007]                Source category
+# data[at0001]/items[at0008]                Reason for admission       KDS maps it (KDS_episode_institution_local)
+# data[at0001]/items[at0009]                Admission category         KDS maps it (KDS_episode_institution_local)
+# data[at0001]/items[at0010]                Comment
+# data[at0001]/items[at0014]                Episode ID
+# data[at0001]/items[at0016]                Medical record number
+# data[at0001]/items[at0018]/items[at0019]  Location onset
+# data[at0001]/items[at0018]/items[at0020]  Location end
+# data[at0001]/items[at0018]/items[at0022]  Ward
+# data[at0001]/items[at0018]/items[at0023]  Room
+# data[at0001]/items[at0018]/items[at0024]  Bed                        referenced with a different path, check
+# data[at0001]/items[at0018]/items[at0025]  Location category
+# data[at0001]/items[at0021]                Attending unit
+# data[at0001]/items[at0026]                Health insurance category
+# unmapped FHIR  (Encounter R4)
+# Encounter.identifier
+# Encounter.status
+# Encounter.statusHistory
+# Encounter.class
+# Encounter.classHistory
+# Encounter.type
+# Encounter.serviceType
+# Encounter.priority
+# Encounter.episodeOfCare
+# Encounter.basedOn
+# Encounter.participant
+# Encounter.appointment
+# Encounter.length
+# Encounter.reasonCode
+# Encounter.reasonReference
+# Encounter.diagnosis        KDS maps it (KDS_episode_institution_local)
+# Encounter.account
+# Encounter.hospitalization  KDS maps it (KDS_episode_institution_local)
+# Encounter.partOf

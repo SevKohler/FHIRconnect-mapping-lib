@@ -275,5 +275,8 @@ mappings:
       fhir: $resource.note.text
       openehr: $archetype/items[at0003]
 
-
-
+# unmapped openEHR  (archetype 1.1.8, CKM latest 1.2.3)
+# items[at0025]  Validation time
+# items[at0027]  Analyte result sequence
+# items[at0031]  Analysis performed time
+# items[at0032]  Accredited

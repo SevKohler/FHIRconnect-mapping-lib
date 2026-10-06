@@ -209,5 +209,11 @@ mappings:
           operator: one of
           criteria: unsatisfactory
 
-
-
+# unmapped openEHR  (archetype 1.1.2, CKM latest 1.1.3)
+# items[at0005]  Hazard warning
+# items[at0042]  Specimen quality issue
+# items[at0067]  Collection setting
+# items[at0079]  Collection description
+# items[at0080]  Number of containers
+# items[at0098]  Specimen label
+# items[at0099]  Number of fragments
