@@ -13,7 +13,13 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/BackboneElement
 
 mappings:
-  - name: "birthdate"
+  - name: birthdate
     with:
-      fhir: "$fhirRoot"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot
+      openehr: $archetype/items[at0001]
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# items[at0002]  Country of birth
+# items[at0003]  Birth plurality
+# items[at0004]  Birth order
+# items[at0005]  Date of birth follow-up indicator

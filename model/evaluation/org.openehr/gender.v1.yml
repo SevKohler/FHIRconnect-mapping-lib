@@ -10,16 +10,42 @@ spec:
     archetype: openEHR-EHR-EVALUATION.gender.v1
     revision: 1.1.1
   fhirConfig:
-    structureDefinition: "http://hl7.org/fhir/StructureDefinition/Patient"
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Patient
 
 mappings:
 
-  - name: "gender"
+  - name: gender
     with:
-      fhir: "$resource.gender"
-      openehr: "$archetype/data[at0002]/items[at0022]"
+      fhir: $resource.gender
+      openehr: $archetype/data[at0002]/items[at0022]
 #
 #  - name: "sex"
 #    with:
 #      fhir: "$resource.gender?"
 #      openehr: "$archetype/data[at0002]/items[at0019]"
+
+# unmapped openEHR  (archetype 1.1.1, CKM latest 1.1.5)
+# data[at0002]/items[at0001]      Gender identity
+# data[at0002]/items[at0014]      Comment                KDS maps it (KDS_gender.v1); KDS maps it (KDS_gender_pseudo.v1)
+# data[at0002]/items[at0019]      Sex assigned at birth  mapping is commented out
+# data[at0002]/items[at0020]      Preferred pronoun
+# data[at0002]/items[at0025]      Gender expression
+# data[at0002]/items[at0026]      Legal gender
+# data[at0002]/items[at0027]      Gender category
+# protocol[at0003]/items[at0004]  Last updated           KDS maps it (KDS_gender_pseudo.v1)
+# unmapped FHIR  (Patient R4)
+# Patient.identifier            KDS maps it (KDS_gender_pseudo.v1)
+# Patient.active
+# Patient.name
+# Patient.telecom
+# Patient.birthDate
+# Patient.deceased[x]
+# Patient.address
+# Patient.maritalStatus
+# Patient.multipleBirth[x]
+# Patient.photo
+# Patient.contact
+# Patient.communication
+# Patient.generalPractitioner
+# Patient.managingOrganization
+# Patient.link

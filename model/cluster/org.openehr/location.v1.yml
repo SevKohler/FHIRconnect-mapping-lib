@@ -14,124 +14,129 @@ spec:
 
 mappings:
 
-  - name: "stationRoot"
+  - name: stationRoot
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     fhirCondition:
-      targetRoot: "$fhirRoot"
-      targetAttribute: "physicalType.coding.code"
-      operator: "one of"
-      criteria: "wa"
+      targetRoot: $fhirRoot
+      targetAttribute: physicalType.coding.code
+      operator: one of
+      criteria: wa
     followedBy:
       mappings:
-        - name: "station"
+        - name: station
           with:
-            fhir: "location.identifier"
-            openehr: "items[at0027]"
-        - name: "hardcodingStationSystem"
+            fhir: location.identifier
+            openehr: items[at0027]
+        - name: hardcodingStationSystem
           with:
-            fhir: "physicalType.coding"
-            openehr: "$openehrRoot"
+            fhir: physicalType.coding
+            openehr: $openehrRoot
           manual:
-            - name: "physicalType"
+            - name: physicalType
               fhir:
-                - path: "system"
-                  value: "http://terminology.hl7.org/CodeSystem/location-physical-type"
-                - path: "code"
-                  value: "wa"
+                - path: system
+                  value: http://terminology.hl7.org/CodeSystem/location-physical-type
+                - path: code
+                  value: wa
           openehrCondition:
-            targetRoot: "$archetype"
-            targetAttribute: "items[at0027]"
-            operator: "not empty"
-        - name: "status"
+            targetRoot: $archetype
+            targetAttribute: items[at0027]
+            operator: not empty
+        - name: status
           with:
-            fhir: "status"
-            openehr: "items[at0046]"
+            fhir: status
+            openehr: items[at0046]
           openehrCondition:
-            targetRoot: "$openehrRoot"
-            targetAttribute: "items[at0027]"
-            operator: "not empty"
+            targetRoot: $openehrRoot
+            targetAttribute: items[at0027]
+            operator: not empty
 
-  - name: "roomRoot"
+  - name: roomRoot
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     fhirCondition:
-      targetRoot: "$fhirRoot"
-      targetAttribute: "physicalType.coding.code"
-      operator: "one of"
-      criteria: "ro"
+      targetRoot: $fhirRoot
+      targetAttribute: physicalType.coding.code
+      operator: one of
+      criteria: ro
     followedBy:
       mappings:
-        - name: "room"
+        - name: room
           with:
-            fhir: "location.identifier"
-            openehr: "items[at0029]"
-        - name: "hardcodingRoomSystem"
+            fhir: location.identifier
+            openehr: items[at0029]
+        - name: hardcodingRoomSystem
           with:
-            fhir: "physicalType.coding"
-            openehr: "$openehrRoot"
+            fhir: physicalType.coding
+            openehr: $openehrRoot
           manual:
-            - name: "physicalType"
+            - name: physicalType
               fhir:
-                - path: "system"
-                  value: "http://terminology.hl7.org/CodeSystem/location-physical-type"
-                - path: "code"
-                  value: "ro"
+                - path: system
+                  value: http://terminology.hl7.org/CodeSystem/location-physical-type
+                - path: code
+                  value: ro
           openehrCondition:
-            targetRoot: "$archetype"
-            targetAttribute: "items[at0029]"
-            operator: "not empty"
+            targetRoot: $archetype
+            targetAttribute: items[at0029]
+            operator: not empty
 
-        - name: "status"
+        - name: status
           with:
-            fhir: "status"
-            openehr: "items[at0046]"
+            fhir: status
+            openehr: items[at0046]
           openehrCondition:
-            targetRoot: "$openehrRoot"
-            targetAttribute: "items[at0029]"
-            operator: "not empty"
+            targetRoot: $openehrRoot
+            targetAttribute: items[at0029]
+            operator: not empty
 
-  - name: "bedRoot"
+  - name: bedRoot
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     fhirCondition:
-      targetRoot: "$fhirRoot"
-      targetAttribute: "physicalType.coding.code"
-      operator: "one of"
-      criteria: "bd"
+      targetRoot: $fhirRoot
+      targetAttribute: physicalType.coding.code
+      operator: one of
+      criteria: bd
     followedBy:
       mappings:
-        - name: "station"
+        - name: station
           with:
-            fhir: "location.identifier"
-            openehr: "items[at0034]"
-        - name: "hardcodingBedSystem"
+            fhir: location.identifier
+            openehr: items[at0034]
+        - name: hardcodingBedSystem
           with:
-            fhir: "physicalType.coding"
-            openehr: "$openehrRoot"
+            fhir: physicalType.coding
+            openehr: $openehrRoot
           manual:
-            - name: "physicalType"
+            - name: physicalType
               fhir:
-                - path: "system"
-                  value: "http://terminology.hl7.org/CodeSystem/location-physical-type"
-                - path: "code"
-                  value: "bd"
+                - path: system
+                  value: http://terminology.hl7.org/CodeSystem/location-physical-type
+                - path: code
+                  value: bd
           openehrCondition:
-            targetRoot: "$archetype"
-            targetAttribute: "items[at0034]"
-            operator: "not empty"
+            targetRoot: $archetype
+            targetAttribute: items[at0034]
+            operator: not empty
 
-        - name: "status"
+        - name: status
           with:
-            fhir: "status"
-            openehr: "items[at0046]"
+            fhir: status
+            openehr: items[at0046]
           openehrCondition:
-            targetRoot: "$openehrRoot"
-            targetAttribute: "items[at0034]"
-            operator: "not empty"
+            targetRoot: $openehrRoot
+            targetAttribute: items[at0034]
+            operator: not empty
+
+# unmapped openEHR  (archetype 2.0.2, CKM latest 1.1.3)
+# items[at0024]  Campus
+# items[at0025]  Building
+# items[at0028]  Level

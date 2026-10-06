@@ -15,56 +15,55 @@ spec:
 
 
 mappings:
-  - name: "healthcareFacility"
+  - name: healthcareFacility
     with:
-      fhir: "$resource.requester"
-      openehr: "$composition/context/health_care_facility"
+      fhir: $resource.requester
+      openehr: $composition/context/health_care_facility
 
-  - name: "contextStartTimeEmpty" # there is no fiting FHIR field here should be left empty if there is also no requester
+  - name: contextStartTimeEmpty # there is no fiting FHIR field here should be left empty if there is also no requester
     with:
-      fhir: "$resource"
-      openehr: "$composition/context"
-      type: "NONE"
-    unidirectional: "fhir->openehr"
+      fhir: $resource
+      openehr: $composition/context
+      type: NONE
+    unidirectional: fhir->openehr
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "requester" # since there will be then no context provided most likely, there is anyways no fiting FHIR field here
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: requester # since there will be then no context provided most likely, there is anyways no fiting FHIR field here
+      operator: empty
     followedBy:
       mappings:
-        - name: "effectiveStart"
+        - name: effectiveStart
           with:
-            openehr: "start_time"
+            openehr: start_time
           manual:
-            - name: "no information"
+            - name: no information
               openehr:
-                - path: "null_flavour/value"
-                  value: "no information"
-                - path: "null_flavour/defining_code/terminology_id"
-                  value: "openehr"
-                - path: "null_flavour/defining_code/code_string"
+                - path: null_flavour/value
+                  value: no information
+                - path: null_flavour/defining_code/terminology_id
+                  value: openehr
+                - path: null_flavour/defining_code/code_string
                   value: "271"
 
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.requester"
-      openehr: "$composition/composer"
+      fhir: $resource.requester
+      openehr: $composition/composer
 
-  - name: "composerEmpty"
+  - name: composerEmpty
     with:
-      fhir: "$resource.requester"
-      openehr: "$composition/composer"
+      fhir: $resource.requester
+      openehr: $composition/composer
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "requester"
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: requester
+      operator: empty
     manual:
-      - name: "no information"
+      - name: no information
         openehr:
-          - path: "null_flavour/value"
-            value: "no information"
-          - path: "null_flavour/defining_code/terminology_id"
-            value: "openehr"
-          - path: "null_flavour/defining_code/code_string"
+          - path: null_flavour/value
+            value: no information
+          - path: null_flavour/defining_code/terminology_id
+            value: openehr
+          - path: null_flavour/defining_code/code_string
             value: "271"
-

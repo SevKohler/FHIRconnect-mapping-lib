@@ -13,75 +13,111 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/ServiceRequest
 
 mappings:
-  - name: "healthCareFacility"
+  - name: healthCareFacility
     with:
-      fhir: "$resource.requester"
-      openehr: "$archetype/context/health_care_facility"
+      fhir: $resource.requester
+      openehr: $archetype/context/health_care_facility
 
-  - name: "authoredOn"
+  - name: authoredOn
     with:
-      fhir: "$resource.authoredOn"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.authoredOn
+      openehr: $composition/context/start_time
 
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.requester"
-      openehr: "$composition/composer"
+      fhir: $resource.requester
+      openehr: $composition/composer
 
-  - name: "provider"
+  - name: provider
     with:
-      fhir: "$resource.requester" # mapping is twice, entry level will overwrite the composer from above if not changed in the extension mapping
-      openehr: "$composition/provider"
+      fhir: $resource.requester # mapping is twice, entry level will overwrite the composer from above if not changed in the extension mapping
+      openehr: $composition/provider
 
-  - name: "protocol0008Parent"
+  - name: protocol0008Parent
     with:
-      fhir: "$resource"
-      openehr: "$archetype/protocol[at0008]"
+      fhir: $resource
+      openehr: $archetype/protocol[at0008]
     followedBy:
       mappings:
-        - name: "identifier"
+        - name: identifier
           with:
-            fhir: "identifier"
-            openehr: "items[at0010]"
+            fhir: identifier
+            openehr: items[at0010]
 
-        - name: "status"
+        - name: status
           with:
-            fhir: "status"
-            openehr: "items[at0127]"
+            fhir: status
+            openehr: items[at0127]
 
-        - name: "organisation"
+        - name: organisation
           with:
-            fhir: "requester"
-            openehr: "$reference"
+            fhir: requester
+            openehr: $reference
           reference:
-            resourceType: "Organization"
+            resourceType: Organization
             mappings:
-              - name: "organization"
+              - name: organization
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "items[openEHR-EHR-CLUSTER.organisation.v1]"
-                slotArchetype: "CLUSTER.organisation.v1"
+                  fhir: $fhirRoot
+                  openehr: items[openEHR-EHR-CLUSTER.organisation.v1]
+                slotArchetype: CLUSTER.organisation.v1
 
 
-  - name: "code"
+  - name: code
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/activities[at0001]/description[at0009]/items[at0121]"
+      fhir: $resource.code
+      openehr: $archetype/activities[at0001]/description[at0009]/items[at0121]
 
-  - name: "category"
+  - name: category
     with:
-      fhir: "$resource.category"
-      openehr: "$archetype/activities[at0001]/description[at0009]/items[at0148]"
+      fhir: $resource.category
+      openehr: $archetype/activities[at0001]/description[at0009]/items[at0148]
 
-  - name: "intent"
+  - name: intent
     with:
-      fhir: "$resource.intent"
-      openehr: "$archetype/activities[at0001]/description[at0009]/items[at0065]"
+      fhir: $resource.intent
+      openehr: $archetype/activities[at0001]/description[at0009]/items[at0065]
 
-  - name: "note"
+  - name: note
     with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/activities[at0001]/description[at0009]/items[at0150]"
+      fhir: $resource.note.text
+      openehr: $archetype/activities[at0001]/description[at0009]/items[at0150]
 
-
-
+# unmapped openEHR  (archetype 1.1.3-alpha, CKM latest 1.1.2)
+# activities[at0001]/description[at0009]/items[at0040]  Service due
+# activities[at0001]/description[at0009]/items[at0062]  Reason for request
+# activities[at0001]/description[at0009]/items[at0064]  Reason description
+# activities[at0001]/description[at0009]/items[at0068]  Urgency
+# activities[at0001]/description[at0009]/items[at0076]  Supplementary information
+# activities[at0001]/description[at0009]/items[at0078]  Information description
+# activities[at0001]/description[at0009]/items[at0135]  Description
+# activities[at0001]/description[at0009]/items[at0152]  Clinical indication
+# activities[at0001]/description[at0009]/items[at0153]  Order detail
+# activities[at0001]/description[at0009]/items[at0154]  Clinical context
+# protocol[at0008]/items[at0011]                        Receiver order identifier
+# protocol[at0008]/items[at0156]                        Billing guidance
+# protocol[at0008]/items[at0158]                        Eligibility guidance
+# unmapped FHIR  (ServiceRequest R4)
+# ServiceRequest.instantiatesCanonical
+# ServiceRequest.instantiatesUri
+# ServiceRequest.basedOn
+# ServiceRequest.replaces
+# ServiceRequest.requisition
+# ServiceRequest.priority
+# ServiceRequest.doNotPerform
+# ServiceRequest.orderDetail
+# ServiceRequest.quantity[x]
+# ServiceRequest.occurrence[x]
+# ServiceRequest.asNeeded[x]
+# ServiceRequest.performerType
+# ServiceRequest.performer
+# ServiceRequest.locationCode
+# ServiceRequest.locationReference
+# ServiceRequest.reasonCode
+# ServiceRequest.reasonReference
+# ServiceRequest.insurance
+# ServiceRequest.supportingInfo
+# ServiceRequest.specimen               KDS maps it (KDS_laborauftrag)
+# ServiceRequest.bodySite
+# ServiceRequest.patientInstruction
+# ServiceRequest.relevantHistory

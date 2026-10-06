@@ -15,112 +15,112 @@ spec:
 mappings:
   # status needs to be mapped in the archetype mapping not here
 
-  - name: "healthCareFacility"
+  - name: healthCareFacility
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/context/health_care_facility"
+      fhir: $resource.performer
+      openehr: $composition/context/health_care_facility
 
-  - name: "participations"
+  - name: participations
     with:
-      fhir: "$resource.resultsInterpreter"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
+      fhir: $resource.resultsInterpreter
+      openehr: $composition/context/participations  # reference to part
+      type: NONE
     followedBy:
       mappings:
         - name : "participationFunction"
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "result interpreter"
-        - name: "performer"
+                - path: function
+                  value: result interpreter
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openEHRRoot/performer # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/composer"
+      fhir: $resource.performer
+      openehr: $composition/composer
 
-  - name: "composerEmpty"
+  - name: composerEmpty
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/composer"
+      fhir: $resource.performer
+      openehr: $composition/composer
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "performer"
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: performer
+      operator: empty
     manual:
-      - name: "no information"
+      - name: no information
         openehr:
-          - path: "null_flavour/value"
-            value: "no information"
-          - path: "null_flavour/defining_code/terminology_id"
-            value: "openehr"
-          - path: "null_flavour/defining_code/code_string"
+          - path: null_flavour/value
+            value: no information
+          - path: null_flavour/defining_code/terminology_id
+            value: openehr
+          - path: null_flavour/defining_code/code_string
             value: "271"
 
-  - name: "performer"
+  - name: performer
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/perfomer"
+      fhir: $resource.performer
+      openehr: $composition/perfomer
 
-  - name: "context"
+  - name: context
     with:
-      fhir: "$resource"
-      openehr: "$composition/context"
-      type: "NONE"
-    unidirectional: "fhir->openehr" # TODO this should calculate the latest and earliest from the events and put them in fhir
+      fhir: $resource
+      openehr: $composition/context
+      type: NONE
+    unidirectional: fhir->openehr # TODO this should calculate the latest and earliest from the events and put them in fhir
     followedBy:
       mappings:
-        - name: "effective"
+        - name: effective
           with:
-            fhir: "effective.ofType(Period)"
-            openehr: "$reference"
+            fhir: effective.ofType(Period)
+            openehr: $reference
           followedBy:
             mappings:
-              - name: "effectiveEnd"
+              - name: effectiveEnd
                 with:
-                  fhir: "end"
-                  openehr: "end_time"
+                  fhir: end
+                  openehr: end_time
 
-              - name: "effectiveStart"
+              - name: effectiveStart
                 with:
-                  fhir: "start"
-                  openehr: "start_time"
+                  fhir: start
+                  openehr: start_time
 
-        - name: "effectiveDateTime"
+        - name: effectiveDateTime
           with:
-            fhir: "effective.ofType(DateTimeType)"
-            openehr: "start_time"
+            fhir: effective.ofType(DateTimeType)
+            openehr: start_time
 
-  - name: "contextStartTimeEmpty"
+  - name: contextStartTimeEmpty
     with:
-      fhir: "$resource"
-      openehr: "$composition/context"
-      type: "NONE"
-    unidirectional: "fhir->openehr"
+      fhir: $resource
+      openehr: $composition/context
+      type: NONE
+    unidirectional: fhir->openehr
     fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "effective"
-      operator: "empty"
+      targetRoot: $resource
+      targetAttribute: effective
+      operator: empty
     followedBy:
       mappings:
-        - name: "effectiveStart"
+        - name: effectiveStart
           with:
-            openehr: "start_time"
+            openehr: start_time
           manual:
-            - name: "no information"
+            - name: no information
               openehr:
-                - path: "null_flavour/value"
-                  value: "no information"
-                - path: "null_flavour/defining_code/terminology_id"
-                  value: "openehr"
-                - path: "null_flavour/defining_code/code_string"
+                - path: null_flavour/value
+                  value: no information
+                - path: null_flavour/defining_code/terminology_id
+                  value: openehr
+                - path: null_flavour/defining_code/code_string
                   value: "271"
 
 

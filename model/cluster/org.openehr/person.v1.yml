@@ -14,27 +14,42 @@ spec:
 
 
 mappings:
-  - name: "name"
+  - name: name
     with:
-      fhir: "$resource.name"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.structured_name.v1]"
-    slotArchetype: "CLUSTER.structured_name.v1"
+      fhir: $resource.name
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.structured_name.v1]
+    slotArchetype: CLUSTER.structured_name.v1
 
-  - name: "address"
+  - name: address
     with:
-      fhir: "$resource.address"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.address.v1]"
-    slotArchetype: "CLUSTER.address.v1"
+      fhir: $resource.address
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.address.v1]
+    slotArchetype: CLUSTER.address.v1
 
-  - name: "organizationReference"
+  - name: organizationReference
     with:
-      fhir: "managingOrganization"
-      openehr: "$reference"
+      fhir: managingOrganization
+      openehr: $reference
     reference:
-      resourceType: "Organization"
+      resourceType: Organization
       mappings:
-        - name: "organization"
+        - name: organization
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/items[openEHR-EHR-CLUSTER.organisation.v1]"
-          slotArchetype: "CLUSTER.organisation.v1"
+            fhir: $fhirRoot
+            openehr: $archetype/items[openEHR-EHR-CLUSTER.organisation.v1]
+          slotArchetype: CLUSTER.organisation.v1
+
+# unmapped FHIR  (Patient R4)
+# Patient.identifier           KDS maps it (person_pseudo_cluster.v1)
+# Patient.active
+# Patient.telecom
+# Patient.gender
+# Patient.birthDate
+# Patient.deceased[x]
+# Patient.maritalStatus
+# Patient.multipleBirth[x]
+# Patient.photo
+# Patient.contact
+# Patient.communication
+# Patient.generalPractitioner
+# Patient.link

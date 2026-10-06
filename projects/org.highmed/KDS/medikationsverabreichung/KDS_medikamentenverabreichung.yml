@@ -9,55 +9,55 @@ spec:
   extends: ACTION.medication.v1
 
 mappings:
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.report.v1.MedicationAdministration"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.report.v1.MedicationAdministration
 
-  - name: "metaURL"
-    extension: "add"
-    unidirectional: "openEHR->fhir"
+  - name: metaURL
+    extension: add
+    unidirectional: openEHR->fhir
     with:
-      fhir: "$resource.meta"
+      fhir: $resource.meta
     manual:
-      - name: "profileUrl"
+      - name: profileUrl
         fhir:
-          - path: "profile"
-            value: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationAdministration"
+          - path: profile
+            value: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationAdministration
 
 
-  - name: "medicationCode"
-    extension: "overwrite"
+  - name: medicationCode
+    extension: overwrite
     with:
-      fhir: "$resource.medication.ofType(CodeableConcept).coding"
-      openehr: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
+      fhir: $resource.medication.ofType(CodeableConcept).coding
+      openehr: $archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]
     openehrCondition:
-      targetRoot: "$archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]"
+      targetRoot: $archetype/description[at0017]/items[openEHR-EHR-CLUSTER.medication.v2]
       targetAttributes:
-        - "/items[at0071]"
-        - "/items[at0142]"
-        - "/items[at0153]"
-        - "/items[at0153]"
-        - "/items[at0157]"
-        - "/items[at0115]"
-        - "/items[at0151]"
-        - "/items[at0150]"
-        - "/items[at0003]"
-        - "/items[at0003]"
-        - "/items[at0138]"
-        - "/items[at0139]"
-        - "/items[at0148]"
-        - "/items[at0127]"
-        - "/items[at0133]"
-        - "/items[at0141]"
-      operator: "empty"
+        - /items[at0071]
+        - /items[at0142]
+        - /items[at0153]
+        - /items[at0153]
+        - /items[at0157]
+        - /items[at0115]
+        - /items[at0151]
+        - /items[at0150]
+        - /items[at0003]
+        - /items[at0003]
+        - /items[at0138]
+        - /items[at0139]
+        - /items[at0148]
+        - /items[at0127]
+        - /items[at0133]
+        - /items[at0141]
+      operator: empty
 
 
-  - name: "clinicalIndication"
-    extension: "overwrite"
+  - name: clinicalIndication
+    extension: overwrite
     with:
-      fhir: "$resource.reasonCode.coding.display"
-      openehr: "$archetype/description[at0017]/items[at0156]"
+      fhir: $resource.reasonCode.coding.display
+      openehr: $archetype/description[at0017]/items[at0156]
 

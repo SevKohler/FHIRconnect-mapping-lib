@@ -9,24 +9,24 @@ spec:
 
 context:
   profile:
-    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationStatement"
-    version: "2025.0.0"
+    url: https://www.medizininformatik-initiative.de/fhir/core/modul-medikation/StructureDefinition/MedicationStatement
+    version: 2025.0.0
   template:
-    id: "KDS_Medikationseintrag"
-    sem_ver: "16.0.0"
+    id: KDS_Medikationseintrag
+    sem_ver: 16.0.0
   archetypes:
-    - "OBSERVATION.medication_statement.v0"
-    - "CLUSTER.medication.v2"
-    - "CLUSTER.medication.v2.substance"
-    - "CLUSTER.dosage.v2"
-    - "CLUSTER.entry_category.v0"
-    - "CLUSTER.identifier_fhir.v0"
-    - "CLUSTER.case_identification.v0"
-    - "CLUSTER.timing_daily.v1"
-    - "CLUSTER.timing_nondaily.v1"
-    - "COMPOSITION.medication_list.v1.MedicationStatement"
+    - OBSERVATION.medication_statement.v0
+    - CLUSTER.medication.v2
+    - CLUSTER.medication.v2.substance
+    - CLUSTER.dosage.v2
+    - CLUSTER.entry_category.v0
+    - CLUSTER.identifier_fhir.v0
+    - CLUSTER.case_identification.v0
+    - CLUSTER.timing_daily.v1
+    - CLUSTER.timing_nondaily.v1
+    - COMPOSITION.medication_list.v1.MedicationStatement
   extensions:
-    - "KDS_medication.v3"
-    - "KDS_medikamentenstatement"
-    - "KDS_composition.MedicationStatement"
-  start: "OBSERVATION.medication_statement.v0"
+    - KDS_medication.v3
+    - KDS_medikamentenstatement
+    - KDS_composition.MedicationStatement
+  start: OBSERVATION.medication_statement.v0

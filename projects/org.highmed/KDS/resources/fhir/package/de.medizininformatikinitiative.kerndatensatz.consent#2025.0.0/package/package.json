@@ -1,0 +1,13 @@
+{
+  "name": "de.medizininformatikinitiative.kerndatensatz.consent",
+  "version": "2025.0.0",
+  "description": "KDS Modul Consent Release 2025.0.0",
+  "author": "sebastianstubert",
+  "fhirVersions": [
+    "4.0.1"
+  ],
+  "jurisdiction": "urn:iso:std:iso:3166#DE",
+  "dependencies": {
+    "de.einwilligungsmanagement": "1.0.1"
+  }
+}

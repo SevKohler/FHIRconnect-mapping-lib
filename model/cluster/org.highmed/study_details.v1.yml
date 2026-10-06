@@ -14,3 +14,21 @@ spec:
 
 mappings:
 #empty waiting for template update
+
+# unmapped openEHR  (archetype 1.0.0)
+# items[at0001]                Titel der Studie/Prüfung
+# items[at0002]                Studien Code
+# items[at0003]                Studientyp
+# items[at0004]                Beschreibung
+# items[at0005]                Status
+# items[at0010]                Beginn der Studie
+# items[at0012]                Sponsor
+# items[at0013]                Studienleiter
+# items[at0015]                Ende der Studie
+# items[at0016]                Phase 0
+# items[at0017]                Phase I
+# items[at0018]                Phase II
+# items[at0019]                Phase III
+# items[at0020]                Phase IV
+# items[at0033]/items[at0034]  Registrierungsnummer
+# items[at0033]/items[at0035]  Registername

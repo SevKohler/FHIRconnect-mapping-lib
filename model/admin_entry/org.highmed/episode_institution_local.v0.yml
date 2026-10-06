@@ -14,61 +14,99 @@ spec:
 
 mappings:
 
-  - name: "healthcareFacility"
+  - name: healthcareFacility
     with:
-      fhir: "$resource.serviceProvider"
-      openehr: "$composition/context/health_care_facility"
+      fhir: $resource.serviceProvider
+      openehr: $composition/context/health_care_facility
 
-  - name: "contextPeriod"
+  - name: contextPeriod
     with:
-      fhir: "$resource.period"
-      openehr: "$composition/context"
+      fhir: $resource.period
+      openehr: $composition/context
     followedBy:
       mappings:
-        - name: "contextStart"
+        - name: contextStart
           with:
-            fhir: "start"
-            openehr: "start_time"
-        - name: "contextEnd"
+            fhir: start
+            openehr: start_time
+        - name: contextEnd
           with:
-            fhir: "end"
-            openehr: "end_time"
+            fhir: end
+            openehr: end_time
 
-  - name: "location"
+  - name: location
     with:
-      fhir: "$resource.location"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.location.v1]"
-    slotArchetype: "CLUSTER.location.v1"
+      fhir: $resource.location
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.location.v1]
+    slotArchetype: CLUSTER.location.v1
 
-  - name: "period"
+  - name: period
     with:
-      fhir: "$resource.period"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.period
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "admissionDate"
+        - name: admissionDate
           with:
-            fhir: "start"
-            openehr: "data[at0001]/items[at0004]"
+            fhir: start
+            openehr: data[at0001]/items[at0004]
 
-        - name: "seperationDate"
+        - name: seperationDate
           with:
-            fhir: "end"
-            openehr: "data[at0001]/items[at0002]"
+            fhir: end
+            openehr: data[at0001]/items[at0002]
 
 
-        - name: "bed"
+        - name: bed
           with:
-            fhir: "location.identifier"
-            openehr: "items[at0024]"
+            fhir: location.identifier
+            openehr: items[at0024]
           fhirCondition:
-            targetRoot: "$fhirRoot"
-            targetAttribute: "physicalType.coding.code"
-            operator: "one of"
-            criteria: "bd"
+            targetRoot: $fhirRoot
+            targetAttribute: physicalType.coding.code
+            operator: one of
+            criteria: bd
 
-        - name: "locationStatus"
+        - name: locationStatus
           with:
-            fhir: "status"
-            openehr: "items[at0028]"
+            fhir: status
+            openehr: items[at0028]
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# data[at0001]/items[at0003]                Destination category
+# data[at0001]/items[at0006]                Outcome                    KDS maps it (KDS_episode_institution_local)
+# data[at0001]/items[at0007]                Source category
+# data[at0001]/items[at0008]                Reason for admission       KDS maps it (KDS_episode_institution_local)
+# data[at0001]/items[at0009]                Admission category         KDS maps it (KDS_episode_institution_local)
+# data[at0001]/items[at0010]                Comment
+# data[at0001]/items[at0014]                Episode ID
+# data[at0001]/items[at0016]                Medical record number
+# data[at0001]/items[at0018]/items[at0019]  Location onset
+# data[at0001]/items[at0018]/items[at0020]  Location end
+# data[at0001]/items[at0018]/items[at0022]  Ward
+# data[at0001]/items[at0018]/items[at0023]  Room
+# data[at0001]/items[at0018]/items[at0024]  Bed                        referenced with a different path, check
+# data[at0001]/items[at0018]/items[at0025]  Location category
+# data[at0001]/items[at0021]                Attending unit
+# data[at0001]/items[at0026]                Health insurance category
+# unmapped FHIR  (Encounter R4)
+# Encounter.identifier
+# Encounter.status
+# Encounter.statusHistory
+# Encounter.class
+# Encounter.classHistory
+# Encounter.type
+# Encounter.serviceType
+# Encounter.priority
+# Encounter.episodeOfCare
+# Encounter.basedOn
+# Encounter.participant
+# Encounter.appointment
+# Encounter.length
+# Encounter.reasonCode
+# Encounter.reasonReference
+# Encounter.diagnosis        KDS maps it (KDS_episode_institution_local)
+# Encounter.account
+# Encounter.hospitalization  KDS maps it (KDS_episode_institution_local)
+# Encounter.partOf

@@ -14,22 +14,22 @@ spec:
 
 mappings:
 
-  - name: "typeOfName"
+  - name: typeOfName
     with:
-      fhir: "$fhirRoot.use"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot.use
+      openehr: $archetype/items[at0001]
 
-  - name: "firstName"
+  - name: firstName
     with:
-      fhir: "$fhirRoot.given"
-      openehr: "$archetype/items[at0002]"
+      fhir: $fhirRoot.given
+      openehr: $archetype/items[at0002]
 
-  - name: "prefix"
+  - name: prefix
     with:
-      fhir: "$fhirRoot.prefix"
-      openehr: "$archetype/items[at0006]"
+      fhir: $fhirRoot.prefix
+      openehr: $archetype/items[at0006]
 
-  - name: "familyName"
+  - name: familyName
     with:
-      fhir: "$fhirRoot.family"
-      openehr: "$archetype/items[at0005]"
+      fhir: $fhirRoot.family
+      openehr: $archetype/items[at0005]

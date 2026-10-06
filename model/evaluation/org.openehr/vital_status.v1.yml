@@ -14,115 +14,131 @@ spec:
 
 mappings:
 
-  - name: "healthCareFacility"
+  - name: healthCareFacility
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/context/health_care_facility"
+      fhir: $resource.performer
+      openehr: $composition/context/health_care_facility
 
-  - name: "participations"
+  - name: participations
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
+      fhir: $resource.performer
+      openehr: $composition/context/participations  # reference to part
+      type: NONE
     followedBy:
       mappings:
         - name : "participationFunction"
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "performer"
-        - name: "performer"
+                - path: function
+                  value: performer
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openehrRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openehrRoot/performer # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/composer"
+      fhir: $resource.performer
+      openehr: $composition/composer
 
-  - name: "performer"
+  - name: performer
     with:
-      fhir: "$resource.performer"
-      openehr: "$archetype/perfomer"
+      fhir: $resource.performer
+      openehr: $archetype/perfomer
 
-  - name: "other_participations"
+  - name: other_participations
     with:
-      fhir: "$resource.performer"
-      openehr: "$archetype/other_participations"
-      type: "NONE"
+      fhir: $resource.performer
+      openehr: $archetype/other_participations
+      type: NONE
     followedBy:
       mappings:
         - name : "participationFunction"
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "performer"
-        - name: "performer"
+                - path: function
+                  value: performer
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot/performer" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openEHRRoot/performer # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-  - name: "effective"
+  - name: effective
     with:
-      fhir: "$resource.effective"
-      openehr: "$archetype/protocol[at0002]/items[at0018]"
+      fhir: $resource.effective
+      openehr: $archetype/protocol[at0002]/items[at0018]
 
-  - name: "vitalStatus"
+  - name: vitalStatus
     with:
-      fhir: "$resource.value"
-      openehr: "$archetype/data[at0001]/items[at0006]"
+      fhir: $resource.value
+      openehr: $archetype/data[at0001]/items[at0006]
 
-  - name: "note"
+  - name: note
     with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/data[at0001]/items[at0013]"
+      fhir: $resource.note.text
+      openehr: $archetype/data[at0001]/items[at0013]
 
-  - name: "partOfReference"
+  - name: partOfReference
     with:
-      fhir: "$resource.partOf"
-      openehr: "$archetype/links" # will use link
+      fhir: $resource.partOf
+      openehr: $archetype/links # will use link
     link:
-      meaning: "Part of referenced event"
-      type: "partOf"
+      meaning: Part of referenced event
+      type: partOf
 
-  - name: "partOfReference"
+  - name: partOfReference
     with:
-      fhir: "$resource.basedOn"
-      openehr: "$archetype/links" # will use link
+      fhir: $resource.basedOn
+      openehr: $archetype/links # will use link
     link:
-      meaning: "Fulfills plan, proposal or order"
-      type: "basedOn"
+      meaning: Fulfills plan, proposal or order
+      type: basedOn
 
-  - name: "partOfReference"
+  - name: partOfReference
     with:
-      fhir: "$resource.basedOn"
-      openehr: "$archetype/links" # will use link
+      fhir: $resource.basedOn
+      openehr: $archetype/links # will use link
     link:
-      meaning: "What the observation is about, when it is not about the subject of record"
-      type: "focus"
+      meaning: What the observation is about, when it is not about the subject of record
+      type: focus
 
-  - name: "partOfReference"
+  - name: partOfReference
     with:
-      fhir: "$resource.encounter"
-      openehr: "$archetype/links" # will use link
+      fhir: $resource.encounter
+      openehr: $archetype/links # will use link
     link:
-      meaning: "case or contact"
-      type: "case"
+      meaning: case or contact
+      type: case
 
-  - name: "partOfReference"
+  - name: partOfReference
     with:
-      fhir: "$resource.hasMember"
-      openehr: "$archetype/links" # will use link
+      fhir: $resource.hasMember
+      openehr: $archetype/links # will use link
     link:
-      meaning: "Related resource that belongs to the Observation group"
-      type: "hasMember"
+      meaning: Related resource that belongs to the Observation group
+      type: hasMember
 
+# unmapped FHIR  (Observation R4)
+# Observation.identifier
+# Observation.status
+# Observation.category          KDS maps it (KDS_vital_status)
+# Observation.code              KDS maps it (KDS_vital_status)
+# Observation.focus
+# Observation.issued
+# Observation.dataAbsentReason
+# Observation.interpretation
+# Observation.bodySite
+# Observation.method
+# Observation.specimen
+# Observation.device
+# Observation.referenceRange
+# Observation.derivedFrom
+# Observation.component

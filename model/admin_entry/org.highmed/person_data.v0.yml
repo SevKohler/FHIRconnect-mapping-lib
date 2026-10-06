@@ -15,62 +15,79 @@ spec:
 
 preprocessor:
   fhirCondition:
-      targetRoot: "$resource"
-      targetAttribute: "active"  # exclude non-active patients
-      operator: "not of"
+      targetRoot: $resource
+      targetAttribute: active  # exclude non-active patients
+      operator: not of
       criteria: "false"
 
 mappings:
-  - name: "personData"
+  - name: personData
     with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.person.v1]"
-    slotArchetype: "CLUSTER.person.v1"
+      fhir: $resource
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.person.v1]
+    slotArchetype: CLUSTER.person.v1
 
 
-  - name: "death"
+  - name: death
     with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[at0024]"
+      fhir: $resource
+      openehr: $archetype/data[at0001]/items[at0024]
     followedBy:
       mappings:
-        - name: "deathBoolean"
+        - name: deathBoolean
           with:
-            fhir: "deceased.as(Boolean)"
-            openehr: "items[at0025]"
+            fhir: deceased.as(Boolean)
+            openehr: items[at0025]
           openehrCondition:
-            targetRoot: "$openehrRoot"
-            targetAttribute: "items[openEHR-EHR-CLUSTER.death_details.v1]/items[at0001]"
-            operator: "empty"
-        - name: "deathTime"
+            targetRoot: $openehrRoot
+            targetAttribute: items[openEHR-EHR-CLUSTER.death_details.v1]/items[at0001]
+            operator: empty
+        - name: deathTime
           with:
-            fhir: "deceased.as(DateTime)"
-            openehr: "$archetype/data[at0001]/items[at0024]/items[openEHR-EHR-CLUSTER.death_details.v1]"
-          slotArchetype: "CLUSTER.death_details.v1"
+            fhir: deceased.as(DateTime)
+            openehr: $archetype/data[at0001]/items[at0024]/items[openEHR-EHR-CLUSTER.death_details.v1]
+          slotArchetype: CLUSTER.death_details.v1
 
 
-  - name: "personBirthDate"
+  - name: personBirthDate
     with:
-      fhir: "$resource.birthDate"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.person_birth_data_iso.v0]"
-    slotArchetype: "CLUSTER.person_birth_data_iso.v0"
+      fhir: $resource.birthDate
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.person_birth_data_iso.v0]
+    slotArchetype: CLUSTER.person_birth_data_iso.v0
 
-  - name: "link"
+  - name: link
     with:
-      fhir: "$resource.link"
-      openehr: "$reference"
+      fhir: $resource.link
+      openehr: $reference
     followedBy:
       mappings:
-        - name: "links"
+        - name: links
           with:
-            fhir: "$fhirRoot.other"
-            openehr: "$archetype/links" # will use link
+            fhir: $fhirRoot.other
+            openehr: $archetype/links # will use link
           link:
-            meaning: "Part of referenced event"
-            type: "partOf"
+            meaning: Part of referenced event
+            type: partOf
           followedBy:
               mappings:
-                - name: "type"
+                - name: type
                   with:
-                    fhir: "$fhirRoot.link.type.value"
-                    openehr: "$archetype/links/type"
+                    fhir: $fhirRoot.link.type.value
+                    openehr: $archetype/links/type
+
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# data[at0001]/items[at0008]  Art der Person
+# unmapped FHIR  (Patient R4)
+# Patient.identifier            KDS maps it (KDS_admin_entry_perso_pseudo); KDS maps it (KDS_admin_entry_person.v0)
+# Patient.active
+# Patient.name
+# Patient.telecom
+# Patient.gender
+# Patient.address
+# Patient.maritalStatus
+# Patient.multipleBirth[x]
+# Patient.photo
+# Patient.contact
+# Patient.communication
+# Patient.generalPractitioner
+# Patient.managingOrganization

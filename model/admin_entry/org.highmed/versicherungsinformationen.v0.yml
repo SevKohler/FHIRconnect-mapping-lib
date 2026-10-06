@@ -13,36 +13,40 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Identifier
 
 mappings:
-  - name: "versicherungsId"
+  - name: versicherungsId
     with:
-      fhir: "$fhirRoot"
-      openehr: "$archetype/data[at0001]/items[at0006]"
+      fhir: $fhirRoot
+      openehr: $archetype/data[at0001]/items[at0006]
     fhirCondition:
-      targetRoot: "$fhirRoot"
-      targetAttribute: "system"
-      operator: "one of"
-      criteria: "http://fhir.de/sid/gkv/kvid-10"
+      targetRoot: $fhirRoot
+      targetAttribute: system
+      operator: one of
+      criteria: http://fhir.de/sid/gkv/kvid-10
     followedBy:
       mappings:
-        - name: "staticUrl"
+        - name: staticUrl
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openehrRoot"
+            fhir: $fhirRoot
+            openehr: $openehrRoot
           manual:
-            - name: "system"
+            - name: system
               fhir:
-                - path: "system"
-                  value: "http://fhir.de/sid/gkv/kvid-10"
+                - path: system
+                  value: http://fhir.de/sid/gkv/kvid-10
 
-        - name: "typeCoding"
+        - name: typeCoding
           with:
-            fhir: "type.coding"
-            openehr: "$archetype"
+            fhir: type.coding
+            openehr: $archetype
           manual:
-            - name: "type"
+            - name: type
               fhir:
-                - path: "system"
-                  value: "http://fhir.de/CodeSystem/identifier-type-de-basis"
-                - path: "code"
-                  value: "KVZ10"
+                - path: system
+                  value: http://fhir.de/CodeSystem/identifier-type-de-basis
+                - path: code
+                  value: KVZ10
 
+# unmapped openEHR  (archetype 0.0.1-alpha)
+# data[at0001]/items[at0002]  Versicherungstyp
+# data[at0001]/items[at0010]  Institutionskennzeichen der Krankenkasse
+# data[at0001]/items[at0011]  Name der Versicherung

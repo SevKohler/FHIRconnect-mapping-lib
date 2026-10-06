@@ -13,23 +13,32 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/BackboneElement
 
 mappings:
-  - name: "period"
+  - name: period
     with:
-      fhir: "$fhirRoot.provision.period"
-      openehr: "$archetype"
+      fhir: $fhirRoot.provision.period
+      openehr: $archetype
     followedBy:
       mappings:
-        - name: "start"
+        - name: start
           with:
-            fhir: "start"
-            openehr: "items[at0003]"
-        - name: "end"
+            fhir: start
+            openehr: items[at0003]
+        - name: end
           with:
-            fhir: "end"
-            openehr: "items[at0004]"
+            fhir: end
+            openehr: items[at0004]
 
-  - name: "details"
+  - name: details
     with:
-      fhir: "$fhirRoot"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.study_details.v1]"
-    slotArchetype: "CLUSTER.study_details.v1"
+      fhir: $fhirRoot
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.study_details.v1]
+    slotArchetype: CLUSTER.study_details.v1
+
+# unmapped openEHR  (archetype 1.0.4)
+# items[at0001]  Study name
+# items[at0005]  Status
+# items[at0014]  Comment
+# items[at0016]  Identification
+# items[at0018]  Legal basis
+# items[at0021]  Assigned arm
+# items[at0022]  Actual Arm

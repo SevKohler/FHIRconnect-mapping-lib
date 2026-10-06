@@ -15,114 +15,114 @@ spec:
 preprocessor:
   hierarchy:
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
+      fhir: $resource
+      openehr: $archetype
     split:
       fhir:
-        create: "resource"
+        create: resource
 
 mappings:
-  - name: "participations"
+  - name: participations
     with:
-      fhir: "$resource.performer.actor"
-      openehr: "$composition/context/participations"  # reference to part
-      type: "NONE"
+      fhir: $resource.performer.actor
+      openehr: $composition/context/participations  # reference to part
+      type: NONE
     followedBy:
       mappings:
-        - name: "participationFunction"
+        - name: participationFunction
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "asserter"
-        - name: "performer"
+                - path: function
+                  value: asserter
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openEHRRoot # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-  - name: "other_participations"
+  - name: other_participations
     with:
-      fhir: "$resource.performer.actor"
-      openehr: "$archetype/other_participation"  # reference to part
-      type: "NONE"
+      fhir: $resource.performer.actor
+      openehr: $archetype/other_participation  # reference to part
+      type: NONE
     followedBy:
       mappings:
-        - name: "participationFunction"
+        - name: participationFunction
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot"
+            fhir: $fhirRoot
+            openehr: $openEHRRoot
           manual:
-            - name: "function"
+            - name: function
               openehr:
-                - path: "function"
-                  value: "asserter"
-        - name: "performer"
+                - path: function
+                  value: asserter
+        - name: performer
           with:
-            fhir: "$fhirRoot"
-            openehr: "$openEHRRoot" # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+            fhir: $fhirRoot
+            openehr: $openEHRRoot # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
-  - name: "provider"
+  - name: provider
     with:
-      fhir: "$resource.performer.actor"
-      openehr: "$composition/provider"  # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
+      fhir: $resource.performer.actor
+      openehr: $composition/provider  # reference to party_identified NOT SUPPORTED since 1..1 whole mapping is commented out
 
 
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
+      fhir: $resource.recorder
+      openehr: $composition/composer
 
 
-  - name: "effectivePeriodContext"
+  - name: effectivePeriodContext
     with:
-      fhir: "$resource.performed.as(Period)"
-      openehr: "$composition"
-      type: "NONE"
+      fhir: $resource.performed.as(Period)
+      openehr: $composition
+      type: NONE
     openehrCondition:
-      targetRoot: "$composition/context"
-      targetAttribute: "end_time"
-      operator: "not empty"
+      targetRoot: $composition/context
+      targetAttribute: end_time
+      operator: not empty
     followedBy:
       mappings:
-        - name: "periodEnd"
+        - name: periodEnd
           with:
-            fhir: "end"
-            openehr: "context/end_time"
+            fhir: end
+            openehr: context/end_time
 
-        - name: "periodStart"
+        - name: periodStart
           with:
-            fhir: "start"
-            openehr: "context/start_time"
+            fhir: start
+            openehr: context/start_time
 
-        - name: "ending date"
-          unidirectional: "fhir->openEHR"
+        - name: ending date
+          unidirectional: fhir->openEHR
           with:
-            fhir: "end"
-            openehr: "$archetype/description[at0001]/items[at0060]"
+            fhir: end
+            openehr: $archetype/description[at0001]/items[at0060]
 
-  - name: "contextStart"
+  - name: contextStart
     with:
-      fhir: "$resource.performed.as(DateTime)"
-      openehr: "$composition/context/start_time" # this field is more fiting then start_time thats why it overwrites the initial performed in fhir.
+      fhir: $resource.performed.as(DateTime)
+      openehr: $composition/context/start_time # this field is more fiting then start_time thats why it overwrites the initial performed in fhir.
     openehrCondition:
-      targetRoot: "$composition/context"
-      targetAttribute: "end_time"
-      operator: "empty"
+      targetRoot: $composition/context
+      targetAttribute: end_time
+      operator: empty
 
-  - name: "actionTimeFromPerformedEnd"
-    unidirectional: "fhir->openEHR"
+  - name: actionTimeFromPerformedEnd
+    unidirectional: fhir->openEHR
     with:
-      fhir: "$resource.performed.as(Period).end"
-      openehr: "$archetype/time"
+      fhir: $resource.performed.as(Period).end
+      openehr: $archetype/time
 
-  - name: "actionPerformed"
-    unidirectional: "fhir->openEHR"
+  - name: actionPerformed
+    unidirectional: fhir->openEHR
     with:
-      fhir: "$resource.performed.as(DateTime)"
-      openehr: "$archetype/time" # this field is more fiting then start_time thats why it overwrites the initial performed in fhir.
+      fhir: $resource.performed.as(DateTime)
+      openehr: $archetype/time # this field is more fiting then start_time thats why it overwrites the initial performed in fhir.
 
 
   # ISM transition mapping summary
@@ -144,100 +144,100 @@ mappings:
   # - 532 (Completed) -> completed
   # - 528 (Cancelled) -> not-done
   # - 524/526/527/529/533 (Initial/Planned/Postponed/Scheduled/Expired) -> unknown
-  - name: "ISMTransitionFhirToOpenEhr"
-    unidirectional: "fhir->openehr"
+  - name: ISMTransitionFhirToOpenEhr
+    unidirectional: fhir->openehr
     with:
-      fhir: "$resource"
-      openehr: "$archetype/ism_transition/current_state"
+      fhir: $resource
+      openehr: $archetype/ism_transition/current_state
       type: NONE
     manual:
-      - name: "preparation"
+      - name: preparation
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: defining_code/code_string
             value: "526"
-          - path: "value"
-            value: "Planned"
+          - path: value
+            value: Planned
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "preparation"
+          targetRoot: $resource
+          targetAttribute: status
+          operator: one of
+          criteria: preparation
 
-      - name: "in-progress"
+      - name: in-progress
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: defining_code/code_string
             value: "245"
-          - path: "value"
-            value: "Active"
+          - path: value
+            value: Active
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "in-progress"
+          targetRoot: $resource
+          targetAttribute: status
+          operator: one of
+          criteria: in-progress
 
-      - name: "not-done"
+      - name: not-done
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: defining_code/code_string
             value: "528"
-          - path: "value"
-            value: "Cancelled"
+          - path: value
+            value: Cancelled
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "not-done"
+          targetRoot: $resource
+          targetAttribute: status
+          operator: one of
+          criteria: not-done
 
-      - name: "on-hold"
+      - name: on-hold
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: defining_code/code_string
             value: "530"
-          - path: "value"
-            value: "Suspended"
+          - path: value
+            value: Suspended
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "on-hold"
+          targetRoot: $resource
+          targetAttribute: status
+          operator: one of
+          criteria: on-hold
 
-      - name: "completed"
+      - name: completed
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: defining_code/code_string
             value: "532"
-          - path: "value"
-            value: "Completed"
+          - path: value
+            value: Completed
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "completed"
+          targetRoot: $resource
+          targetAttribute: status
+          operator: one of
+          criteria: completed
 
       # Intentionally disabled for clinical safety:
       # FHIR Procedure.status=entered-in-error is not mapped to clinical ISM state.
       # Handle as data-quality/audit metadata outside this state mapping.
 
-      - name: "stopped"
+      - name: stopped
         openehr:
-          - path: "defining_code/terminology_id"
-            value: "openehr"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id
+            value: openehr
+          - path: defining_code/code_string
             value: "531"
-          - path: "value"
-            value: "Aborted"
+          - path: value
+            value: Aborted
         fhirCondition:
-          targetRoot: "$resource"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "stopped"
+          targetRoot: $resource
+          targetAttribute: status
+          operator: one of
+          criteria: stopped
 
       # Intentionally disabled for clinical safety:
       # FHIR Procedure.status=unknown has no reliable openEHR ISM equivalent.
@@ -259,146 +259,182 @@ mappings:
       #     operator: "one of"
       #     criteria: "unknown"
 
-  - name: "ISMTransitionOpenEhrToFhir"
-    unidirectional: "openEHR->fhir"
+  - name: ISMTransitionOpenEhrToFhir
+    unidirectional: openEHR->fhir
     with:
-      fhir: "$resource"
-      openehr: "$archetype/ism_transition/current_state"
+      fhir: $resource
+      openehr: $archetype/ism_transition/current_state
       type: NONE
     manual:
-      - name: "activeToInProgress"
+      - name: activeToInProgress
         fhir:
-          - path: "status"
-            value: "in-progress"
+          - path: status
+            value: in-progress
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "245"
 
-      - name: "suspendedToOnHold"
+      - name: suspendedToOnHold
         fhir:
-          - path: "status"
-            value: "on-hold"
-          - path: "statusReason.text"
-            value: "suspended"
+          - path: status
+            value: on-hold
+          - path: statusReason.text
+            value: suspended
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "530"
 
 
-      - name: "abortedToStopped"
+      - name: abortedToStopped
         fhir:
-          - path: "status"
-            value: "stopped"
+          - path: status
+            value: stopped
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "531"
 
-      - name: "cancelledToNotDone"
+      - name: cancelledToNotDone
         fhir:
-          - path: "status"
-            value: "not-done"
-          - path: "statusReason.text"
-            value: "cancelled"
+          - path: status
+            value: not-done
+          - path: statusReason.text
+            value: cancelled
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "528"
 
-      - name: "initialToUnknown"
+      - name: initialToUnknown
         fhir:
-          - path: "status"
-            value: "unknown"
+          - path: status
+            value: unknown
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "524"
 
 
-      - name: "plannedToPreparation"
+      - name: plannedToPreparation
         fhir:
-          - path: "status"
-            value: "preparation"
-          - path: "statusReason.text"
-            value: "planned"
+          - path: status
+            value: preparation
+          - path: statusReason.text
+            value: planned
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "526"
 
 
-      - name: "postponedToOnHold"
+      - name: postponedToOnHold
         fhir:
-          - path: "status"
-            value: "on-hold"
-          - path: "statusReason.text"
-            value: "postponed"
+          - path: status
+            value: on-hold
+          - path: statusReason.text
+            value: postponed
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "527"
 
-      - name: "scheduledToPreparation"
+      - name: scheduledToPreparation
         fhir:
-          - path: "status"
-            value: "preparation"
-          - path: "statusReason.text"
-            value: "scheduled"
+          - path: status
+            value: preparation
+          - path: statusReason.text
+            value: scheduled
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "529"
 
-      - name: "expiredToNotDone"
+      - name: expiredToNotDone
         fhir:
-          - path: "status"
-            value: "not-done"
-          - path: "statusReason.text"
-            value: "expired"
+          - path: status
+            value: not-done
+          - path: statusReason.text
+            value: expired
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "533"
 
-      - name: "completedToCompleted"
+      - name: completedToCompleted
         fhir:
-          - path: "status"
-            value: "completed"
-          - path: "statusReason.text"
-            value: "completed"
+          - path: status
+            value: completed
+          - path: statusReason.text
+            value: completed
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "532"
 
-  - name: "name"
+  - name: name
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/description[at0001]/items[at0002]"
+      fhir: $resource.code
+      openehr: $archetype/description[at0001]/items[at0002]
 
-  - name: "comment"
+  - name: comment
     with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/description[at0001]/items[at0005]"
+      fhir: $resource.note.text
+      openehr: $archetype/description[at0001]/items[at0005]
 
-  - name: "category"
+  - name: category
     with:
-      fhir: "$resource.category"
-      openehr: "$archetype/description[at0001]/items[at0067]"
+      fhir: $resource.category
+      openehr: $archetype/description[at0001]/items[at0067]
 
-  - name: "bodySite"
+  - name: bodySite
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/description[at0001]/items[at0063]"
+      fhir: $resource.bodySite
+      openehr: $archetype/description[at0001]/items[at0063]
+
+# unmapped openEHR  (archetype 1.4.7, CKM latest 1.5.3)
+# description[at0001]/items[at0006]  Complication
+# description[at0001]/items[at0014]  Reason                      KDS maps it (KDS_procedure.v1)
+# description[at0001]/items[at0048]  Outcome
+# description[at0001]/items[at0049]  Description
+# description[at0001]/items[at0058]  Urgency
+# description[at0001]/items[at0061]  Total duration
+# description[at0001]/items[at0065]  Method
+# description[at0001]/items[at0066]  Scheduled datetime
+# description[at0001]/items[at0069]  Procedural difficulty
+# description[at0001]/items[at0070]  Indication
+# description[at0001]/items[at0071]  Impact
+# description[at0001]/items[at0072]  Intent
+# description[at0001]/items[at0073]  Start datetime
+# description[at0001]/items[at0074]  Pathway step duration
+# protocol[at0053]/items[at0054]     Requestor order identifier
+# protocol[at0053]/items[at0056]     Receiver order identifier
+# unmapped FHIR  (Procedure R4)
+# Procedure.identifier
+# Procedure.instantiatesCanonical
+# Procedure.instantiatesUri
+# Procedure.basedOn
+# Procedure.partOf
+# Procedure.asserter
+# Procedure.location
+# Procedure.reasonCode
+# Procedure.reasonReference
+# Procedure.outcome
+# Procedure.report
+# Procedure.complication
+# Procedure.complicationDetail
+# Procedure.followUp
+# Procedure.focalDevice
+# Procedure.usedReference
+# Procedure.usedCode

@@ -14,7 +14,15 @@ spec:
 
 mappings:
 
-  - name: "deathDate"
+  - name: deathDate
     with:
-      fhir: "$fhirRoot"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot
+      openehr: $archetype/items[at0001]
+
+# unmapped openEHR  (archetype 1.0.3)
+# items[at0002]  Death due to primary diagnosis?
+# items[at0003]  Cause of death
+# items[at0004]  Comment
+# items[at0006]  Information source(s)
+# unmapped FHIR  (DateTime R4)
+# DateTime.dateTime
