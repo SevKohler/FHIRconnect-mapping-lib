@@ -59,7 +59,7 @@ mappings:
     extension: "add"
     with:
       fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Problem List']"
+      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='IPS Problem List']"
     slotContext: "IPS_problem.context"
     fhirCondition:
       targetRoot: "$resource.section"
@@ -71,7 +71,7 @@ mappings:
     extension: "add"
     with:
       fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Allergies and Intolerances']"
+      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='IPS Allergies and Intolerances']"
     slotContext: "IPS_allergy.context"
     fhirCondition:
       targetRoot: "$resource.section"
@@ -83,7 +83,7 @@ mappings:
     extension: "add"
     with:
       fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Medication list']"
+      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='IPS Medication Summary']"
     slotContext: "IPS_medication.context"
     fhirCondition:
       targetRoot: "$resource.section"
@@ -95,7 +95,7 @@ mappings:
     extension: "add"
     with:
       fhir: "$resource.section"
-      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Medical Devices']"
+      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='IPS Medical Devices']"
     slotContext: "IPS_device.context"
     fhirCondition:
       targetRoot: "$resource.section"
