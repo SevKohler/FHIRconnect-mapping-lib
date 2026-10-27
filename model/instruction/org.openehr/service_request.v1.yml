@@ -16,7 +16,7 @@ mappings:
   - name: healthCareFacility
     with:
       fhir: $resource.requester
-      openehr: $archetype/context/health_care_facility
+      openehr: $composition/context/health_care_facility
 
   - name: authoredOn
     with:
