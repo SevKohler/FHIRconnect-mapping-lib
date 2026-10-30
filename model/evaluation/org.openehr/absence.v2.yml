@@ -26,6 +26,9 @@ mappings:
     followedBy:
       mappings:
         - name: "code"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openehrRoot"
           manual:
             - name: "codeManual"
               fhir:
@@ -33,6 +36,9 @@ mappings:
                   value: "unavailable"
 
         - name: "system"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openehrRoot"
           manual:
             - name: "systemManual"
               fhir:
